@@ -1,5 +1,5 @@
 {
-  "name": "Highlight Selected",
+  "name": "highlight-selected",
   "main": "./lib/highlight-selected",
   "version": "0.1.0",
   "description": "Highlights the current word selected when double clicking",

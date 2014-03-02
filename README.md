@@ -2,7 +2,7 @@
 
 Double click on a word to highlight it throughout the open file.
 
-This is something hacky I've put together as I missed the functionality that Sublime gave.
+This is something hacky I've put together as I missed the functionality that Sublime gave. As such, it's doesn't work 100% but is good enough to start!
 
 Some code and has been take from Atom's find and replace package ([link](https://github.com/atom/find-and-replace))
 

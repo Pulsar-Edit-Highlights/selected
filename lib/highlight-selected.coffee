@@ -1,13 +1,13 @@
 HighlightedAreaView = require './highlighted-area-view'
+areas = []
 
 module.exports =
   activate: (state) ->
-    @areas = []
-    atom.workspaceView.eachEditorView (editorView) =>
+    atom.workspaceView.eachEditorView (editorView) ->
       area = new HighlightedAreaView(editorView)
       area.attach()
-      @areas.push = area
+      areas.push = area
 
-  deactivate: =>
-    for area in @areas
+  deactivate: ->
+    for area in areas
       area.destroy()

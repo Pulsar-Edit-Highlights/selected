@@ -15,3 +15,4 @@ Please log any issues and pull requests are more than welcome!
 - Some double click events are not triggered
 - Refactor and tidy up the code
 - Add specs to test it
+- When clicking on none words (e.g. '[') it breaks the regex.

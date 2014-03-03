@@ -17,3 +17,4 @@ Please log any issues and pull requests are more than welcome!
 - Add specs to test it
 - When clicking on none words (e.g. '[') it breaks the regex.
 - When "show hidden characters" is enabled, clicking on them highlights them all. Should it do this?
+- Remove marker when typing

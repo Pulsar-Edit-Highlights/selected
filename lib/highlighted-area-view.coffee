@@ -1,5 +1,6 @@
 MarkerView = require './marker-view'
 {EditorView, View} = require 'atom'
+_ = require 'underscore-plus'
 
 module.exports =
 class HighlightedAreaView extends View
@@ -26,11 +27,16 @@ class HighlightedAreaView extends View
     atom.workspace.getActiveEditor()
 
   handleDblClick: =>
-    text = @getActiveEditor()?.getSelectedText()
+    text = _.escapeRegExp(@getActiveEditor()?.getSelectedText())
     return if text.length == 0
     editor = @getActiveEditor()
 
     range =  [[0, 0], editor.getEofBufferPosition()]
+    nonWordCharacters = atom.config.get('editor.nonWordCharacters')
+    text =
+      "(^|[ \t#{_.escapeRegExp(nonWordCharacters)}]+)" +
+      text +
+      "(?=$|[\\s#{_.escapeRegExp(nonWordCharacters)}]+)"
 
     @results = []
     editor.scanInBufferRange new RegExp(text, 'g'), range,

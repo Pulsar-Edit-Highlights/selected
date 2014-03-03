@@ -12,8 +12,11 @@ class HighlightedAreaView extends View
 
   attach: =>
     @editorView.underlayer.append(this)
-    @editorView.on "dblclick", @handleDblClick
-    @editorView.on "click", @removeMarkers
+    atom.workspaceView.eachPaneView (paneView) =>
+      paneView.on "dblclick", @handleDblClick
+      paneView.on "click", @removeMarkers
+      paneView.on "keypress", @removeMarkers
+      paneView.on "keydown", @removeMarkers
 
   getEditorView: ->
     activeView = atom.workspaceView.getActiveView()

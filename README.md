@@ -2,9 +2,11 @@
 
 Double click on a word to highlight it throughout the open file.
 
-This is something hacky I've put together as I missed the functionality that Sublime gave. As such, it's doesn't work 100% but is good enough to start!
+This is something hacky I've put together as I missed the functionality that
+Sublime gave.
 
-Some code and has been take from Atom's find and replace package ([link](https://github.com/atom/find-and-replace))
+Some code and has been take from Atom's
+  [find and replace](https://github.com/atom/find-and-replace)) package
 
 Please log any issues and pull requests are more than welcome!
 
@@ -15,3 +17,5 @@ Please log any issues and pull requests are more than welcome!
 - Refactor and tidy up the code
 - Add specs to test it
 - Should we highlight symbols?
+- Merge this feature in the
+[ find-and-replace](https://github.com/atom/find-and-replace) package

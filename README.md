@@ -6,7 +6,7 @@ This is something hacky I've put together as I missed the functionality that
 Sublime gave.
 
 Some code and has been take from Atom's
-  [find and replace](https://github.com/atom/find-and-replace)) package
+  [find and replace](https://github.com/atom/find-and-replace)package
 
 Please log any issues and pull requests are more than welcome!
 

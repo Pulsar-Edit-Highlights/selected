@@ -34,4 +34,3 @@ class MarkerView
       region.style[name] = value + 'px'
 
     @element.appendChild(region)
-    # @regions.push(region)

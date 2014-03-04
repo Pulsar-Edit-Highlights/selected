@@ -14,11 +14,12 @@ class HighlightedAreaView extends View
   attach: =>
     @editorView.underlayer.append(this)
     atom.workspaceView.eachPaneView (paneView) =>
-      paneView.on "dblclick", @handleDblClick
-      paneView.on "click", @removeMarkers
-      paneView.on "keypress", @removeMarkers
-      paneView.on "keydown", @removeMarkers
+      paneView.on "selection:changed", @handleDblClick
 
+  destroy: ->
+    atom.workspaceView.eachPaneView (paneView) ->
+      paneView.off "selection:changed"
+    
   getEditorView: ->
     activeView = atom.workspaceView.getActiveView()
     if activeView instanceof EditorView then activeView else null
@@ -27,19 +28,20 @@ class HighlightedAreaView extends View
     atom.workspace.getActiveEditor()
 
   handleDblClick: =>
+    @removeMarkers()
     text = _.escapeRegExp(@getActiveEditor()?.getSelectedText())
-    return if text.length == 0
+    regex = new RegExp("\\w*\\b", 'gi')
+    result = regex.exec(text)
+    return unless result?
+    return if result.length == 0 or
+              result.index != 0 or
+              result[0] != result.input
     editor = @getActiveEditor()
 
     range =  [[0, 0], editor.getEofBufferPosition()]
-    nonWordCharacters = atom.config.get('editor.nonWordCharacters')
-    text =
-      "(^|[ \t#{_.escapeRegExp(nonWordCharacters)}]+)" +
-      text +
-      "(?=$|[\\s#{_.escapeRegExp(nonWordCharacters)}]+)"
 
     @results = []
-    editor.scanInBufferRange new RegExp(text, 'g'), range,
+    editor.scanInBufferRange new RegExp(result[0], 'g'), range,
       (result) =>
         if prefix = result.match[1]
           result.range = result.range.translate([0, prefix.length], [0, 0])
@@ -47,10 +49,8 @@ class HighlightedAreaView extends View
 
     for result in @results
       view = new MarkerView(result.range, this, @getEditorView())
+      @append view.element
       @views.push view
-
-    for view in @views
-      @append(view.element)
 
   removeMarkers: =>
     return unless @views?

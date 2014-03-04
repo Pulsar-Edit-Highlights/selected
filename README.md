@@ -12,8 +12,6 @@ Please log any issues and pull requests are more than welcome!
 
 # Issues and Todo
 
-- Some double click events are not triggered
 - Refactor and tidy up the code
 - Add specs to test it
-- When "show hidden characters" is enabled, clicking on them highlights them all. Should it do this?
-- Add better support for non-words (e.g. symbols)
+- Should we highlight symbols?

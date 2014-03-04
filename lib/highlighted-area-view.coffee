@@ -14,12 +14,12 @@ class HighlightedAreaView extends View
   attach: =>
     @editorView.underlayer.append(this)
     atom.workspaceView.eachPaneView (paneView) =>
-      paneView.on "selection:changed", @handleDblClick
+      paneView.on "selection:changed", @handleSelection
 
   destroy: ->
     atom.workspaceView.eachPaneView (paneView) ->
       paneView.off "selection:changed"
-    
+
   getEditorView: ->
     activeView = atom.workspaceView.getActiveView()
     if activeView instanceof EditorView then activeView else null
@@ -27,7 +27,7 @@ class HighlightedAreaView extends View
   getActiveEditor: ->
     atom.workspace.getActiveEditor()
 
-  handleDblClick: =>
+  handleSelection: =>
     @removeMarkers()
     text = _.escapeRegExp(@getActiveEditor()?.getSelectedText())
     regex = new RegExp("\\w*\\b", 'gi')

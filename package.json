@@ -1,7 +1,7 @@
 {
   "name": "highlight-selected",
   "main": "./lib/highlight-selected",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Highlights the current word selected when double clicking",
   "repository": {
     "type": "git",

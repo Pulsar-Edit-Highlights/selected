@@ -30,6 +30,7 @@ class HighlightedAreaView extends View
   handleSelection: =>
     @removeMarkers()
     text = _.escapeRegExp(@getActiveEditor()?.getSelectedText())
+    return if text.length <= 1
     regex = new RegExp("\\w*\\b", 'gi')
     result = regex.exec(text)
     return unless result?

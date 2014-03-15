@@ -5,8 +5,8 @@ Double click on a word to highlight it throughout the open file.
 This is something hacky I've put together as I missed the functionality that
 Sublime gave.
 
-Some code and has been take from Atom's
-  [find and replace](https://github.com/atom/find-and-replace)package
+Some code and has been taken from Atom's
+  [find and replace](https://github.com/atom/find-and-replace) package
 
 Please log any issues and pull requests are more than welcome!
 

@@ -45,10 +45,9 @@ class HighlightedAreaView extends View
     result = regex.exec(text)
 
     return unless result?
-    return if result.length == 0 or
-              result.index != 0 or
-              result[0] != result.input
-    editor = @getActiveEditor()
+    return if result.length is 0 or
+              result.index isnt 0 or
+              result[0] isnt result.input
 
     range =  [[0, 0], editor.getEofBufferPosition()]
 
@@ -66,7 +65,7 @@ class HighlightedAreaView extends View
 
   removeMarkers: =>
     return unless @views?
-    return if @views.length == 0
+    return if @views.length is 0
     for view in @views
       view.element.remove()
       view = null

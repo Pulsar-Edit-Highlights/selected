@@ -43,12 +43,11 @@ class HighlightedAreaView extends View
     range =  [[0, 0], editor.getEofBufferPosition()]
 
     @ranges = []
-    @paneItem = atom.workspaceView.getActivePaneItem()
     editor.scanInBufferRange new RegExp(result[0], 'g'), range,
       (result) =>
         if prefix = result.match[1]
           result.range = result.range.translate([0, prefix.length], [0, 0])
-        @ranges.push @paneItem.markBufferRange(result.range).getScreenRange()
+        @ranges.push editor.markBufferRange(result.range).getScreenRange()
 
     for range in @ranges
       view = new MarkerView(range, this, @getEditorView())

@@ -1,5 +1,5 @@
 MarkerView = require './marker-view'
-{EditorView, View} = require 'atom'
+{EditorView, View, Range} = require 'atom'
 _ = require 'underscore-plus'
 
 module.exports =
@@ -35,10 +35,15 @@ class HighlightedAreaView extends View
 
   handleSelection: =>
     @removeMarkers()
-    text = _.escapeRegExp(@getActiveEditor()?.getSelectedText())
-    return if text.length <= 1
+
+    return unless editor = @getActiveEditor()
+    return if editor.getSelection().isEmpty()
+    return unless @isWordSelected(editor.getSelection())
+
+    text = _.escapeRegExp(editor.getSelectedText())
     regex = new RegExp("\\w*\\b", 'gi')
     result = regex.exec(text)
+
     return unless result?
     return if result.length == 0 or
               result.index != 0 or
@@ -66,3 +71,33 @@ class HighlightedAreaView extends View
       view.element.remove()
       view = null
     @views = []
+
+  isWordSelected: (selection) ->
+    if selection.getBufferRange().isSingleLine()
+      selectionRange = selection.getBufferRange()
+      lineRange = @getActiveEditor().bufferRangeForBufferRow(
+        selectionRange.start.row)
+      nonWordCharacterToTheLeft =
+        _.isEqual(selectionRange.start, lineRange.start) or
+        @isNonWordCharacterToTheLeft(selection)
+      nonWordCharacterToTheRight =
+        _.isEqual(selectionRange.end, lineRange.end) or
+        @isNonWordCharacterToTheRight(selection)
+
+      nonWordCharacterToTheLeft and nonWordCharacterToTheRight
+    else
+      false
+
+  isNonWordCharacter: (character) ->
+    nonWordCharacters = atom.config.get('editor.nonWordCharacters')
+    new RegExp("[ \t#{_.escapeRegExp(nonWordCharacters)}]").test(character)
+
+  isNonWordCharacterToTheLeft: (selection) ->
+    selectionStart = selection.getBufferRange().start
+    range = Range.fromPointWithDelta(selectionStart, 0, -1)
+    @isNonWordCharacter(@getActiveEditor().getTextInBufferRange(range))
+
+  isNonWordCharacterToTheRight: (selection) ->
+    selectionEnd = selection.getBufferRange().end
+    range = Range.fromPointWithDelta(selectionEnd, 0, 1)
+    @isNonWordCharacter(@getActiveEditor().getTextInBufferRange(range))

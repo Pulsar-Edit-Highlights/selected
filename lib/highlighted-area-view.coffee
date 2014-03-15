@@ -14,9 +14,14 @@ class HighlightedAreaView extends View
   attach: =>
     @editorView.underlayer.append(this)
     @subscribe @editorView, "selection:changed", @handleSelection
-    @subscribe @editorView, 'core:close', @destroy
+    atom.workspaceView.on 'pane:item-removed', @destroy
 
   destroy: =>
+    found = false
+    for editor in atom.workspaceView.getEditorViews()
+      found = true if editor.id is @editorView.id
+    return if found
+    atom.workspaceView.off 'pane:item-removed', @destroy
     @unsubscribe()
     @remove()
     @detach()

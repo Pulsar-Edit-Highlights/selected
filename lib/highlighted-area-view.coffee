@@ -41,7 +41,7 @@ class HighlightedAreaView extends View
     return unless @isWordSelected(editor.getSelection())
 
     text = _.escapeRegExp(editor.getSelectedText())
-    regex = new RegExp("\\w*\\b", 'gi')
+    regex = new RegExp("\\W*\\w*\\b", 'gi')
     result = regex.exec(text)
 
     return unless result?

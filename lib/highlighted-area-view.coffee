@@ -54,7 +54,7 @@ class HighlightedAreaView extends View
     @ranges = []
     regexSearch = result[0]
     if atom.config.get('highlight-selected.onlyHighlightWholeWords')
-      regexSearch += "\\b"
+      regexSearch =  "\\b" + regexSearch + "\\b"
     editor.scanInBufferRange new RegExp(regexSearch, 'g'), range,
       (result) =>
         if prefix = result.match[1]

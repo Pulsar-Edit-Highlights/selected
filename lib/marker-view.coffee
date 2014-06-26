@@ -20,9 +20,8 @@ class MarkerView
       @appendRegion(1, { row: range.end.row, column: 0 }, range.end)
 
   appendRegion: (rows, start, end) ->
-    { lineHeight, charWidth } = @editor
     css = @editor.pixelPositionForScreenPosition(start)
-    css.height = lineHeight * rows
+    css.height = atom.config.getSettings().editor.lineHeight * atom.config.getSettings().editor.fontSize * rows
     if end
       css.width = @editor.pixelPositionForScreenPosition(end).left - css.left
     else

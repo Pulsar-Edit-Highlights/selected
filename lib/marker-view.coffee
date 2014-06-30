@@ -6,7 +6,7 @@ class MarkerView
   constructor: (range, parent, editor) ->
     @range = range
     @parent = parent
-    @editor = editor
+    @editor = atom.workspaceView.getActiveEditor()
     @element = document.createElement('div')
     @element.className = 'marker'
     rowSpan = range.end.row - range.start.row

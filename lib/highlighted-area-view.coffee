@@ -26,10 +26,6 @@ class HighlightedAreaView extends View
     @remove()
     @detach()
 
-  getEditorView: ->
-    activeView = atom.workspaceView.getActiveView()
-    if activeView instanceof EditorView then activeView else null
-
   getActiveEditor: ->
     atom.workspace.getActiveEditor()
 
@@ -62,7 +58,7 @@ class HighlightedAreaView extends View
         @ranges.push editor.markBufferRange(result.range).getScreenRange()
 
     for range in @ranges
-      view = new MarkerView(range, this, @getEditorView())
+      view = new MarkerView(range, this, @editorView)
       @append view.element
       @views.push view
 

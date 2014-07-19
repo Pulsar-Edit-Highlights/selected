@@ -36,7 +36,9 @@ class HighlightedAreaView extends View
     return if editor.getSelection().isEmpty()
     return unless @isWordSelected(editor.getSelection())
 
-    text = _.escapeRegExp(editor.getSelectedText())
+    @selections = editor.getSelections()
+
+    text = _.escapeRegExp(@selections[0].getText())
     regex = new RegExp("\\W*\\w*\\b", 'gi')
     result = regex.exec(text)
 
@@ -58,9 +60,22 @@ class HighlightedAreaView extends View
         @ranges.push editor.markBufferRange(result.range).getScreenRange()
 
     for range in @ranges
-      view = new MarkerView(range, this, @editorView)
-      @append view.element
-      @views.push view
+      unless @showHighlightOnSelectedWord(range, @selections)
+        view = new MarkerView(range, this, @editorView)
+        @append view.element
+        @views.push view
+
+  showHighlightOnSelectedWord: (range, selections) ->
+    return false unless atom.config.get('highlight-selected.hideHighlightOnSelectedWord')
+    outcome = false
+    for selection in selections
+      selectionRange = selection.getScreenRange()
+      outcome = (range.start.column is selectionRange.start.column) and
+                (range.start.row is selectionRange.start.row) and
+                (range.end.column is selectionRange.end.column) and
+                (range.end.row is selectionRange.end.row)
+      break if outcome
+    outcome
 
   removeMarkers: =>
     return unless @views?

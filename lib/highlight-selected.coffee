@@ -4,6 +4,7 @@ areas = []
 module.exports =
   configDefaults:
     onlyHighlightWholeWords: false
+    hideHighlightOnSelectedWord: false
 
   activate: (state) ->
     atom.workspaceView.eachEditorView (editorView) ->

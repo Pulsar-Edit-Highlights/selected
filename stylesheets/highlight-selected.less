@@ -4,17 +4,17 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
-.editor .marker .region {
+.editor .highlight.highlight-selected .region {
   position: absolute;
   pointer-events: none;
   z-index: -1;
 }
 
-.pane.active .editor .highlight-selected .marker .region {
+.pane.active .editor .highlight.highlight-selected .region {
   border-radius: 2px;
   box-sizing: content-box;
-  padding: 0 0px;
-  margin: -1px 0 0 0;
+  padding: 0 1px 0 0;
+  margin: -1px 0 0 -1px;
   background-color: transparent;
   border: 1px solid #ddd
 }

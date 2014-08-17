@@ -46,13 +46,17 @@ class HighlightedAreaView extends View
               result.index isnt 0 or
               result[0] isnt result.input
 
+    regexFlags = 'g'
+    if atom.config.get('highlight-selected.ignoreCase')
+      regexFlags = 'gi'
+
     range =  [[0, 0], editor.getEofBufferPosition()]
 
     @ranges = []
     regexSearch = result[0]
     if atom.config.get('highlight-selected.onlyHighlightWholeWords')
       regexSearch =  "\\b" + regexSearch + "\\b"
-    editor.scanInBufferRange new RegExp(regexSearch, 'g'), range,
+    editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
       (result) =>
         unless @showHighlightOnSelectedWord(result.range, @selections)
           marker = editor.markBufferRange(result.range)

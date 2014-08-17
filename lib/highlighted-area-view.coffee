@@ -1,4 +1,3 @@
-MarkerView = require './marker-view'
 {EditorView, View, Range} = require 'atom'
 _ = require 'underscore-plus'
 
@@ -55,15 +54,11 @@ class HighlightedAreaView extends View
       regexSearch =  "\\b" + regexSearch + "\\b"
     editor.scanInBufferRange new RegExp(regexSearch, 'g'), range,
       (result) =>
-        if prefix = result.match[1]
-          result.range = result.range.translate([0, prefix.length], [0, 0])
-        @ranges.push editor.markBufferRange(result.range).getScreenRange()
-
-    for range in @ranges
-      unless @showHighlightOnSelectedWord(range, @selections)
-        view = new MarkerView(range, this, @editorView)
-        @append view.element
-        @views.push view
+        unless @showHighlightOnSelectedWord(result.range, @selections)
+          marker = editor.markBufferRange(result.range)
+          decoration = editor.decorateMarker(marker,
+            {type: 'highlight', class: 'highlight-selected'})
+          @views.push decoration
 
   showHighlightOnSelectedWord: (range, selections) ->
     return false unless atom.config.get('highlight-selected.hideHighlightOnSelectedWord')
@@ -81,7 +76,7 @@ class HighlightedAreaView extends View
     return unless @views?
     return if @views.length is 0
     for view in @views
-      view.element.remove()
+      view.destroy()
       view = null
     @views = []
 

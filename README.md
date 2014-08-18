@@ -17,21 +17,23 @@ theme. Either set the light theme check box in settings to be able to toggle
 between styles or just overwrite the default box/background.
 
 ```css
-// Box
-.highlight-selected .region {
-  border-color: #ddd;
-}
-// Background
-.highlight-selected.background .region {
-  background-color: rgba(155, 149, 0, 0.6);
-}
-// Light theme box (set in settings)
-.highlight-selected.light-theme .region {
-  border-color: rgba(255,0,0, 0.8);
-}
-// Light theme background (set in settings)
-.highlight-selected.light-theme.background .region {
-  background-color: rgba(252,0,0, 0.3);
+.editor {
+  // Box
+  .highlight-selected .region {
+    border-color: #ddd;
+  }
+  // Background
+  .highlight-selected.background .region {
+    background-color: rgba(155, 149, 0, 0.6);
+  }
+  // Light theme box (set in settings)
+  .highlight-selected.light-theme .region {
+    border-color: rgba(255,0,0, 0.8);
+  }
+  // Light theme background (set in settings)
+  .highlight-selected.light-theme.background .region {
+    background-color: rgba(252,0,0, 0.3);
+  }
 }
 ```
 

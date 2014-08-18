@@ -16,7 +16,7 @@ Change the following CSS in your StyleSheet to change the colours to suit your
 theme. Either set the light theme check box in settings to be able to toggle
 between styles or just overwrite the default box/background.
 
-```css
+```less
 .editor {
   // Box
   .highlight-selected .region {

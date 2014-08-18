@@ -10,11 +10,31 @@
   z-index: -1;
 }
 
-.pane.active .editor .highlight.highlight-selected .region {
-  border-radius: 2px;
-  box-sizing: content-box;
-  padding: 0 1px 0 0;
-  margin: -1px 0 0 -1px;
-  background-color: transparent;
-  border: 1px solid #ddd
+.pane.active .editor .highlights {
+  .highlight-selected .region {
+    border-radius: 2px;
+    box-sizing: content-box;
+    padding: 0 1px 0 0;
+    margin: -1px 0 0 -1px;
+    background-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+  }
+
+  // Box
+  .highlight-selected .region {
+    border-color: #ddd;
+  }
+  // Background
+  .highlight-selected.background .region {
+    background-color: rgba(155, 149, 0, 0.6);
+  }
+  // Light theme box (set in settings)
+  .highlight-selected.light-theme .region {
+    border-color: rgba(255,0,0, 0.8);
+  }
+  // Light theme background (set in settings)
+  .highlight-selected.light-theme.background .region {
+    background-color: rgba(252,0,0, 0.3);
+  }
 }

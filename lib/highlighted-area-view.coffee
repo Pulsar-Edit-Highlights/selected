@@ -56,13 +56,23 @@ class HighlightedAreaView extends View
     regexSearch = result[0]
     if atom.config.get('highlight-selected.onlyHighlightWholeWords')
       regexSearch =  "\\b" + regexSearch + "\\b"
+
     editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
       (result) =>
         unless @showHighlightOnSelectedWord(result.range, @selections)
           marker = editor.markBufferRange(result.range)
           decoration = editor.decorateMarker(marker,
-            {type: 'highlight', class: 'highlight-selected'})
+            {type: 'highlight', class: @makeClasses()})
           @views.push decoration
+
+  makeClasses: ->
+    className = 'highlight-selected'
+    if atom.config.get('highlight-selected.lightTheme')
+      className += ' light-theme'
+
+    if atom.config.get('highlight-selected.highlightBackgorund')
+      className += ' background'
+    className
 
   showHighlightOnSelectedWord: (range, selections) ->
     return false unless atom.config.get('highlight-selected.hideHighlightOnSelectedWord')

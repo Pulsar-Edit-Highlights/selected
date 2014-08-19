@@ -7,7 +7,7 @@ module.exports =
     hideHighlightOnSelectedWord: false
     ignoreCase: false
     lightTheme: false
-    highlightBackgorund: false
+    highlightBackground: false
 
   activate: (state) ->
     atom.workspaceView.eachEditorView (editorView) ->

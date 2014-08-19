@@ -70,7 +70,7 @@ class HighlightedAreaView extends View
     if atom.config.get('highlight-selected.lightTheme')
       className += ' light-theme'
 
-    if atom.config.get('highlight-selected.highlightBackgorund')
+    if atom.config.get('highlight-selected.highlightBackground')
       className += ' background'
     className
 

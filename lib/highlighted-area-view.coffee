@@ -63,7 +63,7 @@ class HighlightedAreaView extends View
           marker = editor.markBufferRange(result.range)
           decoration = editor.decorateMarker(marker,
             {type: 'highlight', class: @makeClasses()})
-          @views.push decoration
+          @views.push marker
 
   makeClasses: ->
     className = 'highlight-selected'

@@ -38,7 +38,7 @@ class HighlightedAreaView extends View
     @selections = editor.getSelections()
 
     text = _.escapeRegExp(@selections[0].getText())
-    regex = new RegExp("\\W*\\w*\\b", 'gi')
+    regex = new RegExp("\\S*\\w*\\b", 'gi')
     result = regex.exec(text)
 
     return unless result?

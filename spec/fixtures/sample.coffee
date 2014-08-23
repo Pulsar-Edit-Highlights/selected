@@ -1,4 +1,6 @@
 # Sample file for ensuring the regions get added.
+# Output Fizz on multiples of 3, Output Buzz on multiples of 5
+# Output FizzBuzz on multiples of 3 and 5
 
 output = ""
 

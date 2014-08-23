@@ -26,7 +26,7 @@ class HighlightedAreaView extends View
     @removeMarkers()
 
     editor = @getActiveEditor()
-
+    return unless editor
     return if editor.getSelection().isEmpty()
     return unless @isWordSelected(editor.getSelection())
 

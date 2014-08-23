@@ -1,6 +1,6 @@
 ## Change Log
 
-### Upcoming
+### v0.6.0 (2014/08/23)
 - Remove the Underlayer ([@richrace])
 - Add tmp folder to ignore ([@richrace])
 - Initial work of Specs ([@richrace])

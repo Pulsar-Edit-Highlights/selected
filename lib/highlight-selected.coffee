@@ -1,5 +1,4 @@
 HighlightedAreaView = require './highlighted-area-view'
-areas = []
 
 module.exports =
   configDefaults:
@@ -8,13 +7,12 @@ module.exports =
     ignoreCase: false
     lightTheme: false
     highlightBackground: false
+  areaView: null
 
   activate: (state) ->
-    atom.workspaceView.eachEditorView (editorView) ->
-      area = new HighlightedAreaView(editorView)
-      area.attach()
-      areas.push = area
+    @areaView = new HighlightedAreaView()
+    @areaView.attach()
 
   deactivate: ->
-    for area in areas
-      area.destroy()
+    @areaView.destroy()
+    @areaView = null

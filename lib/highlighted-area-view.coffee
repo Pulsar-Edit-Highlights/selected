@@ -1,4 +1,4 @@
-{EditorView, View, Range} = require 'atom'
+{View, Range} = require 'atom'
 _ = require 'underscore-plus'
 
 module.exports =
@@ -6,20 +6,16 @@ class HighlightedAreaView extends View
   @content: ->
     @div class: 'highlight-selected'
 
-  initialize: (editorView) ->
+  initialize: ->
     @views = []
-    @editorView = editorView
-
-  attach: =>
-    @editorView.underlayer.append(this)
-    @subscribe @editorView, "selection:changed", @handleSelection
+    atom.workspaceView.on "selection:changed", @handleSelection
     atom.workspaceView.on 'pane:item-removed', @destroy
 
+  attach: ->
+    atom.workspaceView.prependToBottom(this)
+
   destroy: =>
-    found = false
-    for editor in atom.workspaceView.getEditorViews()
-      found = true if editor.id is @editorView.id
-    return if found
+    atom.workspaceView.off 'selection:changed', @handleSelection
     atom.workspaceView.off 'pane:item-removed', @destroy
     @unsubscribe()
     @remove()
@@ -31,7 +27,8 @@ class HighlightedAreaView extends View
   handleSelection: =>
     @removeMarkers()
 
-    return unless editor = @getActiveEditor()
+    editor = @getActiveEditor()
+
     return if editor.getSelection().isEmpty()
     return unless @isWordSelected(editor.getSelection())
 
@@ -75,7 +72,8 @@ class HighlightedAreaView extends View
     className
 
   showHighlightOnSelectedWord: (range, selections) ->
-    return false unless atom.config.get('highlight-selected.hideHighlightOnSelectedWord')
+    return false unless atom.config.get(
+      'highlight-selected.hideHighlightOnSelectedWord')
     outcome = false
     for selection in selections
       selectionRange = selection.getScreenRange()

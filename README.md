@@ -1,5 +1,7 @@
 # Highlight Selected
 
+![Travis](https://travis-ci.org/richrace/highlight-selected.svg?branch=master)
+
 Double click on a word to highlight it throughout the open file.
 
 This is something hacky I've put together as I missed the functionality that

@@ -1,6 +1,6 @@
 # Highlight Selected
 
-![Travis](https://travis-ci.org/richrace/highlight-selected.svg?branch=master)
+[![Build Status](https://travis-ci.org/richrace/highlight-selected.svg?branch=master)](https://travis-ci.org/richrace/highlight-selected)
 
 Double click on a word to highlight it throughout the open file.
 
@@ -18,7 +18,7 @@ Change the following CSS in your StyleSheet to change the colours to suit your
 theme. Either set the light theme check box in settings to be able to toggle
 between styles or just overwrite the default box/background.
 
-```less
+```scss
 .editor {
   // Box
   .highlight-selected .region {
@@ -42,8 +42,7 @@ between styles or just overwrite the default box/background.
 
 # Issues and Todo
 
-- Refactor and tidy up the code
 - Add specs to test it
 - Should we highlight symbols?
 - Merge this feature in the
-[ find-and-replace](https://github.com/atom/find-and-replace) package
+[find-and-replace](https://github.com/atom/find-and-replace) package

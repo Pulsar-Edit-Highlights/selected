@@ -1,12 +1,15 @@
 ## Change Log
 
-### upcoming (2014/08/23 10:18 +00:00)
-- [b6a587d](https://github.com/richrace/highlight-selected/commit/b6a587dcb764d7a2e24e41cc612e7e499e68bbd0) Remove the Underlayer (@richrace)
-- [463510d](https://github.com/richrace/highlight-selected/commit/463510de04b6287273a0cbd3c8cccb3d56689a86) Add tmp folder to ignore (@richrace)
-- [0a6056e](https://github.com/richrace/highlight-selected/commit/0a6056ef231c746bd28c77e9acda3bdcf19dd37f) Initial work of Specs (@richrace)
-- [12b5edd](https://github.com/richrace/highlight-selected/commit/12b5edda1d0aa05078ad722b8ab3ac5fa55ead22) Add Travis and Rakefile (@richrace)
-- [e47ddbb](https://github.com/richrace/highlight-selected/commit/e47ddbb1fd399146fb3f19fcc2821546bf9f9f77) Project specific Coffee Lint properties (@richrace)
-- [f2b92f8](https://github.com/richrace/highlight-selected/commit/f2b92f84d3594fb3f68450dcf1e52527ad5287d9) Update Docs (@richrace)
+### Upcoming
+- Remove the Underlayer ([@richrace])
+- Add tmp folder to ignore ([@richrace])
+- Initial work of Specs ([@richrace])
+- Add Travis and Rakefile ([@richrace])
+- Project specific Coffee Lint properties ([@richrace])
+- Update Docs ([@richrace])
+- Don't require destroying when pane removed. ([@richrace])
+- Fix for settings view ([@richrace])
+- Update specs ([@richrace])
 
 ### v0.5.5 (2014/08/22 22:32 +00:00)
 - [1dd19fd](https://github.com/richrace/highlight-selected/commit/1dd19fdbc6a355bdef253ad67fa3dff0ff20f00f) Destroy Marker not decorations. (@richrace)
@@ -32,7 +35,7 @@
 - [fcb3926](https://github.com/richrace/highlight-selected/commit/fcb39265ca6e31a4c2784cd2a829765efeff606a) Prepare 0.5.1 release (@richrace)
 
 ### v0.5.0 (2014/08/17 14:00 +00:00)
-- [6fccb39](https://github.com/richrace/highlight-selected/commit/6fccb3926b863ba66bdc5d34bf2bada3a9e37c59) Add Ignore Case Option (@andreldm)
+- [6fccb39](https://github.com/richrace/highlight-selected/commit/6fccb3926b863ba66bdc5d34bf2bada3a9e37c59) Add Ignore Case Option ([@andreldm])
 - [524f345](https://github.com/richrace/highlight-selected/commit/524f34554ba308690b9284642384c6b1dd8125e9) Use Decorations API; Requires latest Atom. (@richrace)
 - [0f8b15e](https://github.com/richrace/highlight-selected/commit/0f8b15e89104476c2f931207be0cd0213613d6bd) Removed unused specs (@richrace)
 - [0540f45](https://github.com/richrace/highlight-selected/commit/0540f451bc7fe22146842304562e7659f4869a35) Prepare 0.5.0 release (@richrace)
@@ -42,11 +45,11 @@
 - [f02ff7a](https://github.com/richrace/highlight-selected/commit/f02ff7abe23a9748e53263824b94bdbed42d26ba) Prepare 0.4.1 release (@richrace)
 
 ### v0.4.0 (2014/07/03 18:38 +00:00)
-- [6e9964a](https://github.com/richrace/highlight-selected/commit/6e9964a382e6a55e66b190ec42b0434fc6740c35) Use editorView instead of editor for pixelPositionForScreenPosition to fix React Editor (@taylorludwig)
+- [6e9964a](https://github.com/richrace/highlight-selected/commit/6e9964a382e6a55e66b190ec42b0434fc6740c35) Use editorView instead of editor for pixelPositionForScreenPosition to fix React Editor ([@taylorludwig])
 - [4306bc4](https://github.com/richrace/highlight-selected/commit/4306bc42e9ed7167dcdfa16989c887fe27ebc94a) Prepare 0.4.0 release (@richrace)
 
 ### v0.3.0 (2014/06/29 19:07 +00:00)
-- [670f9e7](https://github.com/richrace/highlight-selected/commit/670f9e72d5cafd8d7097aa07e839ddf193d32e81) fix(marker-view.coffee): on Windows, fix bug getting lineHeight value from @editor (@nickeddy)
+- [670f9e7](https://github.com/richrace/highlight-selected/commit/670f9e72d5cafd8d7097aa07e839ddf193d32e81) fix(marker-view.coffee): on Windows, fix bug getting lineHeight value from @editor ([@nickeddy])
 - [b3097f0](https://github.com/richrace/highlight-selected/commit/b3097f07760a2d1d9c8cc3333c7867af44c2d6c6) Prepare 0.3.0 release (@richrace)
 
 ### v0.2.11 (2014/04/06 15:26 +00:00)
@@ -122,3 +125,8 @@
 - [ab1ef7b](https://github.com/richrace/highlight-selected/commit/ab1ef7b2faf25a65b19787eb544d4cbb306143c1) Update name (@richrace)
 - [0855c83](https://github.com/richrace/highlight-selected/commit/0855c83a38e5640b97cc899a39d342273e84f105) Update Readme (@richrace)
 - [7ac1439](https://github.com/richrace/highlight-selected/commit/7ac1439e146e773110efcbf028d68f5309716c7d) Prepare 0.1.0 release (@richrace)
+
+[@richrace]: https://github.com/richrace
+[@andreldm]: https://github.com/andreldm
+[@taylorludwig]: https://github.com/taylorludwig
+[@nickeddy]: https://github.com/nickeddy

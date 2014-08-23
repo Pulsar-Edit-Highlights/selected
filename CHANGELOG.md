@@ -10,6 +10,7 @@
 - Don't require destroying when pane removed. ([@richrace])
 - Fix for settings view ([@richrace])
 - Update specs ([@richrace])
+- Fix inconsistent whitespace ([@richrace])
 
 ### v0.5.5 (2014/08/22 22:32 +00:00)
 - [1dd19fd](https://github.com/richrace/highlight-selected/commit/1dd19fdbc6a355bdef253ad67fa3dff0ff20f00f) Destroy Marker not decorations. (@richrace)

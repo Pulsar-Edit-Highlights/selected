@@ -89,22 +89,22 @@ describe "DecorationExample", ->
     it "does add regions", ->
       expect(editorView.find('.highlight-selected .region')).toHaveLength(5)
 
-   describe "adds background to selected", ->
-     beforeEach ->
-       atom.config.set('highlight-selected.highlightBackground', true)
-       range = new Range(new Point(8, 2), new Point(8, 8))
-       editor.setSelectedBufferRange(range)
+    describe "adds background to selected", ->
+      beforeEach ->
+        atom.config.set('highlight-selected.highlightBackground', true)
+        range = new Range(new Point(8, 2), new Point(8, 8))
+        editor.setSelectedBufferRange(range)
 
-     it "adds the background to all highlights", ->
-       expect(editorView.find('.highlight-selected.background .region'))
-        .toHaveLength(4)
+      it "adds the background to all highlights", ->
+        expect(editorView.find('.highlight-selected.background .region'))
+          .toHaveLength(4)
 
-   describe "adds light theme to selected", ->
-     beforeEach ->
-       atom.config.set('highlight-selected.lightTheme', true)
-       range = new Range(new Point(8, 2), new Point(8, 8))
-       editor.setSelectedBufferRange(range)
+    describe "adds light theme to selected", ->
+      beforeEach ->
+        atom.config.set('highlight-selected.lightTheme', true)
+        range = new Range(new Point(8, 2), new Point(8, 8))
+        editor.setSelectedBufferRange(range)
 
-     it "adds the background to all highlights", ->
-       expect(editorView.find('.highlight-selected.light-theme .region'))
-        .toHaveLength(4)
+      it "adds the background to all highlights", ->
+        expect(editorView.find('.highlight-selected.light-theme .region'))
+          .toHaveLength(4)

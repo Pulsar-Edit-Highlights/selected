@@ -9,14 +9,12 @@ class HighlightedAreaView extends View
   initialize: ->
     @views = []
     atom.workspaceView.on "selection:changed", @handleSelection
-    atom.workspaceView.on 'pane:item-removed', @destroy
 
   attach: ->
     atom.workspaceView.prependToBottom(this)
 
   destroy: =>
     atom.workspaceView.off 'selection:changed', @handleSelection
-    atom.workspaceView.off 'pane:item-removed', @destroy
     @unsubscribe()
     @remove()
     @detach()

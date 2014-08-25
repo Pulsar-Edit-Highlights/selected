@@ -42,7 +42,6 @@ between styles or just overwrite the default box/background.
 
 # Issues and Todo
 
-- Add specs to test it
 - Should we highlight symbols?
 - Merge this feature in the
 [find-and-replace](https://github.com/atom/find-and-replace) package

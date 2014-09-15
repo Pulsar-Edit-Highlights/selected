@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.6.1 (2014/09/15)
+- Remove deprecated call to `getSelection()` with `getLastSelection()` ([@richrace])
+
 ### v0.6.0 (2014/08/23)
 - Remove the Underlayer ([@richrace])
 - Add tmp folder to ignore ([@richrace])

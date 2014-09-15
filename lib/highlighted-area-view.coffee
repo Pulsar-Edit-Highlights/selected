@@ -27,8 +27,8 @@ class HighlightedAreaView extends View
 
     editor = @getActiveEditor()
     return unless editor
-    return if editor.getSelection().isEmpty()
-    return unless @isWordSelected(editor.getSelection())
+    return if editor.getLastSelection().isEmpty()
+    return unless @isWordSelected(editor.getLastSelection())
 
     @selections = editor.getSelections()
 

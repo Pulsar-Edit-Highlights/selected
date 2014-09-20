@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.6.2 (2014/09/20)
+- Improve the styling for light themes ([@Bengt])
+
 ### v0.6.1 (2014/09/15)
 - Remove deprecated call to `getSelection()` with `getLastSelection()` ([@richrace])
 
@@ -135,3 +138,4 @@
 [@andreldm]: https://github.com/andreldm
 [@taylorludwig]: https://github.com/taylorludwig
 [@nickeddy]: https://github.com/nickeddy
+[@Bengt]: https://github.com/Bengt

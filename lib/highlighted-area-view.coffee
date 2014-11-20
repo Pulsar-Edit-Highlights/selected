@@ -74,7 +74,7 @@ class HighlightedAreaView extends View
       'highlight-selected.hideHighlightOnSelectedWord')
     outcome = false
     for selection in selections
-      selectionRange = selection.getScreenRange()
+      selectionRange = selection.getBufferRange()
       outcome = (range.start.column is selectionRange.start.column) and
                 (range.start.row is selectionRange.start.row) and
                 (range.end.column is selectionRange.end.column) and

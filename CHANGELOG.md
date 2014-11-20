@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.6.3 (2014/11/20)
+- Fix for hiding highlight on the selected word when tabs are used not spaces ([@yongkangchen])
+
 ### v0.6.2 (2014/09/20)
 - Improve the styling for light themes ([@Bengt])
 
@@ -139,3 +142,4 @@
 [@taylorludwig]: https://github.com/taylorludwig
 [@nickeddy]: https://github.com/nickeddy
 [@Bengt]: https://github.com/Bengt
+[@yongkangchen]: https://github.com/yongkangchen

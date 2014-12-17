@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.7.0 (2014/12/17)
+- Enable support for Shadow Dom ([@yongkangchen])
+
 ### v0.6.3 (2014/11/20)
 - Fix for hiding highlight on the selected word when tabs are used not spaces ([@yongkangchen])
 

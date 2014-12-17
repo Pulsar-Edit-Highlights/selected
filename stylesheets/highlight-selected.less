@@ -3,38 +3,39 @@
 // See https://github.com/atom/atom-dark-ui/blob/master/stylesheets/ui-variables.less
 // for a full listing of what's available.
 @import "ui-variables";
-
-.editor .highlight.highlight-selected .region {
-  position: absolute;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.highlights {
-  .highlight-selected .region {
-    border-radius: 2px;
-    box-sizing: content-box;
-    padding: 0 1px 0 0;
-    margin: -1px 0 0 -1px;
-    background-color: transparent;
-    border-width: 1px;
-    border-style: solid;
+.editor, :host, atom-text-editor, atom-text-editor::shadow {
+  .editor .highlight.highlight-selected .region {
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
   }
 
-  // Box
-  .highlight-selected .region {
-    border-color: #ddd;
-  }
-  // Background
-  .highlight-selected.background .region {
-    background-color: rgba(155, 149, 0, 0.6);
-  }
-  // Light theme box (set in settings)
-  .highlight-selected.light-theme .region {
-    border-color: rgba(255, 128, 64, 0.4);
-  }
-  // Light theme background (set in settings)
-  .highlight-selected.light-theme.background .region {
-    background-color: rgba(255, 128, 64, 0.2);
+  .highlights {
+    .highlight-selected .region {
+      border-radius: 2px;
+      box-sizing: content-box;
+      padding: 0 1px 0 0;
+      margin: -1px 0 0 -1px;
+      background-color: transparent;
+      border-width: 1px;
+      border-style: solid;
+    }
+
+    // Box
+    .highlight-selected .region {
+      border-color: #ddd;
+    }
+    // Background
+    .highlight-selected.background .region {
+      background-color: rgba(155, 149, 0, 0.6);
+    }
+    // Light theme box (set in settings)
+    .highlight-selected.light-theme .region {
+      border-color: rgba(255, 128, 64, 0.4);
+    }
+    // Light theme background (set in settings)
+    .highlight-selected.light-theme.background .region {
+      background-color: rgba(255, 128, 64, 0.2);
+    }
   }
 }

@@ -9,10 +9,11 @@
   },
   "license": "MIT",
   "engines": {
-    "atom": ">=0.123.0"
+    "atom": ">=0.174.0, <2.0.0"
   },
   "dependencies": {
-    "underscore-plus": "1.x"
+    "underscore-plus": "1.x",
+    "atom-space-pen-views": "^2.0.3"
   },
   "devDependencies": {
     "coffee-script": "latest",

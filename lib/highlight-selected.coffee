@@ -1,12 +1,23 @@
 HighlightedAreaView = require './highlighted-area-view'
 
 module.exports =
-  configDefaults:
-    onlyHighlightWholeWords: false
-    hideHighlightOnSelectedWord: false
-    ignoreCase: false
-    lightTheme: false
-    highlightBackground: false
+  config:
+    onlyHighlightWholeWords:
+      type: 'boolean'
+      default: false
+    hideHighlightOnSelectedWord:
+      type: 'boolean'
+      default: false
+    ignoreCase:
+      type: 'boolean'
+      default: false
+    lightTheme:
+      type: 'boolean'
+      default: false
+    highlightBackground:
+      type: 'boolean'
+      default: false
+
   areaView: null
 
   activate: (state) ->

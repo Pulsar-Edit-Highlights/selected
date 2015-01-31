@@ -1,4 +1,5 @@
-{View, Range} = require 'atom'
+{Range} = require 'atom'
+{View} = require 'atom-space-pen-views'
 _ = require 'underscore-plus'
 
 module.exports =
@@ -8,19 +9,27 @@ class HighlightedAreaView extends View
 
   initialize: ->
     @views = []
-    atom.workspaceView.on "selection:changed", @handleSelection
+    @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
+      @subscribeToActiveTextEditor()
+    @subscribeToActiveTextEditor()
 
   attach: ->
-    atom.workspaceView.prependToBottom(this)
+    atom.workspace.addBottomPanel(item: this)
 
   destroy: =>
-    atom.workspaceView.off 'selection:changed', @handleSelection
-    @unsubscribe()
+    @activeItemSubscription.dispose()
+    @selectionSubscription?.dispose()
     @remove()
     @detach()
 
+  subscribeToActiveTextEditor: ->
+    @selectionSubscription?.dispose()
+    @selectionSubscription = @getActiveEditor()?.onDidChangeSelectionRange =>
+      @handleSelection()
+    @handleSelection()
+
   getActiveEditor: ->
-    atom.workspace.getActiveEditor()
+    atom.workspace.getActiveTextEditor()
 
   handleSelection: =>
     @removeMarkers()

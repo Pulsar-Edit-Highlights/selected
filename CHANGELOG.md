@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.8.0 (2015/02/01)
+- Remove deprecations; move to Atom API v1 ([@hmatsuda])
+
 ### v0.7.0 (2014/12/17)
 - Enable support for Shadow Dom ([@yongkangchen])
 
@@ -146,3 +149,4 @@
 [@nickeddy]: https://github.com/nickeddy
 [@Bengt]: https://github.com/Bengt
 [@yongkangchen]: https://github.com/yongkangchen
+[@hmatsuda]: https://github.com/hmatsuda

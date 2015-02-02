@@ -1,23 +1,24 @@
 path = require 'path'
-{WorkspaceView, Range, Point} = require 'atom'
+{Range, Point} = require 'atom'
 HighlightSelected = require '../lib/highlight-selected'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 
 describe "DecorationExample", ->
-  [activationPromise, editor, editorView, highlightSelected] = []
+  [activationPromise, workspaceElement,
+   editor, editorElement, highlightSelected] = []
 
   beforeEach ->
-    atom.workspaceView = new WorkspaceView
-    atom.project.setPath(path.join(__dirname, 'fixtures'))
+    workspaceElement = atom.views.getView(atom.workspace)
+    atom.project.setPaths([path.join(__dirname, 'fixtures')])
 
     waitsForPromise ->
       atom.workspace.open('sample.coffee')
 
     runs ->
-      atom.workspaceView.attachToDom()
-      editorView = atom.workspaceView.getActiveView()
-      editor = editorView.getEditor()
+      jasmine.attachToDOM(workspaceElement)
+      editor = atom.workspace.getActiveTextEditor()
+      editorElement = atom.views.getView(editor)
 
       activationPromise = atom.packages
         .activatePackage('highlight-selected').then ({mainModule}) ->
@@ -28,7 +29,9 @@ describe "DecorationExample", ->
 
   describe "when the view is loaded", ->
     it "attaches the view", ->
-      expect(atom.workspaceView.find('.highlight-selected')).toExist()
+      expect(workspaceElement
+        .querySelectorAll('.highlight-selected')
+        ).toHaveLength(1)
 
   describe "when a whole word is selected", ->
     beforeEach ->
@@ -36,7 +39,9 @@ describe "DecorationExample", ->
       editor.setSelectedBufferRange(range)
 
     it "adds the decoration to all words", ->
-      expect(editorView.find('.highlight-selected .region')).toHaveLength(4)
+      expect(editorElement.shadowRoot
+        .querySelectorAll('.highlight-selected .region')
+        ).toHaveLength(4)
 
   describe "when hide highlight on selected word is enabled", ->
     beforeEach ->
@@ -45,7 +50,9 @@ describe "DecorationExample", ->
       editor.setSelectedBufferRange(range)
 
     it "adds the decoration to all words", ->
-      expect(editorView.find('.highlight-selected .region')).toHaveLength(3)
+      expect(editorElement.shadowRoot
+        .querySelectorAll('.highlight-selected .region')
+        ).toHaveLength(3)
 
   describe "leading whitespace doesn't get used", ->
     beforeEach ->
@@ -53,7 +60,9 @@ describe "DecorationExample", ->
       editor.setSelectedBufferRange(range)
 
     it "doesn't add regions", ->
-      expect(editorView.find('.highlight-selected .region')).toHaveLength(0)
+      expect(editorElement.shadowRoot
+        .querySelectorAll('.highlight-selected .region')
+        ).toHaveLength(0)
 
   describe "will highlight non whole words", ->
     beforeEach ->
@@ -61,7 +70,9 @@ describe "DecorationExample", ->
       editor.setSelectedBufferRange(range)
 
     it "does add regions", ->
-      expect(editorView.find('.highlight-selected .region')).toHaveLength(3)
+      expect(editorElement.shadowRoot
+        .querySelectorAll('.highlight-selected .region')
+        ).toHaveLength(3)
 
   describe "will not highlight non whole words", ->
     beforeEach ->
@@ -70,7 +81,9 @@ describe "DecorationExample", ->
       editor.setSelectedBufferRange(range)
 
     it "does add regions", ->
-      expect(editorView.find('.highlight-selected .region')).toHaveLength(2)
+      expect(editorElement.shadowRoot
+        .querySelectorAll('.highlight-selected .region')
+        ).toHaveLength(2)
 
   describe "will not highlight words in different case", ->
     beforeEach ->
@@ -78,7 +91,9 @@ describe "DecorationExample", ->
       editor.setSelectedBufferRange(range)
 
     it "does add regions", ->
-      expect(editorView.find('.highlight-selected .region')).toHaveLength(2)
+      expect(editorElement.shadowRoot
+        .querySelectorAll('.highlight-selected .region')
+        ).toHaveLength(2)
 
   describe "will highlight words in different case", ->
     beforeEach ->
@@ -87,7 +102,9 @@ describe "DecorationExample", ->
       editor.setSelectedBufferRange(range)
 
     it "does add regions", ->
-      expect(editorView.find('.highlight-selected .region')).toHaveLength(5)
+      expect(editorElement.shadowRoot
+        .querySelectorAll('.highlight-selected .region')
+        ).toHaveLength(5)
 
     describe "adds background to selected", ->
       beforeEach ->
@@ -96,8 +113,9 @@ describe "DecorationExample", ->
         editor.setSelectedBufferRange(range)
 
       it "adds the background to all highlights", ->
-        expect(editorView.find('.highlight-selected.background .region'))
-          .toHaveLength(4)
+        expect(editorElement.shadowRoot
+          .querySelectorAll('.highlight-selected.background .region')
+          ).toHaveLength(4)
 
     describe "adds light theme to selected", ->
       beforeEach ->
@@ -106,5 +124,6 @@ describe "DecorationExample", ->
         editor.setSelectedBufferRange(range)
 
       it "adds the background to all highlights", ->
-        expect(editorView.find('.highlight-selected.light-theme .region'))
-          .toHaveLength(4)
+        expect(editorElement.shadowRoot
+          .querySelectorAll('.highlight-selected.light-theme .region')
+          ).toHaveLength(4)

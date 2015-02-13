@@ -1,5 +1,10 @@
 ## Change Log
 
+### v0.9.0 (2015/02/13)
+- Fix atom engine semver ([@izuzak])
+- Add minimum length option ([@hmatsuda])
+- Update Dev Dependencies (latest is no longer supported) ([@richrace])
+
 ### v0.8.0 (2015/02/01)
 - Remove deprecations; move to Atom API v1 ([@hmatsuda])
 
@@ -150,3 +155,4 @@
 [@Bengt]: https://github.com/Bengt
 [@yongkangchen]: https://github.com/yongkangchen
 [@hmatsuda]: https://github.com/hmatsuda
+[@izuzak]: https://github.com/izuzak

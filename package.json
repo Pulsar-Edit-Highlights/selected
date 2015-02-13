@@ -16,9 +16,9 @@
     "atom-space-pen-views": "^2.0.3"
   },
   "devDependencies": {
-    "coffee-script": "latest",
-    "coffeelint": "latest",
-    "coffeelint-jasmine": "latest"
+    "coffee-script": "1.9.0",
+    "coffeelint": "1.8.1",
+    "coffeelint-jasmine": "0.0.2"
   },
   "readme": "# Highlight Selected\n\nDouble click on a word to highlight it throughout the open file.\n\nThis is something hacky I've put together as I missed the functionality that Sublime gave. As such, it's doesn't work 100% but is good enough to start!\n\nSome code and has been take from Atom's find and replace package ([link](https://github.com/atom/find-and-replace))\n\nPlease log any issues and pull requests are more than welcome!\n\n![Gif in action](http://i.imgur.com/C5FnzzQ.gif)\n\n# Issues and Todo\n\n- Some double click events are not triggered\n- Refactor and tidy up the code\n- Add specs to test it\n",
   "readmeFilename": "README.md",

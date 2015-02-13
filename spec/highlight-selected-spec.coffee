@@ -85,6 +85,17 @@ describe "DecorationExample", ->
         .querySelectorAll('.highlight-selected .region')
         ).toHaveLength(2)
 
+  describe "will not highlight less than minimum length", ->
+    beforeEach ->
+      atom.config.set('highlight-selected.minimumLength', 7)
+      range = new Range(new Point(4, 0), new Point(4, 6))
+      editor.setSelectedBufferRange(range)
+
+    it "doesn't add regions", ->
+      expect(editorElement.shadowRoot
+        .querySelectorAll('.highlight-selected .region')
+        ).toHaveLength(0)
+
   describe "will not highlight words in different case", ->
     beforeEach ->
       range = new Range(new Point(4, 0), new Point(4, 6))

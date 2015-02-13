@@ -17,6 +17,9 @@ module.exports =
     highlightBackground:
       type: 'boolean'
       default: false
+    minimumLength:
+      type: 'integer'
+      default: 0
 
   areaView: null
 

@@ -19,7 +19,7 @@ theme. Either set the light theme check box in settings to be able to toggle
 between styles or just overwrite the default box/background.
 
 ```scss
-atom-text-editor {
+atom-text-editor, atom-text-editor::shadow {
   // Box
   .highlight-selected .region {
     border-color: #ddd;

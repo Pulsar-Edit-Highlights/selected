@@ -14,7 +14,8 @@ class HighlightedAreaView extends View
     @subscribeToActiveTextEditor()
 
   attach: ->
-    atom.workspace.addBottomPanel(item: this)
+    panel = atom.workspace.addBottomPanel(item: this)
+    panel.hide()
 
   destroy: =>
     @activeItemSubscription.dispose()

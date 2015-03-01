@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.9.1 (2015/03/01)
+- Fix 1px border on panel ([@richrace])
+
 ### v0.9.0 (2015/02/13)
 - Fix atom engine semver ([@izuzak])
 - Add minimum length option ([@hmatsuda])

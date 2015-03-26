@@ -46,13 +46,27 @@ describe "DecorationExample", ->
   describe "when hide highlight on selected word is enabled", ->
     beforeEach ->
       atom.config.set('highlight-selected.hideHighlightOnSelectedWord', true)
-      range = new Range(new Point(8, 2), new Point(8, 8))
-      editor.setSelectedBufferRange(range)
 
-    it "adds the decoration to all words", ->
-      expect(editorElement.shadowRoot
-        .querySelectorAll('.highlight-selected .region')
-        ).toHaveLength(3)
+    describe "when a single line is selected", ->
+      beforeEach ->
+        range = new Range(new Point(8, 2), new Point(8, 8))
+        editor.setSelectedBufferRange(range)
+
+      it "adds the decoration only no selected words", ->
+        expect(editorElement.shadowRoot
+          .querySelectorAll('.highlight-selected .region')
+          ).toHaveLength(3)
+
+    describe "when multi lines are selected", ->
+      beforeEach ->
+        range1 = new Range(new Point(8, 2), new Point(8, 8))
+        range2 = new Range(new Point(9, 2), new Point(9, 8))
+        editor.setSelectedBufferRanges([range1, range2])
+
+      it "adds the decoration only no selected words", ->
+        expect(editorElement.shadowRoot
+          .querySelectorAll('.highlight-selected .region')
+          ).toHaveLength(2)
 
   describe "leading whitespace doesn't get used", ->
     beforeEach ->

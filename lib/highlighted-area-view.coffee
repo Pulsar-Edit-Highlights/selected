@@ -1,4 +1,4 @@
-{Range} = require 'atom'
+{Range, CompositeDisposable} = require 'atom'
 {View} = require 'atom-space-pen-views'
 _ = require 'underscore-plus'
 
@@ -25,7 +25,11 @@ class HighlightedAreaView extends View
 
   subscribeToActiveTextEditor: ->
     @selectionSubscription?.dispose()
-    @selectionSubscription = @getActiveEditor()?.onDidChangeSelectionRange =>
+    @selectionSubscription = new CompositeDisposable
+
+    @selectionSubscription.add @getActiveEditor()?.onDidAddSelection =>
+      @handleSelection()
+    @selectionSubscription.add @getActiveEditor()?.onDidChangeSelectionRange =>
       @handleSelection()
     @handleSelection()
 

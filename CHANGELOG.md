@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.10.0 (2015/04/18)
+- Remove Space Pen View dependency. No longer attach to the Editor/Status Bar. ([@richrace])
+
 ### v0.9.2 (2015/04/18)
 - Fix hide highlight on multi select ([@hmatsuda])
 

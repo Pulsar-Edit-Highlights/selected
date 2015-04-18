@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.9.2 (2015/04/18)
+- Fix hide highlight on multi select ([@hmatsuda])
+
 ### v0.9.1 (2015/03/01)
 - Fix 1px border on panel ([@richrace])
 

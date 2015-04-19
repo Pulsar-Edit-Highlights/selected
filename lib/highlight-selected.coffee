@@ -28,5 +28,5 @@ module.exports =
     @areaView.attach()
 
   deactivate: ->
-    @areaView.destroy()
+    @areaView?.destroy()
     @areaView = null

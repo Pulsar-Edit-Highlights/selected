@@ -17,9 +17,6 @@ describe "DecorationExample", ->
     atom.project.setPaths([path.join(__dirname, 'fixtures')])
 
     waitsForPromise ->
-      atom.workspace.open('sample.coffee')
-
-    waitsForPromise ->
       atom.packages.activatePackage('highlight-selected').then ({mainModule}) ->
         highlightSelected = mainModule
 
@@ -31,6 +28,13 @@ describe "DecorationExample", ->
         atom.packages.activatePackage('minimap-highlight-selected')
           .then ({mainModule}) ->
             minimapHS = mainModule
+
+    waitsForPromise ->
+      atom.workspace.open('sample.coffee').then(
+        (editor) -> editor
+        ,
+        (error) -> throw(error.stack)
+      )
 
     runs ->
       jasmine.attachToDOM(workspaceElement)

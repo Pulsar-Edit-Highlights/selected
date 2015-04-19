@@ -19,32 +19,28 @@ describe "DecorationExample", ->
     waitsForPromise ->
       atom.workspace.open('sample.coffee')
 
+    waitsForPromise ->
+      atom.packages.activatePackage('highlight-selected').then ({mainModule}) ->
+        highlightSelected = mainModule
+
+    if hasMinimap
+      waitsForPromise ->
+        atom.packages.activatePackage('minimap').then ({mainModule}) ->
+          minimapModule = mainModule
+      waitsForPromise ->
+        atom.packages.activatePackage('minimap-highlight-selected')
+          .then ({mainModule}) ->
+            minimapHS = mainModule
+
     runs ->
       jasmine.attachToDOM(workspaceElement)
       editor = atom.workspace.getActiveTextEditor()
       editorElement = atom.views.getView(editor)
 
-      if hasMinimap
-        activationPromise = atom.packages.activatePackage('highlight-selected')
-          .then ({mainModule}) ->
-            highlightSelected = mainModule
-            atom.packages.activatePackage('minimap').then ({mainModule}) ->
-              minimap = mainModule
-              atom.packages.activatePackage('minimap-highlight-selected')
-                .then ({mainModule}) ->
-                  minimapHS = mainModule
-      else
-        activationPromise = atom.packages
-          .activatePackage('highlight-selected').then ({mainModule}) ->
-            highlightSelected = mainModule
-
-    waitsForPromise ->
-      activationPromise
-
   afterEach ->
     highlightSelected.deactivate()
     minimapHS?.deactivate()
-    minimap?.deactivate()
+    minimapModule?.deactivate()
 
   describe "when the view is loaded", ->
     it "attaches the view", ->

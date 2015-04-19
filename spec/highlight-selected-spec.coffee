@@ -6,7 +6,11 @@ HighlightSelected = require '../lib/highlight-selected'
 
 describe "DecorationExample", ->
   [activationPromise, workspaceElement,
-   editor, editorElement, highlightSelected] = []
+   editor, editorElement, highlightSelected, minimapHS, minimap] = []
+
+  hasMinimap = atom.packages.getAvailablePackageNames()
+    .indexOf('minimap') isnt -1 and atom.packages.getAvailablePackageNames()
+    .indexOf('minimap-highlight-selected') isnt -1
 
   beforeEach ->
     workspaceElement = atom.views.getView(atom.workspace)
@@ -20,19 +24,27 @@ describe "DecorationExample", ->
       editor = atom.workspace.getActiveTextEditor()
       editorElement = atom.views.getView(editor)
 
-      if atom.packages.getAvailablePackageNames().indexOf('minimap') isnt -1
-        atom.packages.activatePackage('minimap').then ->
-          atom.packages.activatePackage('minimap-highlight-selected').then ->
-            activationPromise = atom.packages
-              .activatePackage('highlight-selected').then ({mainModule}) ->
-                {highlightSelected} = mainModule
+      if hasMinimap
+        activationPromise = atom.packages.activatePackage('highlight-selected')
+          .then ({mainModule}) ->
+            highlightSelected = mainModule
+            atom.packages.activatePackage('minimap').then ({mainModule}) ->
+              minimap = mainModule
+              atom.packages.activatePackage('minimap-highlight-selected')
+                .then ({mainModule}) ->
+                  minimapHS = mainModule
       else
         activationPromise = atom.packages
           .activatePackage('highlight-selected').then ({mainModule}) ->
-            {highlightSelected} = mainModule
+            highlightSelected = mainModule
 
     waitsForPromise ->
       activationPromise
+
+  afterEach ->
+    highlightSelected.deactivate()
+    minimapHS?.deactivate()
+    minimap?.deactivate()
 
   describe "when the view is loaded", ->
     it "attaches the view", ->

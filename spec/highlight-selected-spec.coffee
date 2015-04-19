@@ -20,9 +20,16 @@ describe "DecorationExample", ->
       editor = atom.workspace.getActiveTextEditor()
       editorElement = atom.views.getView(editor)
 
-      activationPromise = atom.packages
-        .activatePackage('highlight-selected').then ({mainModule}) ->
-          {highlightSelected} = mainModule
+      if atom.packages.getAvailablePackageNames().indexOf('minimap') isnt -1
+        atom.packages.activatePackage('minimap').then ->
+          atom.packages.activatePackage('minimap-highlight-selected').then ->
+            activationPromise = atom.packages
+              .activatePackage('highlight-selected').then ({mainModule}) ->
+                {highlightSelected} = mainModule
+      else
+        activationPromise = atom.packages
+          .activatePackage('highlight-selected').then ({mainModule}) ->
+            {highlightSelected} = mainModule
 
     waitsForPromise ->
       activationPromise

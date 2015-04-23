@@ -4,9 +4,9 @@ HighlightSelected = require '../lib/highlight-selected'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 
-describe "DecorationExample", ->
-  [activationPromise, workspaceElement,
-   editor, editorElement, highlightSelected, minimapHS, minimap] = []
+describe "HighlightSelected", ->
+  [activationPromise, workspaceElement, minimap,
+   editor, editorElement, highlightSelected, minimapHS, minimapModule] = []
 
   hasMinimap = atom.packages.getAvailablePackageNames()
     .indexOf('minimap') isnt -1 and atom.packages.getAvailablePackageNames()
@@ -171,3 +171,16 @@ describe "DecorationExample", ->
         expect(editorElement.shadowRoot
           .querySelectorAll('.highlight-selected.light-theme .region')
           ).toHaveLength(4)
+
+  if hasMinimap
+    describe "minimap highlight selected still works", ->
+      beforeEach ->
+        editor = atom.workspace.getActiveTextEditor()
+        minimap = minimapModule.minimapForEditor(editor)
+
+        spyOn(minimap, 'decorateMarker').andCallThrough()
+        range = new Range(new Point(8, 2), new Point(8, 8))
+        editor.setSelectedBufferRange(range)
+
+      it 'adds a decoration for the selection in the minimap', ->
+        expect(minimap.decorateMarker).toHaveBeenCalled()

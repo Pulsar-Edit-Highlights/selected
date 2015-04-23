@@ -28,4 +28,4 @@ namespace :travis do
 end
 
 task default: [:compile, :spec, :lint]
-task travis: ['travis:prepare', :compile, 'travis:spec', :lint]
+task travis: ['travis:prepare', :compile, 'travis:spec']

@@ -21,19 +21,19 @@ between styles or just overwrite the default box/background.
 ```scss
 atom-text-editor, atom-text-editor::shadow {
   // Box
-  .highlight-selected .region {
+  .highlights .highlight-selected .region {
     border-color: #ddd;
   }
   // Background
-  .highlight-selected.background .region {
+  .highlights .highlight-selected.background .region {
     background-color: rgba(155, 149, 0, 0.6);
   }
   // Light theme box (set in settings)
-  .highlight-selected.light-theme .region {
+  .highlights .highlight-selected.light-theme .region {
     border-color: rgba(255, 128, 64, 0.4);
   }
   // Light theme background (set in settings)
-  .highlight-selected.light-theme.background .region {
+  .highlights .highlight-selected.light-theme.background .region {
     background-color: rgba(255, 128, 64, 0.2);
   }
 }

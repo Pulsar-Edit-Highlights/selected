@@ -47,10 +47,10 @@ describe "HighlightSelected", ->
     minimapModule?.deactivate()
 
   describe "when the view is loaded", ->
-    it "attaches the view", ->
+    it "does not attach to the view", ->
       expect(workspaceElement
         .querySelectorAll('.highlight-selected')
-        ).toHaveLength(1)
+        ).toHaveLength(0)
 
   describe "when a whole word is selected", ->
     beforeEach ->

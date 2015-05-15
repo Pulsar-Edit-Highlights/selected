@@ -25,11 +25,15 @@ class HighlightedAreaView extends View
 
   subscribeToActiveTextEditor: ->
     @selectionSubscription?.dispose()
+
+    editor = @getActiveEditor()
+    return unless editor
+
     @selectionSubscription = new CompositeDisposable
 
-    @selectionSubscription.add @getActiveEditor()?.onDidAddSelection =>
+    @selectionSubscription.add editor.onDidAddSelection =>
       @handleSelection()
-    @selectionSubscription.add @getActiveEditor()?.onDidChangeSelectionRange =>
+    @selectionSubscription.add editor.onDidChangeSelectionRange =>
       @handleSelection()
     @handleSelection()
 

@@ -25,7 +25,6 @@ module.exports =
 
   activate: (state) ->
     @areaView = new HighlightedAreaView()
-    @areaView.attach()
 
   deactivate: ->
     @areaView?.destroy()

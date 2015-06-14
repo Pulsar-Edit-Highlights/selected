@@ -1,27 +1,18 @@
 {Range, CompositeDisposable} = require 'atom'
-{View} = require 'atom-space-pen-views'
 _ = require 'underscore-plus'
 
 module.exports =
-class HighlightedAreaView extends View
-  @content: ->
-    @div class: 'highlight-selected'
+class HighlightedAreaView
 
-  initialize: ->
+  constructor: ->
     @views = []
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
       @subscribeToActiveTextEditor()
     @subscribeToActiveTextEditor()
 
-  attach: ->
-    panel = atom.workspace.addBottomPanel(item: this)
-    panel.hide()
-
   destroy: =>
     @activeItemSubscription.dispose()
     @selectionSubscription?.dispose()
-    @remove()
-    @detach()
 
   subscribeToActiveTextEditor: ->
     @selectionSubscription?.dispose()

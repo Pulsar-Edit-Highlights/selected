@@ -1,5 +1,10 @@
 ## Change Log
 
+### v0.10.0 (2015/06/14)
+- Add special case for PHP variables beginning with `$` ([@richrace])
+- Add debounce/timeout when selections change ([@richrace])
+- Remove `atom-space-pen-views` ([@JCCR])
+
 ### v0.9.3 (2015/05/15)
 - Fix `Uncaught TypeError: Cannot read property 'dispose' of undefined` ([@yongkangchen])
 
@@ -165,3 +170,4 @@
 [@yongkangchen]: https://github.com/yongkangchen
 [@hmatsuda]: https://github.com/hmatsuda
 [@izuzak]: https://github.com/izuzak
+[@JCCR]: https://github.com/JCCR

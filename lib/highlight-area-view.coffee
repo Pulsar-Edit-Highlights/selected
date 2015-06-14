@@ -2,7 +2,7 @@
 _ = require 'underscore-plus'
 
 module.exports =
-class HighlightSelectedModel
+class HighlightedAreaView
 
   constructor: ->
     @views = []

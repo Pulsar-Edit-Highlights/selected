@@ -1,4 +1,4 @@
-HighlightSelectedModel = require './highlight-selected-model'
+HighlightedAreaView = require './highlight-area-view'
 
 module.exports =
   config:
@@ -24,7 +24,7 @@ module.exports =
   areaView: null
 
   activate: (state) ->
-    @areaView = new HighlightSelectedModel()
+    @areaView = new HighlightedAreaView()
 
   deactivate: ->
     @areaView?.destroy()

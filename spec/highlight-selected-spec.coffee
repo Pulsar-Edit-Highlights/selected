@@ -46,9 +46,6 @@ describe "HighlightSelected", ->
 
   afterEach ->
     clock.restore()
-    highlightSelected.deactivate()
-    minimapHS?.deactivate()
-    minimapModule?.deactivate()
 
   describe "updates debounce when config is changed", ->
     beforeEach ->

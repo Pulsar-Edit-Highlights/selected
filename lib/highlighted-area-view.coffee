@@ -1,10 +1,11 @@
-{Range, CompositeDisposable} = require 'atom'
+{Range, CompositeDisposable, Emitter} = require 'atom'
 _ = require 'underscore-plus'
 
 module.exports =
 class HighlightedAreaView
 
   constructor: ->
+    @emitter = new Emitter
     @views = []
     @listenForTimeoutChange()
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
@@ -16,6 +17,9 @@ class HighlightedAreaView
     clearTimeout(@handleSelectionTimeout)
     @activeItemSubscription.dispose()
     @selectionSubscription?.dispose()
+
+  onDidAddMarker: (callback) =>
+    @emitter.on 'did-add-marker', callback
 
   debouncedHandleSelection: =>
     clearTimeout(@handleSelectionTimeout)
@@ -90,6 +94,7 @@ class HighlightedAreaView
           decoration = editor.decorateMarker(marker,
             {type: 'highlight', class: @makeClasses()})
           @views.push marker
+          @emitter.emit 'did-add-marker', marker
 
   makeClasses: ->
     className = 'highlight-selected'

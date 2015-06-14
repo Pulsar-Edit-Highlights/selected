@@ -1,11 +1,12 @@
 path = require 'path'
 {Range, Point} = require 'atom'
 HighlightSelected = require '../lib/highlight-selected'
+sinon = require 'sinon'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 
 describe "HighlightSelected", ->
-  [activationPromise, workspaceElement, minimap,
+  [activationPromise, workspaceElement, minimap, clock,
    editor, editorElement, highlightSelected, minimapHS, minimapModule] = []
 
   hasMinimap = atom.packages.getAvailablePackageNames()
@@ -13,6 +14,8 @@ describe "HighlightSelected", ->
     .indexOf('minimap-highlight-selected') isnt -1
 
   beforeEach ->
+    clock = sinon.useFakeTimers()
+
     workspaceElement = atom.views.getView(atom.workspace)
     atom.project.setPaths([path.join(__dirname, 'fixtures')])
 
@@ -42,14 +45,24 @@ describe "HighlightSelected", ->
       editorElement = atom.views.getView(editor)
 
   afterEach ->
+    clock.restore()
     highlightSelected.deactivate()
     minimapHS?.deactivate()
     minimapModule?.deactivate()
+
+  describe "updates debounce when config is changed", ->
+    beforeEach ->
+      spyOn(highlightSelected.areaView, 'createDebounce')
+      atom.config.set('highlight-selected.timeout', 500)
+
+    it 'calls createDebouce', ->
+      expect(highlightSelected.areaView.createDebounce).toHaveBeenCalled()
 
   describe "when a whole word is selected", ->
     beforeEach ->
       range = new Range(new Point(8, 2), new Point(8, 8))
       editor.setSelectedBufferRange(range)
+      clock.tick(20000)
 
     it "adds the decoration to all words", ->
       expect(editorElement.shadowRoot
@@ -64,6 +77,7 @@ describe "HighlightSelected", ->
       beforeEach ->
         range = new Range(new Point(8, 2), new Point(8, 8))
         editor.setSelectedBufferRange(range)
+        clock.tick(20000)
 
       it "adds the decoration only no selected words", ->
         expect(editorElement.shadowRoot
@@ -75,6 +89,7 @@ describe "HighlightSelected", ->
         range1 = new Range(new Point(8, 2), new Point(8, 8))
         range2 = new Range(new Point(9, 2), new Point(9, 8))
         editor.setSelectedBufferRanges([range1, range2])
+        clock.tick(20000)
 
       it "adds the decoration only no selected words", ->
         expect(editorElement.shadowRoot
@@ -85,6 +100,7 @@ describe "HighlightSelected", ->
     beforeEach ->
       range = new Range(new Point(8, 0), new Point(8, 8))
       editor.setSelectedBufferRange(range)
+      clock.tick(20000)
 
     it "doesn't add regions", ->
       expect(editorElement.shadowRoot
@@ -95,6 +111,7 @@ describe "HighlightSelected", ->
     beforeEach ->
       range = new Range(new Point(10, 13), new Point(10, 17))
       editor.setSelectedBufferRange(range)
+      clock.tick(20000)
 
     it "does add regions", ->
       expect(editorElement.shadowRoot
@@ -106,6 +123,7 @@ describe "HighlightSelected", ->
       atom.config.set('highlight-selected.onlyHighlightWholeWords', true)
       range = new Range(new Point(10, 13), new Point(10, 17))
       editor.setSelectedBufferRange(range)
+      clock.tick(20000)
 
     it "does add regions", ->
       expect(editorElement.shadowRoot
@@ -117,6 +135,7 @@ describe "HighlightSelected", ->
       atom.config.set('highlight-selected.minimumLength', 7)
       range = new Range(new Point(4, 0), new Point(4, 6))
       editor.setSelectedBufferRange(range)
+      clock.tick(20000)
 
     it "doesn't add regions", ->
       expect(editorElement.shadowRoot
@@ -127,6 +146,7 @@ describe "HighlightSelected", ->
     beforeEach ->
       range = new Range(new Point(4, 0), new Point(4, 6))
       editor.setSelectedBufferRange(range)
+      clock.tick(20000)
 
     it "does add regions", ->
       expect(editorElement.shadowRoot
@@ -138,6 +158,7 @@ describe "HighlightSelected", ->
       atom.config.set('highlight-selected.ignoreCase', true)
       range = new Range(new Point(4, 0), new Point(4, 6))
       editor.setSelectedBufferRange(range)
+      clock.tick(20000)
 
     it "does add regions", ->
       expect(editorElement.shadowRoot
@@ -149,6 +170,7 @@ describe "HighlightSelected", ->
         atom.config.set('highlight-selected.highlightBackground', true)
         range = new Range(new Point(8, 2), new Point(8, 8))
         editor.setSelectedBufferRange(range)
+        clock.tick(20000)
 
       it "adds the background to all highlights", ->
         expect(editorElement.shadowRoot
@@ -160,6 +182,7 @@ describe "HighlightSelected", ->
         atom.config.set('highlight-selected.lightTheme', true)
         range = new Range(new Point(8, 2), new Point(8, 8))
         editor.setSelectedBufferRange(range)
+        clock.tick(20000)
 
       it "adds the background to all highlights", ->
         expect(editorElement.shadowRoot
@@ -175,6 +198,7 @@ describe "HighlightSelected", ->
         spyOn(minimap, 'decorateMarker').andCallThrough()
         range = new Range(new Point(8, 2), new Point(8, 8))
         editor.setSelectedBufferRange(range)
+        clock.tick(20000)
 
       it 'adds a decoration for the selection in the minimap', ->
         expect(minimap.decorateMarker).toHaveBeenCalled()

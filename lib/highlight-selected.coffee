@@ -20,6 +20,10 @@ module.exports =
     minimumLength:
       type: 'integer'
       default: 0
+    timeout:
+      type: 'integer'
+      default: 20
+      description: 'Defers searching for matching strings for X ms'
 
   areaView: null
 

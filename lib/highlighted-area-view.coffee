@@ -6,24 +6,26 @@ class HighlightedAreaView
 
   constructor: ->
     @views = []
-    @createDebounce()
     @listenForTimeoutChange()
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
+      @debouncedHandleSelection()
       @subscribeToActiveTextEditor()
     @subscribeToActiveTextEditor()
 
   destroy: =>
+    clearTimeout(@handleSelectionTimeout)
     @activeItemSubscription.dispose()
     @selectionSubscription?.dispose()
 
-  createDebounce: ->
-    @debouncedHandleSelection = _.debounce =>
+  debouncedHandleSelection: =>
+    clearTimeout(@handleSelectionTimeout)
+    @handleSelectionTimeout = setTimeout =>
       @handleSelection()
     , atom.config.get('highlight-selected.timeout')
 
   listenForTimeoutChange: ->
     atom.config.onDidChange 'highlight-selected.timeout', =>
-      @createDebounce()
+      @debouncedHandleSelection()
 
   subscribeToActiveTextEditor: ->
     @selectionSubscription?.dispose()

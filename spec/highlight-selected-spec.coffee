@@ -24,8 +24,9 @@ describe "HighlightSelected", ->
   describe "when opening a coffee file", ->
     beforeEach ->
       waitsForPromise ->
-        atom.packages.activatePackage('highlight-selected').then ({mainModule}) ->
-          highlightSelected = mainModule
+        atom.packages.activatePackage('highlight-selected')
+          .then ({mainModule}) ->
+            highlightSelected = mainModule
 
       if hasMinimap
         waitsForPromise ->

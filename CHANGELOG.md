@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.10.1 (2015/06/17)
+- Ensure border for highlighted region doesn't overlap other lines ([@richrace])
+
 ### v0.10.0 (2015/06/14)
 - Add special case for PHP variables beginning with `$` ([@richrace])
 - Add debounce/timeout when selections change ([@richrace])

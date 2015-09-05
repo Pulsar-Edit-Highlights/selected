@@ -1,0 +1,14 @@
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Highlight Selected'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'highlight-selected:toggle'
+        }
+      ]
+    ]
+  }
+]

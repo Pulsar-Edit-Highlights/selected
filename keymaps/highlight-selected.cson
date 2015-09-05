@@ -1,0 +1,2 @@
+'atom-text-editor':
+  'ctrl-cmd-h': 'highlight-selected:toggle'

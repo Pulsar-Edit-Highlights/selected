@@ -7,6 +7,7 @@ class HighlightedAreaView
   constructor: ->
     @emitter = new Emitter
     @views = []
+    @enable()
     @listenForTimeoutChange()
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
       @debouncedHandleSelection()
@@ -20,6 +21,14 @@ class HighlightedAreaView
 
   onDidAddMarker: (callback) =>
     @emitter.on 'did-add-marker', callback
+
+  disable: =>
+    @disabled = true
+    @removeMarkers()
+
+  enable: =>
+    @disabled = false
+    @debouncedHandleSelection()
 
   debouncedHandleSelection: =>
     clearTimeout(@handleSelectionTimeout)
@@ -52,6 +61,8 @@ class HighlightedAreaView
 
   handleSelection: =>
     @removeMarkers()
+
+    return if @disabled
 
     editor = @getActiveEditor()
     return unless editor

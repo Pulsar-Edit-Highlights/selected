@@ -1,3 +1,4 @@
+{CompositeDisposable} = require "atom"
 HighlightedAreaView = require './highlighted-area-view'
 
 module.exports =
@@ -29,9 +30,21 @@ module.exports =
 
   activate: (state) ->
     @areaView = new HighlightedAreaView()
+    @subscriptions = new CompositeDisposable
+
+    @subscriptions.add atom.commands.add "atom-workspace",
+        'highlight-selected:toggle': => @toggle()
 
   deactivate: ->
     @areaView?.destroy()
     @areaView = null
+    @subscriptions.dispose()
+    @subscriptions = null
 
   provideHighlightSelectedV1: -> @areaView
+
+  toggle: ->
+    if @areaView.disabled
+      @areaView.enable()
+    else
+      @areaView.disable()

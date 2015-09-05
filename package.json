@@ -30,5 +30,13 @@
     "shasum": "7c9da46b1412aceb069f8ca2ca54d014986ad408"
   },
   "_resolved": "/var/folders/_x/p3bsx_694dx6h4t_jmpybn6c0000gp/T/d-11422-15778-1djbgod/package.tgz",
-  "_from": "/var/folders/_x/p3bsx_694dx6h4t_jmpybn6c0000gp/T/d-11422-15778-1djbgod/package.tgz"
+  "_from": "/var/folders/_x/p3bsx_694dx6h4t_jmpybn6c0000gp/T/d-11422-15778-1djbgod/package.tgz",
+  "providedServices": {
+    "highlightSelected": {
+      "description": "Exposes Highlight Selected Events",
+      "versions": {
+        "1.0.0": "provideHighlightSelectedV1"
+      }
+    }
+  }
 }

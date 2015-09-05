@@ -33,3 +33,5 @@ module.exports =
   deactivate: ->
     @areaView?.destroy()
     @areaView = null
+
+  provideHighlightSelectedV1: -> @areaView

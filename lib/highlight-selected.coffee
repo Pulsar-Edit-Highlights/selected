@@ -43,6 +43,9 @@ module.exports =
 
   provideHighlightSelectedV1: -> @areaView
 
+  consumeStatusBar: (statusBar) ->
+    @areaView.setStatusBar statusBar
+
   toggle: ->
     if @areaView.disabled
       @areaView.enable()

@@ -1,5 +1,6 @@
 {Range, CompositeDisposable, Emitter} = require 'atom'
 _ = require 'underscore-plus'
+StatusBarView = require './status-bar-view'
 
 module.exports =
 class HighlightedAreaView
@@ -18,6 +19,9 @@ class HighlightedAreaView
     clearTimeout(@handleSelectionTimeout)
     @activeItemSubscription.dispose()
     @selectionSubscription?.dispose()
+    @statusBarView?.removeElement()
+    @statusBarTile?.destroy()
+    @statusBarTile = null
 
   onDidAddMarker: (callback) =>
     @emitter.on 'did-add-marker', callback
@@ -29,6 +33,10 @@ class HighlightedAreaView
   enable: =>
     @disabled = false
     @debouncedHandleSelection()
+
+  setStatusBar: (statusBar) =>
+    @statusBar = statusBar
+    @setupStatusBar()
 
   debouncedHandleSelection: =>
     clearTimeout(@handleSelectionTimeout)
@@ -107,6 +115,8 @@ class HighlightedAreaView
           @views.push marker
           @emitter.emit 'did-add-marker', marker
 
+    @statusBarElement?.updateCount(@views.length)
+
   makeClasses: ->
     className = 'highlight-selected'
     if atom.config.get('highlight-selected.lightTheme')
@@ -136,6 +146,7 @@ class HighlightedAreaView
       view.destroy()
       view = null
     @views = []
+    @statusBarElement?.updateCount(@views.length)
 
   isWordSelected: (selection) ->
     if selection.getBufferRange().isSingleLine()
@@ -166,3 +177,9 @@ class HighlightedAreaView
     selectionEnd = selection.getBufferRange().end
     range = Range.fromPointWithDelta(selectionEnd, 0, 1)
     @isNonWordCharacter(@getActiveEditor().getTextInBufferRange(range))
+
+  setupStatusBar: =>
+    return if @statusBarElement?
+    @statusBarElement = new StatusBarView()
+    @statusBarTile = @statusBar.addLeftTile(
+      item: @statusBarElement.getElement(), priority: 100)

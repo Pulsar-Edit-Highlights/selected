@@ -1,4 +1,4 @@
 language: objective-c
 script: rake travis
 env:
-  - APM_TEST_PACKAGES="minimap minimap-highlight-selected"
+  - APM_TEST_PACKAGES="minimap minimap-highlight-selected status-bar"

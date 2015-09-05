@@ -38,7 +38,7 @@ module.exports =
   deactivate: ->
     @areaView?.destroy()
     @areaView = null
-    @subscriptions.dispose()
+    @subscriptions?.dispose()
     @subscriptions = null
 
   provideHighlightSelectedV1: -> @areaView

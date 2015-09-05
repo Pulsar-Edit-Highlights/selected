@@ -109,6 +109,7 @@ describe "HighlightSelected", ->
 
     describe "will highlight non whole words", ->
       beforeEach ->
+        atom.config.set('highlight-selected.onlyHighlightWholeWords', false)
         range = new Range(new Point(10, 13), new Point(10, 17))
         editor.setSelectedBufferRange(range)
         advanceClock(20000)

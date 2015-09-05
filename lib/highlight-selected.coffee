@@ -4,7 +4,7 @@ module.exports =
   config:
     onlyHighlightWholeWords:
       type: 'boolean'
-      default: false
+      default: true
     hideHighlightOnSelectedWord:
       type: 'boolean'
       default: false

@@ -1,5 +1,10 @@
 ## Change Log
 
+### v0.11.0 (2015/11/15)
+- Add status bar for highlights ([@richrace])
+- Add API service end point ([@richrace])
+- Add hotkeys/menus ([@richrace])
+
 ### v0.10.1 (2015/06/17)
 - Ensure border for highlighted region doesn't overlap other lines ([@richrace])
 

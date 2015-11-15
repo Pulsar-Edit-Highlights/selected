@@ -107,8 +107,10 @@ class HighlightedAreaView
         regexSearch =  "\\b" + regexSearch
       regexSearch = regexSearch + "\\b"
 
+    resultCount = 0
     editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
       (result) =>
+        resultCount += 1
         unless @showHighlightOnSelectedWord(result.range, @selections)
           marker = editor.markBufferRange(result.range)
           decoration = editor.decorateMarker(marker,
@@ -116,7 +118,7 @@ class HighlightedAreaView
           @views.push marker
           @emitter.emit 'did-add-marker', marker
 
-    @statusBarElement?.updateCount(@views.length)
+    @statusBarElement?.updateCount(resultCount)
 
   makeClasses: ->
     className = 'highlight-selected'

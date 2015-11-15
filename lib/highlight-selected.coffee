@@ -25,6 +25,10 @@ module.exports =
       type: 'integer'
       default: 20
       description: 'Defers searching for matching strings for X ms'
+    showInStatusBar:
+      type: 'boolean'
+      default: true
+      description: 'Show how many matches there are'
 
   areaView: null
 

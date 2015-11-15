@@ -14,6 +14,7 @@ class HighlightedAreaView
       @debouncedHandleSelection()
       @subscribeToActiveTextEditor()
     @subscribeToActiveTextEditor()
+    @listenForStatusBarChange()
 
   destroy: =>
     clearTimeout(@handleSelectionTimeout)
@@ -180,6 +181,20 @@ class HighlightedAreaView
 
   setupStatusBar: =>
     return if @statusBarElement?
+    return unless atom.config.get('highlight-selected.showInStatusBar')
     @statusBarElement = new StatusBarView()
     @statusBarTile = @statusBar.addLeftTile(
       item: @statusBarElement.getElement(), priority: 100)
+
+  removeStatusBar: =>
+    return unless @statusBarElement?
+    @statusBarTile?.destroy()
+    @statusBarTile = null
+    @statusBarElement = null;
+
+  listenForStatusBarChange: =>
+    atom.config.onDidChange 'highlight-selected.showInStatusBar', (changed) =>
+      if changed.newValue
+        @setupStatusBar()
+      else
+        @removeStatusBar()

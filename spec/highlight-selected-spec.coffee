@@ -86,6 +86,15 @@ describe "HighlightSelected", ->
           '.highlight-selected-status').innerHTML
         expect(content).toBe('Highlighted: 4')
 
+      describe "when the status bar is disabled", ->
+        beforeEach ->
+          atom.config.set('highlight-selected.showInStatusBar', false)
+
+        it "highlight isn't attached", ->
+          expect(workspaceElement.querySelector('status-bar')).toExist()
+          expect(workspaceElement.querySelector('.highlight-selected-status'))
+            .not.toExist()
+
     describe "when hide highlight on selected word is enabled", ->
       beforeEach ->
         atom.config.set('highlight-selected.hideHighlightOnSelectedWord', true)

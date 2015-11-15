@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.11.1 (2015/11/15)
+- Fix highlights count ([@richrace])
+
 ### v0.11.0 (2015/11/15)
 - Add status bar for highlights ([@richrace])
 - Add API service end point ([@richrace])

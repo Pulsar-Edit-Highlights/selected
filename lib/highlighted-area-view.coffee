@@ -1,5 +1,6 @@
 {Range, CompositeDisposable, Emitter} = require 'atom'
 _ = require 'underscore-plus'
+StatusBarView = require './status-bar-view'
 
 module.exports =
 class HighlightedAreaView
@@ -13,11 +14,15 @@ class HighlightedAreaView
       @debouncedHandleSelection()
       @subscribeToActiveTextEditor()
     @subscribeToActiveTextEditor()
+    @listenForStatusBarChange()
 
   destroy: =>
     clearTimeout(@handleSelectionTimeout)
     @activeItemSubscription.dispose()
     @selectionSubscription?.dispose()
+    @statusBarView?.removeElement()
+    @statusBarTile?.destroy()
+    @statusBarTile = null
 
   onDidAddMarker: (callback) =>
     @emitter.on 'did-add-marker', callback
@@ -29,6 +34,10 @@ class HighlightedAreaView
   enable: =>
     @disabled = false
     @debouncedHandleSelection()
+
+  setStatusBar: (statusBar) =>
+    @statusBar = statusBar
+    @setupStatusBar()
 
   debouncedHandleSelection: =>
     clearTimeout(@handleSelectionTimeout)
@@ -107,6 +116,8 @@ class HighlightedAreaView
           @views.push marker
           @emitter.emit 'did-add-marker', marker
 
+    @statusBarElement?.updateCount(@views.length)
+
   makeClasses: ->
     className = 'highlight-selected'
     if atom.config.get('highlight-selected.lightTheme')
@@ -136,6 +147,7 @@ class HighlightedAreaView
       view.destroy()
       view = null
     @views = []
+    @statusBarElement?.updateCount(@views.length)
 
   isWordSelected: (selection) ->
     if selection.getBufferRange().isSingleLine()
@@ -166,3 +178,23 @@ class HighlightedAreaView
     selectionEnd = selection.getBufferRange().end
     range = Range.fromPointWithDelta(selectionEnd, 0, 1)
     @isNonWordCharacter(@getActiveEditor().getTextInBufferRange(range))
+
+  setupStatusBar: =>
+    return if @statusBarElement?
+    return unless atom.config.get('highlight-selected.showInStatusBar')
+    @statusBarElement = new StatusBarView()
+    @statusBarTile = @statusBar.addLeftTile(
+      item: @statusBarElement.getElement(), priority: 100)
+
+  removeStatusBar: =>
+    return unless @statusBarElement?
+    @statusBarTile?.destroy()
+    @statusBarTile = null
+    @statusBarElement = null
+
+  listenForStatusBarChange: =>
+    atom.config.onDidChange 'highlight-selected.showInStatusBar', (changed) =>
+      if changed.newValue
+        @setupStatusBar()
+      else
+        @removeStatusBar()

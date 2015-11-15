@@ -190,7 +190,7 @@ class HighlightedAreaView
     return unless @statusBarElement?
     @statusBarTile?.destroy()
     @statusBarTile = null
-    @statusBarElement = null;
+    @statusBarElement = null
 
   listenForStatusBarChange: =>
     atom.config.onDidChange 'highlight-selected.showInStatusBar', (changed) =>

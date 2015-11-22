@@ -2,7 +2,7 @@ module.exports =
 class StatusBarView
   constructor: ->
     @element = document.createElement 'div'
-    @element.classList.add("highlight-selected-status")
+    @element.classList.add("highlight-selected-status","inline-block")
 
   updateCount: (count) ->
     @element.textContent = "Highlighted: " + count

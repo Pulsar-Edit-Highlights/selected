@@ -27,6 +27,9 @@ class HighlightedAreaView
   onDidAddMarker: (callback) =>
     @emitter.on 'did-add-marker', callback
 
+  onDidRemoveAllMarkers: (callback) =>
+    @emitter.on 'did-remove-all-markers', callback
+
   disable: =>
     @disabled = true
     @removeMarkers()
@@ -150,6 +153,7 @@ class HighlightedAreaView
       view = null
     @views = []
     @statusBarElement?.updateCount(@views.length)
+    @emitter.emit 'did-remove-all-markers'
 
   isWordSelected: (selection) ->
     if selection.getBufferRange().isSingleLine()

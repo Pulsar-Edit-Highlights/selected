@@ -1,5 +1,9 @@
 ## Change Log
 
+### v0.11.2 (2015/02/02)
+- Add Remove All Markers event ([@richrace])
+- Added `inline-block` class for better compatibility with status bar ([@scippio])
+
 ### v0.11.1 (2015/11/15)
 - Fix highlights count ([@richrace])
 
@@ -182,3 +186,4 @@
 [@hmatsuda]: https://github.com/hmatsuda
 [@izuzak]: https://github.com/izuzak
 [@JCCR]: https://github.com/JCCR
+[@scippio]: https://github.com/scippio

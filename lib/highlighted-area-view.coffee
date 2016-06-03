@@ -8,6 +8,7 @@ class HighlightedAreaView
   constructor: ->
     @emitter = new Emitter
     @views = []
+    @resultCount = 0
     @enable()
     @listenForTimeoutChange()
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
@@ -82,7 +83,6 @@ class HighlightedAreaView
     return if @disabled
 
     editor = @getActiveEditor()
-    editors = @getActiveEditors()
 
     return unless editor
     return if editor.getLastSelection().isEmpty()
@@ -117,19 +117,25 @@ class HighlightedAreaView
         regexSearch =  "\\b" + regexSearch
       regexSearch = regexSearch + "\\b"
 
-    resultCount = 0
-    editors.forEach (editor_instance) ->
-      editor_instance.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
-        (result) =>
-          resultCount += 1
-          unless @showHighlightOnSelectedWord(result.range, @selections)
-            marker = editor_instance.markBufferRange(result.range)
-            decoration = editor_instance.decorateMarker(marker,
-              {type: 'highlight', class: @makeClasses()})
-            @views.push marker
-            @emitter.emit 'did-add-marker', marker
+    @resultCount = 0
+    if atom.config.get('highlight-selected.highlightInPanes')
+      @getActiveEditors().forEach (editor) =>
+        @highlightSelectionInEditor(editor, regexSearch, regexFlags, range)
+    else
+      @highlightSelectionInEditor(editor, regexSearch, regexFlags, range)
 
-    @statusBarElement?.updateCount(resultCount)
+    @statusBarElement?.updateCount(@resultCount)
+
+  highlightSelectionInEditor: (editor, regexSearch, regexFlags, range) ->
+    editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
+      (result) =>
+        @resultCount += 1
+        unless @showHighlightOnSelectedWord(result.range, @selections)
+          marker = editor.markBufferRange(result.range)
+          decoration = editor.decorateMarker(marker,
+            {type: 'highlight', class: @makeClasses()})
+          @views.push marker
+          @emitter.emit 'did-add-marker', marker
 
   makeClasses: ->
     className = 'highlight-selected'

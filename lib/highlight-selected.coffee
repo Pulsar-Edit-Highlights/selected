@@ -29,6 +29,10 @@ module.exports =
       type: 'boolean'
       default: true
       description: 'Show how many matches there are'
+    highlightInPanes:
+      type: 'boolean'
+      default: true
+      description: 'Highlight selection in another panes'
 
   areaView: null
 

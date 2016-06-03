@@ -71,12 +71,19 @@ class HighlightedAreaView
   getActiveEditor: ->
     atom.workspace.getActiveTextEditor()
 
+  getActiveEditors: ->
+    atom.workspace.getPanes().map (pane) ->
+      activeItem = pane.activeItem
+      activeItem if activeItem and activeItem.constructor.name == 'TextEditor'
+
   handleSelection: =>
     @removeMarkers()
 
     return if @disabled
 
     editor = @getActiveEditor()
+    editors = @getActiveEditors()
+
     return unless editor
     return if editor.getLastSelection().isEmpty()
     return unless @isWordSelected(editor.getLastSelection())
@@ -111,15 +118,16 @@ class HighlightedAreaView
       regexSearch = regexSearch + "\\b"
 
     resultCount = 0
-    editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
-      (result) =>
-        resultCount += 1
-        unless @showHighlightOnSelectedWord(result.range, @selections)
-          marker = editor.markBufferRange(result.range)
-          decoration = editor.decorateMarker(marker,
-            {type: 'highlight', class: @makeClasses()})
-          @views.push marker
-          @emitter.emit 'did-add-marker', marker
+    editors.forEach (editor_instance) ->
+      editor_instance.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
+        (result) =>
+          resultCount += 1
+          unless @showHighlightOnSelectedWord(result.range, @selections)
+            marker = editor_instance.markBufferRange(result.range)
+            decoration = editor_instance.decorateMarker(marker,
+              {type: 'highlight', class: @makeClasses()})
+            @views.push marker
+            @emitter.emit 'did-add-marker', marker
 
     @statusBarElement?.updateCount(resultCount)
 

@@ -8,6 +8,7 @@ class HighlightedAreaView
   constructor: ->
     @emitter = new Emitter
     @views = []
+    @resultCount = 0
     @enable()
     @listenForTimeoutChange()
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
@@ -71,12 +72,18 @@ class HighlightedAreaView
   getActiveEditor: ->
     atom.workspace.getActiveTextEditor()
 
+  getActiveEditors: ->
+    atom.workspace.getPanes().map (pane) ->
+      activeItem = pane.activeItem
+      activeItem if activeItem and activeItem.constructor.name == 'TextEditor'
+
   handleSelection: =>
     @removeMarkers()
 
     return if @disabled
 
     editor = @getActiveEditor()
+
     return unless editor
     return if editor.getLastSelection().isEmpty()
     return unless @isWordSelected(editor.getLastSelection())
@@ -110,18 +117,25 @@ class HighlightedAreaView
         regexSearch =  "\\b" + regexSearch
       regexSearch = regexSearch + "\\b"
 
-    resultCount = 0
+    @resultCount = 0
+    if atom.config.get('highlight-selected.highlightInPanes')
+      @getActiveEditors().forEach (editor) =>
+        @highlightSelectionInEditor(editor, regexSearch, regexFlags, range)
+    else
+      @highlightSelectionInEditor(editor, regexSearch, regexFlags, range)
+
+    @statusBarElement?.updateCount(@resultCount)
+
+  highlightSelectionInEditor: (editor, regexSearch, regexFlags, range) ->
     editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
       (result) =>
-        resultCount += 1
+        @resultCount += 1
         unless @showHighlightOnSelectedWord(result.range, @selections)
           marker = editor.markBufferRange(result.range)
           decoration = editor.decorateMarker(marker,
             {type: 'highlight', class: @makeClasses()})
           @views.push marker
           @emitter.emit 'did-add-marker', marker
-
-    @statusBarElement?.updateCount(resultCount)
 
   makeClasses: ->
     className = 'highlight-selected'

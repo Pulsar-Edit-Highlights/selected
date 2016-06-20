@@ -7,7 +7,7 @@ class HighlightedAreaView
 
   constructor: ->
     @emitter = new Emitter
-    @views = []
+    @markerLayer
     @resultCount = 0
     @enable()
     @listenForTimeoutChange()
@@ -29,7 +29,7 @@ class HighlightedAreaView
     @emitter.on 'did-add-marker', callback
 
   onDidRemoveAllMarkers: (callback) =>
-    @emitter.on 'did-remove-all-markers', callback
+    @emitter.on 'did-remove-marker-layer', callback
 
   disable: =>
     @disabled = true
@@ -127,15 +127,17 @@ class HighlightedAreaView
     @statusBarElement?.updateCount(@resultCount)
 
   highlightSelectionInEditor: (editor, regexSearch, regexFlags, range) ->
+    @markerLayer = editor.addMarkerLayer()
     editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
       (result) =>
         @resultCount += 1
         unless @showHighlightOnSelectedWord(result.range, @selections)
-          marker = editor.markBufferRange(result.range)
-          decoration = editor.decorateMarker(marker,
-            {type: 'highlight', class: @makeClasses()})
-          @views.push marker
+          marker = @markerLayer.markBufferRange(result.range)
           @emitter.emit 'did-add-marker', marker
+    editor.decorateMarkerLayer(@markerLayer, {
+      type: 'highlight',
+      class: @makeClasses()
+    })
 
   makeClasses: ->
     className = 'highlight-selected'
@@ -160,14 +162,10 @@ class HighlightedAreaView
     outcome
 
   removeMarkers: =>
-    return unless @views?
-    return if @views.length is 0
-    for view in @views
-      view.destroy()
-      view = null
-    @views = []
-    @statusBarElement?.updateCount(@views.length)
-    @emitter.emit 'did-remove-all-markers'
+    return unless @markerLayer
+    @markerLayer.destroy()
+    @statusBarElement?.updateCount(@markerLayer.getMarkerCount())
+    @emitter.emit 'did-remove-marker-layer'
 
   isWordSelected: (selection) ->
     if selection.getBufferRange().isSingleLine()

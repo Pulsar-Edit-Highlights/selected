@@ -7,7 +7,7 @@ class HighlightedAreaView
 
   constructor: ->
     @emitter = new Emitter
-    @markerLayer
+    @markerLayers = []
     @resultCount = 0
     @enable()
     @listenForTimeoutChange()
@@ -127,14 +127,16 @@ class HighlightedAreaView
     @statusBarElement?.updateCount(@resultCount)
 
   highlightSelectionInEditor: (editor, regexSearch, regexFlags, range) ->
-    @markerLayer = editor.addMarkerLayer()
+    markerLayer = editor?.addMarkerLayer()
+    return unless markerLayer?
+    @markerLayers.push(markerLayer)
     editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
       (result) =>
         @resultCount += 1
         unless @showHighlightOnSelectedWord(result.range, @selections)
-          marker = @markerLayer.markBufferRange(result.range)
+          marker = markerLayer.markBufferRange(result.range)
           @emitter.emit 'did-add-marker', marker
-    editor.decorateMarkerLayer(@markerLayer, {
+    editor.decorateMarkerLayer(markerLayer, {
       type: 'highlight',
       class: @makeClasses()
     })
@@ -162,10 +164,10 @@ class HighlightedAreaView
     outcome
 
   removeMarkers: =>
-    return unless @markerLayer
-    @markerLayer.destroy()
-    @statusBarElement?.updateCount(@markerLayer.getMarkerCount())
-    @emitter.emit 'did-remove-marker-layer'
+    @markerLayers.forEach (markerLayer) =>
+      markerLayer.destroy()
+      @statusBarElement?.updateCount(markerLayer.getMarkerCount())
+      @emitter.emit 'did-remove-marker-layer'
 
   isWordSelected: (selection) ->
     if selection.getBufferRange().isSingleLine()

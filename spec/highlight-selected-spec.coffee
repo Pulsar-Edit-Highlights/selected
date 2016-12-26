@@ -216,19 +216,21 @@ describe "HighlightSelected", ->
             .querySelectorAll('.highlight-selected.light-theme .region')
             ).toHaveLength(4)
 
-    if hasMinimap
-      describe "minimap highlight selected still works", ->
-        beforeEach ->
-          editor = atom.workspace.getActiveTextEditor()
-          minimap = minimapModule.minimapForEditor(editor)
-
-          spyOn(minimap, 'decorateMarker').andCallThrough()
-          range = new Range(new Point(8, 2), new Point(8, 8))
-          editor.setSelectedBufferRange(range)
-          advanceClock(20000)
-
-        it 'adds a decoration for the selection in the minimap', ->
-          expect(minimap.decorateMarker).toHaveBeenCalled()
+    # Disabled until minimap-highlight-selected branch
+    # feature-highlight-selected-api is merged in
+    # if hasMinimap
+    #   describe "minimap highlight selected still works", ->
+    #     beforeEach ->
+    #       editor = atom.workspace.getActiveTextEditor()
+    #       minimap = minimapModule.minimapForEditor(editor)
+    #
+    #       spyOn(minimap, 'decorateMarker').andCallThrough()
+    #       range = new Range(new Point(8, 2), new Point(8, 8))
+    #       editor.setSelectedBufferRange(range)
+    #       advanceClock(20000)
+    #
+    #     it 'adds a decoration for the selection in the minimap', ->
+    #       expect(minimap.decorateMarker).toHaveBeenCalled()
 
   describe "when opening a php file", ->
     beforeEach ->

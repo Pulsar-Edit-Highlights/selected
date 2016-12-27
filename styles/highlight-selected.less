@@ -1,12 +1,13 @@
 @import "ui-variables";
 
+atom-text-editor::shadow,
 atom-text-editor .highlights {
   .highlight.highlight-selected .region {
     position: absolute;
     pointer-events: none;
     z-index: -1;
   }
-  
+
   .highlight-selected .region {
     border-radius: 3px;
     box-sizing: border-box;
@@ -14,7 +15,7 @@ atom-text-editor .highlights {
     border-width: 1px;
     border-style: solid;
   }
-  
+
   // Box
   .highlight-selected .region {
     border-color: #ddd;

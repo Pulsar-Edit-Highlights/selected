@@ -35,14 +35,16 @@ describe "HighlightSelected", ->
           .then ({mainModule}) ->
             highlightSelected = mainModule
 
-      if hasMinimap
-        waitsForPromise ->
-          atom.packages.activatePackage('minimap').then ({mainModule}) ->
-            minimapModule = mainModule
-        waitsForPromise ->
-          atom.packages.activatePackage('minimap-highlight-selected')
-            .then ({mainModule}) ->
-              minimapHS = mainModule
+      # Disabled until minimap-highlight-selected branch
+      # feature-highlight-selected-api is merged in
+      # if hasMinimap
+      #   waitsForPromise ->
+      #     atom.packages.activatePackage('minimap').then ({mainModule}) ->
+      #       minimapModule = mainModule
+      #   waitsForPromise ->
+      #     atom.packages.activatePackage('minimap-highlight-selected')
+      #       .then ({mainModule}) ->
+      #         minimapHS = mainModule
 
       waitsForPromise ->
         atom.workspace.open('sample.coffee').then(

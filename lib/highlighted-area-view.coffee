@@ -1,4 +1,4 @@
-{Range, CompositeDisposable, Emitter} = require 'atom'
+{Range, CompositeDisposable, Emitter, MarkerLayer} = require 'atom'
 _ = require 'underscore-plus'
 StatusBarView = require './status-bar-view'
 
@@ -27,6 +27,9 @@ class HighlightedAreaView
 
   onDidAddMarker: (callback) =>
     @emitter.on 'did-add-marker', callback
+
+  onDidAddSelectedMarker: (callback) =>
+    @emitter.on 'did-add-selected-marker', callback
 
   onDidRemoveAllMarkers: (callback) =>
     @emitter.on 'did-remove-marker-layer', callback
@@ -129,11 +132,16 @@ class HighlightedAreaView
   highlightSelectionInEditor: (editor, regexSearch, regexFlags, range) ->
     markerLayer = editor?.addMarkerLayer()
     return unless markerLayer?
+    markerLayerForHiddenMarkers = editor.addMarkerLayer()
     @markerLayers.push(markerLayer)
+    @markerLayers.push(markerLayerForHiddenMarkers)
     editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
       (result) =>
         @resultCount += 1
-        unless @showHighlightOnSelectedWord(result.range, @selections)
+        if @showHighlightOnSelectedWord(result.range, @selections)
+          marker = markerLayerForHiddenMarkers.markBufferRange(result.range)
+          @emitter.emit 'did-add-selected-marker', marker
+        else
           marker = markerLayer.markBufferRange(result.range)
           @emitter.emit 'did-add-marker', marker
     editor.decorateMarkerLayer(markerLayer, {

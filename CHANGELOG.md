@@ -1,5 +1,11 @@
 ## Change Log
 
+### v0.12.0 (2017/01/11)
+- Retire :host and ::shadow pseudo-selectors ([@pyrotechnick])
+- Highlight selection across active panes ([@mswiszcz])
+- Fix moving panes ([@richrace])
+- Switches to Marker Layers API ([@dbachko])
+
 ### v0.11.2 (2015/02/02)
 - Add Remove All Markers event ([@richrace])
 - Added `inline-block` class for better compatibility with status bar ([@scippio])
@@ -187,3 +193,6 @@
 [@izuzak]: https://github.com/izuzak
 [@JCCR]: https://github.com/JCCR
 [@scippio]: https://github.com/scippio
+[@mswiszcz]: https://github.com/mswiszcz
+[@dbachko]: https://github.com/dbachko
+[@pyrotechnick]: https://github.com/pyrotechnick

@@ -172,10 +172,10 @@ class HighlightedAreaView
     outcome
 
   removeMarkers: =>
-    @markerLayers.forEach (markerLayer) =>
+    @markerLayers.forEach (markerLayer) ->
       markerLayer.destroy()
-      @statusBarElement?.updateCount(markerLayer.getMarkerCount())
-      @emitter.emit 'did-remove-marker-layer'
+    @statusBarElement?.updateCount(0)
+    @emitter.emit 'did-remove-marker-layer'
 
   isWordSelected: (selection) ->
     if selection.getBufferRange().isSingleLine()

@@ -174,6 +174,7 @@ class HighlightedAreaView
   removeMarkers: =>
     @markerLayers.forEach (markerLayer) ->
       markerLayer.destroy()
+    @markerLayers = []
     @statusBarElement?.updateCount(0)
     @emitter.emit 'did-remove-marker-layer'
 

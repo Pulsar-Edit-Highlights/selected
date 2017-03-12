@@ -42,6 +42,7 @@ module.exports =
 
     @subscriptions.add atom.commands.add "atom-workspace",
         'highlight-selected:toggle': => @toggle()
+        'highlight-selected:select-all': => @selectAll()
 
   deactivate: ->
     @areaView?.destroy()
@@ -61,3 +62,6 @@ module.exports =
       @areaView.enable()
     else
       @areaView.disable()
+
+  selectAll: ->
+    @areaView.selectAll()

@@ -246,3 +246,13 @@ class HighlightedAreaView
         @setupStatusBar()
       else
         @removeStatusBar()
+
+  selectAll: =>
+    editor = @getActiveEditor()
+    markerLayers = @markerLayers
+    return unless markerLayers?.length > 0
+    ranges = []
+    for markerLayer in markerLayers
+      for marker in markerLayer.getMarkers()
+        ranges.push marker.getBufferRange()
+    editor.setSelectedBufferRanges(ranges, flash: true)

@@ -20,7 +20,7 @@ module.exports =
       default: false
     minimumLength:
       type: 'integer'
-      default: 0
+      default: 2
     timeout:
       type: 'integer'
       default: 20

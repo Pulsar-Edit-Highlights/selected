@@ -89,7 +89,9 @@ class HighlightedAreaView
 
     return unless editor
     return if editor.getLastSelection().isEmpty()
-    return unless @isWordSelected(editor.getLastSelection())
+
+    if atom.config.get('highlight-selected.onlyHighlightWholeWords')
+      return unless @isWordSelected(editor.getLastSelection())
 
     @selections = editor.getSelections()
 

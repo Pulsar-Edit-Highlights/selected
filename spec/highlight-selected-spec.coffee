@@ -35,16 +35,14 @@ describe "HighlightSelected", ->
           .then ({mainModule}) ->
             highlightSelected = mainModule
 
-      # Disabled until minimap-highlight-selected branch
-      # feature-highlight-selected-api is merged in
-      # if hasMinimap
-      #   waitsForPromise ->
-      #     atom.packages.activatePackage('minimap').then ({mainModule}) ->
-      #       minimapModule = mainModule
-      #   waitsForPromise ->
-      #     atom.packages.activatePackage('minimap-highlight-selected')
-      #       .then ({mainModule}) ->
-      #         minimapHS = mainModule
+      if hasMinimap
+        waitsForPromise ->
+          atom.packages.activatePackage('minimap').then ({mainModule}) ->
+            minimapModule = mainModule
+        waitsForPromise ->
+          atom.packages.activatePackage('minimap-highlight-selected')
+            .then ({mainModule}) ->
+              minimapHS = mainModule
 
       waitsForPromise ->
         atom.workspace.open('sample.coffee').then(
@@ -207,21 +205,19 @@ describe "HighlightSelected", ->
           expect(editorElement.querySelectorAll('.highlight-selected.light-theme
             .region')).toHaveLength(4)
 
-    # Disabled until minimap-highlight-selected branch
-    # feature-highlight-selected-api is merged in
-    # if hasMinimap
-    #   describe "minimap highlight selected still works", ->
-    #     beforeEach ->
-    #       editor = atom.workspace.getActiveTextEditor()
-    #       minimap = minimapModule.minimapForEditor(editor)
-    #
-    #       spyOn(minimap, 'decorateMarker').andCallThrough()
-    #       range = new Range(new Point(8, 2), new Point(8, 8))
-    #       editor.setSelectedBufferRange(range)
-    #       advanceClock(20000)
-    #
-    #     it 'adds a decoration for the selection in the minimap', ->
-    #       expect(minimap.decorateMarker).toHaveBeenCalled()
+    if hasMinimap
+      describe "minimap highlight selected still works", ->
+        beforeEach ->
+          editor = atom.workspace.getActiveTextEditor()
+          minimap = minimapModule.minimapForEditor(editor)
+
+          spyOn(minimap, 'decorateMarker').andCallThrough()
+          range = new Range(new Point(8, 2), new Point(8, 8))
+          editor.setSelectedBufferRange(range)
+          advanceClock(20000)
+
+        it 'adds a decoration for the selection in the minimap', ->
+          expect(minimap.decorateMarker).toHaveBeenCalled()
 
   describe "when opening a php file", ->
     beforeEach ->

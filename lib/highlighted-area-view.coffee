@@ -109,8 +109,6 @@ class HighlightedAreaView
     if atom.config.get('highlight-selected.ignoreCase')
       regexFlags = 'gi'
 
-    range =  [[0, 0], editor.getEofBufferPosition()]
-
     @ranges = []
     regexSearch = result[0]
 
@@ -137,6 +135,9 @@ class HighlightedAreaView
     markerLayerForHiddenMarkers = editor.addMarkerLayer()
     @markerLayers.push(markerLayer)
     @markerLayers.push(markerLayerForHiddenMarkers)
+
+    range =  [[0, 0], editor.getEofBufferPosition()]
+
     editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
       (result) =>
         @resultCount += 1

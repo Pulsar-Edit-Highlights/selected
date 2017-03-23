@@ -1,7 +1,6 @@
 # Highlight Selected
 
 [![Join the chat at https://gitter.im/richrace/highlight-selected](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/richrace/highlight-selected?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![Build Status](https://travis-ci.org/richrace/highlight-selected.svg?branch=master)](https://travis-ci.org/richrace/highlight-selected)
 
 Double click on a word to highlight it throughout the open file.

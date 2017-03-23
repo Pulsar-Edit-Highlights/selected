@@ -1,5 +1,10 @@
 ## Change Log
 
+### v0.13.0 (2017/03/23)
+- Fix not being able to select non whole words ([@richrace])
+- Fix words that should be highlighted in other panes highlighted ([@richrace])
+- Upgraded the API so the `minimap-highlight-selected` package displays the correct markers in each pane ([@richrace])
+
 ### v0.12.0 (2017/01/11)
 - Retire :host and ::shadow pseudo-selectors ([@pyrotechnick])
 - Highlight selection across active panes ([@mswiszcz])

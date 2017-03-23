@@ -104,7 +104,7 @@ describe "HighlightSelected", ->
           editor.setSelectedBufferRange(range)
           advanceClock(20000)
 
-        it "adds the decoration only no selected words", ->
+        it "adds the decoration only on selected words", ->
           expect(editorElement.querySelectorAll(
             '.highlight-selected .region')).toHaveLength(3)
 
@@ -115,7 +115,7 @@ describe "HighlightSelected", ->
           editor.setSelectedBufferRanges([range1, range2])
           advanceClock(20000)
 
-        it "adds the decoration only no selected words", ->
+        it "adds the decoration only on selected words", ->
           expect(editorElement.querySelectorAll(
             '.highlight-selected .region')).toHaveLength(2)
 

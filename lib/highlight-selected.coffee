@@ -49,7 +49,9 @@ module.exports =
     @subscriptions?.dispose()
     @subscriptions = null
 
-  provideHighlightSelectedV1: -> @areaView
+  provideHighlightSelectedV1Deprecated: -> @areaView
+
+  provideHighlightSelectedV2: -> @areaView
 
   consumeStatusBar: (statusBar) ->
     @areaView.setStatusBar statusBar

@@ -1,6 +1,7 @@
 {Range, CompositeDisposable, Emitter, MarkerLayer} = require 'atom'
 _ = require 'underscore-plus'
 StatusBarView = require './status-bar-view'
+Grim = require 'grim'
 
 module.exports =
 class HighlightedAreaView
@@ -26,10 +27,18 @@ class HighlightedAreaView
     @statusBarTile = null
 
   onDidAddMarker: (callback) =>
+    Grim.deprecate("Please do not use. This method will be removed.")
     @emitter.on 'did-add-marker', callback
 
   onDidAddSelectedMarker: (callback) =>
+    Grim.deprecate("Please do not use. This method will be removed.")
     @emitter.on 'did-add-selected-marker', callback
+
+  onDidAddMarkerForEditor: (callback) =>
+    @emitter.on 'did-add-marker-for-editor', callback
+
+  onDidAddSelectedMarkerForEditor: (callback) =>
+    @emitter.on 'did-add-selected-marker-for-editor', callback
 
   onDidRemoveAllMarkers: (callback) =>
     @emitter.on 'did-remove-marker-layer', callback
@@ -123,13 +132,13 @@ class HighlightedAreaView
     @resultCount = 0
     if atom.config.get('highlight-selected.highlightInPanes')
       @getActiveEditors().forEach (editor) =>
-        @highlightSelectionInEditor(editor, regexSearch, regexFlags, range)
+        @highlightSelectionInEditor(editor, regexSearch, regexFlags)
     else
-      @highlightSelectionInEditor(editor, regexSearch, regexFlags, range)
+      @highlightSelectionInEditor(editor, regexSearch, regexFlags)
 
     @statusBarElement?.updateCount(@resultCount)
 
-  highlightSelectionInEditor: (editor, regexSearch, regexFlags, range) ->
+  highlightSelectionInEditor: (editor, regexSearch, regexFlags) ->
     markerLayer = editor?.addMarkerLayer()
     return unless markerLayer?
     markerLayerForHiddenMarkers = editor.addMarkerLayer()
@@ -144,9 +153,15 @@ class HighlightedAreaView
         if @showHighlightOnSelectedWord(result.range, @selections)
           marker = markerLayerForHiddenMarkers.markBufferRange(result.range)
           @emitter.emit 'did-add-selected-marker', marker
+          @emitter.emit 'did-add-selected-marker-for-editor',
+            marker: marker
+            editor: editor
         else
           marker = markerLayer.markBufferRange(result.range)
           @emitter.emit 'did-add-marker', marker
+          @emitter.emit 'did-add-marker-for-editor',
+            marker: marker
+            editor: editor
     editor.decorateMarkerLayer(markerLayer, {
       type: 'highlight',
       class: @makeClasses()

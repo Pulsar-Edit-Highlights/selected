@@ -12,7 +12,8 @@
     "atom": ">=1.13.0 <2.0.0"
   },
   "dependencies": {
-    "underscore-plus": "1.x"
+    "underscore-plus": "1.x",
+    "grim": "^2.0.1"
   },
   "devDependencies": {
     "coffee-script": "1.9.0",
@@ -35,7 +36,8 @@
     "highlightSelected": {
       "description": "Exposes Highlight Selected Events",
       "versions": {
-        "1.0.0": "provideHighlightSelectedV1"
+        "1.0.0": "provideHighlightSelectedV1Deprecated",
+        "2.0.0": "provideHighlightSelectedV2"
       }
     }
   },

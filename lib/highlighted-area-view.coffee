@@ -1,6 +1,5 @@
 {Range, CompositeDisposable, Emitter, MarkerLayer} = require 'atom'
 StatusBarView = require './status-bar-view'
-Grim = require 'grim'
 escapeRegExp = require './escape-reg-exp'
 
 module.exports =
@@ -27,10 +26,12 @@ class HighlightedAreaView
     @statusBarTile = null
 
   onDidAddMarker: (callback) =>
+    Grim = require 'grim'
     Grim.deprecate("Please do not use. This method will be removed.")
     @emitter.on 'did-add-marker', callback
 
   onDidAddSelectedMarker: (callback) =>
+    Grim = require 'grim'
     Grim.deprecate("Please do not use. This method will be removed.")
     @emitter.on 'did-add-selected-marker', callback
 

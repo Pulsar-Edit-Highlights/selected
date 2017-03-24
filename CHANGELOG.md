@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.13.1 (2017/03/24)
+- Optimize load time ([@zertosh])
+
 ### v0.13.0 (2017/03/23)
 - Fix not being able to select non whole words ([@richrace])
 - Fix words that should be highlighted in other panes highlighted ([@richrace])
@@ -201,3 +204,4 @@
 [@mswiszcz]: https://github.com/mswiszcz
 [@dbachko]: https://github.com/dbachko
 [@pyrotechnick]: https://github.com/pyrotechnick
+[@zertosh]: https://github.com/zertosh

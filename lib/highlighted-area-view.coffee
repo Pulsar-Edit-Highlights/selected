@@ -1,7 +1,6 @@
 {Range, CompositeDisposable, Emitter, MarkerLayer} = require 'atom'
-_ = require 'underscore-plus'
 StatusBarView = require './status-bar-view'
-Grim = require 'grim'
+escapeRegExp = require './escape-reg-exp'
 
 module.exports =
 class HighlightedAreaView
@@ -27,10 +26,12 @@ class HighlightedAreaView
     @statusBarTile = null
 
   onDidAddMarker: (callback) =>
+    Grim = require 'grim'
     Grim.deprecate("Please do not use. This method will be removed.")
     @emitter.on 'did-add-marker', callback
 
   onDidAddSelectedMarker: (callback) =>
+    Grim = require 'grim'
     Grim.deprecate("Please do not use. This method will be removed.")
     @emitter.on 'did-add-selected-marker', callback
 
@@ -104,7 +105,7 @@ class HighlightedAreaView
 
     @selections = editor.getSelections()
 
-    text = _.escapeRegExp(@selections[0].getText())
+    text = escapeRegExp(@selections[0].getText())
     regex = new RegExp("\\S*\\w*\\b", 'gi')
     result = regex.exec(text)
 
@@ -202,10 +203,10 @@ class HighlightedAreaView
       lineRange = @getActiveEditor().bufferRangeForBufferRow(
         selectionRange.start.row)
       nonWordCharacterToTheLeft =
-        _.isEqual(selectionRange.start, lineRange.start) or
+        selectionRange.start.isEqual(lineRange.start) or
         @isNonWordCharacterToTheLeft(selection)
       nonWordCharacterToTheRight =
-        _.isEqual(selectionRange.end, lineRange.end) or
+        selectionRange.end.isEqual(lineRange.end) or
         @isNonWordCharacterToTheRight(selection)
 
       nonWordCharacterToTheLeft and nonWordCharacterToTheRight
@@ -214,7 +215,7 @@ class HighlightedAreaView
 
   isNonWordCharacter: (character) ->
     nonWordCharacters = atom.config.get('editor.nonWordCharacters')
-    new RegExp("[ \t#{_.escapeRegExp(nonWordCharacters)}]").test(character)
+    new RegExp("[ \t#{escapeRegExp(nonWordCharacters)}]").test(character)
 
   isNonWordCharacterToTheLeft: (selection) ->
     selectionStart = selection.getBufferRange().start

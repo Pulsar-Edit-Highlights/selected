@@ -107,6 +107,8 @@ class HighlightedAreaView
 
     text = @selections[0].getText()
     return if text.length < atom.config.get('highlight-selected.minimumLength')
+    regex = new RegExp("\\n")
+    return if regex.exec(text)
     regexSearch = escapeRegExp(text)
 
     regexFlags = 'g'

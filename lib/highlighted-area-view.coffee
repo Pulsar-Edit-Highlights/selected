@@ -105,22 +105,15 @@ class HighlightedAreaView
 
     @selections = editor.getSelections()
 
-    text = escapeRegExp(@selections[0].getText())
-    regex = new RegExp("\\S*\\w*\\b", 'gi')
-    result = regex.exec(text)
-
-    return unless result?
-    return if result[0].length < atom.config.get(
-      'highlight-selected.minimumLength') or
-              result.index isnt 0 or
-              result[0] isnt result.input
+    text = @selections[0].getText()
+    return if text.length < atom.config.get('highlight-selected.minimumLength')
+    regexSearch = escapeRegExp(text)
 
     regexFlags = 'g'
     if atom.config.get('highlight-selected.ignoreCase')
       regexFlags = 'gi'
 
     @ranges = []
-    regexSearch = result[0]
 
     if atom.config.get('highlight-selected.onlyHighlightWholeWords')
       if regexSearch.indexOf("\$") isnt -1 \

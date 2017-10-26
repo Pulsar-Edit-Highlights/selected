@@ -128,10 +128,10 @@ class HighlightedAreaView
         regexSearch = regexSearch.replace("\$", "\$\\b")
       else if regexSearch.indexOf("\%") isnt -1 \
       and editor.getGrammar()?.name in ['Perl']
-          regexSearch = regexSearch.replace("\%", "\%\\b")
+        regexSearch = regexSearch.replace("\%", "\%\\b")
       else if regexSearch.indexOf("\@") isnt -1 \
       and editor.getGrammar()?.name in ['Perl']
-          regexSearch = regexSearch.replace("\@", "\@\\b")
+        regexSearch = regexSearch.replace("\@", "\@\\b")
       else
         regexSearch =  "\\b" + regexSearch
       regexSearch = regexSearch + "\\b"

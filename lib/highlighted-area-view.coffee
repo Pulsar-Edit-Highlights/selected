@@ -124,8 +124,14 @@ class HighlightedAreaView
 
     if atom.config.get('highlight-selected.onlyHighlightWholeWords')
       if regexSearch.indexOf("\$") isnt -1 \
-      and editor.getGrammar()?.name in ['PHP', 'HACK']
+      and editor.getGrammar()?.name in ['PHP', 'HACK', 'Perl']
         regexSearch = regexSearch.replace("\$", "\$\\b")
+      else if regexSearch.indexOf("\%") isnt -1 \
+      and editor.getGrammar()?.name in ['Perl']
+          regexSearch = regexSearch.replace("\%", "\%\\b")
+      else if regexSearch.indexOf("\@") isnt -1 \
+      and editor.getGrammar()?.name in ['Perl']
+          regexSearch = regexSearch.replace("\@", "\@\\b")
       else
         regexSearch =  "\\b" + regexSearch
       regexSearch = regexSearch + "\\b"

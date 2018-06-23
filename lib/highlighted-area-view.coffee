@@ -7,8 +7,24 @@ class HighlightedAreaView
 
   constructor: ->
     @emitter = new Emitter
+    @editorToMarkerLayerMap = {}
     @markerLayers = []
     @resultCount = 0
+
+    @editorSubscriptions = new CompositeDisposable()
+    @editorSubscriptions.add(atom.workspace.observeTextEditors((editor) =>
+      @setupMarkerLayers(editor)
+      @setScrollMarkerView(editor)
+    ))
+
+    @editorSubscriptions.add(atom.workspace.onWillDestroyPaneItem((item) =>
+      return unless item.item.constructor.name == 'TextEditor'
+      editor = item.item
+      @removeMarkers(editor.id)
+      delete @editorToMarkerLayerMap[editor.id]
+      @destroyScrollMarkers(editor)
+    ))
+
     @enable()
     @listenForTimeoutChange()
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
@@ -17,10 +33,20 @@ class HighlightedAreaView
     @subscribeToActiveTextEditor()
     @listenForStatusBarChange()
 
+    @enableScrollViewObserveSubscription =
+      atom.config.observe 'highlight-selected.showResultsOnScrollBar', (enabled) =>
+        if enabled
+          @ensureScrollViewInstalled()
+          atom.workspace.getTextEditors().forEach(@setScrollMarkerView)
+        else
+          atom.workspace.getTextEditors().forEach(@destroyScrollMarkers)
+
   destroy: =>
     clearTimeout(@handleSelectionTimeout)
     @activeItemSubscription.dispose()
     @selectionSubscription?.dispose()
+    @enableScrollViewObserveSubscription?.dispose()
+    @editorSubscriptions?.dispose()
     @statusBarView?.removeElement()
     @statusBarTile?.destroy()
     @statusBarTile = null
@@ -46,7 +72,7 @@ class HighlightedAreaView
 
   disable: =>
     @disabled = true
-    @removeMarkers()
+    @removeAllMarkers()
 
   enable: =>
     @disabled = false
@@ -91,13 +117,12 @@ class HighlightedAreaView
       activeItem if activeItem and activeItem.constructor.name == 'TextEditor'
 
   handleSelection: =>
-    @removeMarkers()
+    editor = @getActiveEditor()
+    return unless editor
+
+    @removeMarkers(editor.id)
 
     return if @disabled
-
-    editor = @getActiveEditor()
-
-    return unless editor
     return if editor.getLastSelection().isEmpty()
 
     @selections = editor.getSelections()
@@ -137,11 +162,9 @@ class HighlightedAreaView
     @statusBarElement?.updateCount(@resultCount)
 
   highlightSelectionInEditor: (editor, regexSearch, regexFlags) ->
-    markerLayer = editor?.addMarkerLayer()
-    return unless markerLayer?
-    markerLayerForHiddenMarkers = editor.addMarkerLayer()
-    @markerLayers.push(markerLayer)
-    @markerLayers.push(markerLayerForHiddenMarkers)
+    return unless editor?
+    markerLayer = @editorToMarkerLayerMap[editor.id]['visibleMarkerLayer']
+    markerLayerForHiddenMarkers = @editorToMarkerLayerMap[editor.id]['hiddenMarkerLayer']
 
     editor.scan new RegExp(regexSearch, regexFlags),
       (result) =>
@@ -195,10 +218,18 @@ class HighlightedAreaView
       break if outcome
     outcome
 
-  removeMarkers: =>
-    @markerLayers.forEach (markerLayer) ->
-      markerLayer.destroy()
-    @markerLayers = []
+  removeAllMarkers: =>
+    Object.keys @editorToMarkerLayerMap, @removeMarkers
+
+  removeMarkers: (editorId) =>
+    return unless @editorToMarkerLayerMap[editorId]?
+
+    markerLayer = @editorToMarkerLayerMap[editorId]['visibleMarkerLayer']
+    hiddenMarkerLayer = @editorToMarkerLayerMap[editorId]['hiddenMarkerLayer']
+
+    markerLayer.clear()
+    hiddenMarkerLayer.clear()
+
     @statusBarElement?.updateCount(0)
     @emitter.emit 'did-remove-marker-layer'
 
@@ -261,3 +292,44 @@ class HighlightedAreaView
       for marker in markerLayer.getMarkers()
         ranges.push marker.getBufferRange()
     editor.setSelectedBufferRanges(ranges, flash: true)
+
+  setScrollMarker: (scrollMarkerAPI) =>
+    @scrollMarker = scrollMarkerAPI
+    if atom.config.get('highlight-selected.showResultsOnScrollBar')
+      @ensureScrollViewInstalled()
+      atom.workspace.getTextEditors().forEach(@setScrollMarkerView)
+
+  ensureScrollViewInstalled: ->
+    unless atom.inSpecMode()
+      require('atom-package-deps').install 'highlight-selected', true
+
+  setupMarkerLayers: (editor) =>
+    if @editorToMarkerLayerMap[editor.id]?
+      markerLayer = @editorToMarkerLayerMap[editor.id]['visibleMarkerLayer']
+      markerLayerForHiddenMarkers  = @editorToMarkerLayerMap[editor.id]['hiddenMarkerLayer']
+    else
+      markerLayer = editor.addMarkerLayer()
+      markerLayerForHiddenMarkers = editor.addMarkerLayer()
+      @editorToMarkerLayerMap[editor.id] =
+        visibleMarkerLayer: markerLayer
+        hiddenMarkerLayer: markerLayerForHiddenMarkers
+
+  setScrollMarkerView: (editor) =>
+    return unless atom.config.get('highlight-selected.showResultsOnScrollBar')
+    return unless @scrollMarker?
+
+    scrollMarkerView = @scrollMarker.scrollMarkerViewForEditor(editor)
+
+    markerLayer = @editorToMarkerLayerMap[editor.id]['visibleMarkerLayer']
+    hiddenMarkerLayer = @editorToMarkerLayerMap[editor.id]['hiddenMarkerLayer']
+
+    scrollMarkerView.getLayer("highlight-selected-marker-layer")
+                    .syncToMarkerLayer(markerLayer)
+    scrollMarkerView.getLayer("highlight-selected-hidden-marker-layer")
+                    .syncToMarkerLayer(hiddenMarkerLayer)
+
+  destroyScrollMarkers: (editor) =>
+    return unless @scrollMarker?
+
+    scrollMarkerView = @scrollMarker.scrollMarkerViewForEditor(editor)
+    scrollMarkerView.destroy()

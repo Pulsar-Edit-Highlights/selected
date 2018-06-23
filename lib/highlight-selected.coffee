@@ -41,6 +41,10 @@ module.exports =
       type: 'string'
       default: '$@%-'
       description: 'Non Word Characters that are allowed to be selected'
+    showResultsOnScrollBar:
+      type: 'boolean'
+      default: false
+      description: 'Show highlight on the scroll bar'
 
   areaView: null
 
@@ -73,3 +77,6 @@ module.exports =
 
   selectAll: ->
     @areaView.selectAll()
+
+  consumeScrollMarker: (scrollMarkerAPI) ->
+    @areaView.setScrollMarker scrollMarkerAPI

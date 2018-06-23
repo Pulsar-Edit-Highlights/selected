@@ -12,6 +12,7 @@
     "atom": ">=1.13.0 <2.0.0"
   },
   "dependencies": {
+    "atom-package-deps": "^4.6.2",
     "grim": "^2.0.1"
   },
   "devDependencies": {
@@ -45,6 +46,14 @@
       "versions": {
         "^1.0.0": "consumeStatusBar"
       }
+    },
+    "scroll-marker": {
+      "versions": {
+        "0.1.0": "consumeScrollMarker"
+      }
     }
-  }
+  },
+  "package-deps": [
+    "scroll-marker"
+  ]
 }

@@ -5,7 +5,8 @@ class StatusBarView
     @element.classList.add("highlight-selected-status","inline-block")
 
   updateCount: (count) ->
-    @element.textContent = "Highlighted: " + count
+    statusBarString = atom.config.get("highlight-selected.statusBarString")
+    @element.textContent = statusBarString.replace("%c", count)
     if count == 0
       @element.classList.add("highlight-selected-hidden")
     else

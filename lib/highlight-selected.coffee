@@ -33,6 +33,10 @@ module.exports =
       type: 'boolean'
       default: true
       description: 'Highlight selection in another panes'
+    statusBarString:
+      type: 'string'
+      default: 'Highlighted: %c'
+      description: 'The text to show in the status bar. %c = number of occurrences'
 
   areaView: null
 

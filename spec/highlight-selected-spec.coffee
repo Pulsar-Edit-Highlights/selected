@@ -55,6 +55,8 @@ describe "HighlightSelected", ->
         jasmine.attachToDOM(workspaceElement)
         editor = atom.workspace.getActiveTextEditor()
         editorElement = atom.views.getView(editor)
+        editorElement.setHeight(250)
+        editorElement.component.measureDimensions()
 
     describe "updates debounce when config is changed", ->
       beforeEach ->

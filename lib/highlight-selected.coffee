@@ -37,6 +37,10 @@ module.exports =
       type: 'string'
       default: 'Highlighted: %c'
       description: 'The text to show in the status bar. %c = number of occurrences'
+    allowedCharactersToSelect:
+      type: 'string'
+      default: '$@%-'
+      description: 'Non Word Characters that are allowed to be selected'
 
   areaView: null
 

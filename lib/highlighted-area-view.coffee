@@ -100,36 +100,32 @@ class HighlightedAreaView
     return unless editor
     return if editor.getLastSelection().isEmpty()
 
-    if atom.config.get('highlight-selected.onlyHighlightWholeWords')
-      return unless @isWordSelected(editor.getLastSelection())
-
     @selections = editor.getSelections()
+    lastSelection = editor.getLastSelection()
+    text = lastSelection.getText()
 
-    text = @selections[0].getText()
     return if text.length < atom.config.get('highlight-selected.minimumLength')
     regex = new RegExp("\\n")
     return if regex.exec(text)
-    regexSearch = escapeRegExp(text)
 
     regexFlags = 'g'
     if atom.config.get('highlight-selected.ignoreCase')
       regexFlags = 'gi'
 
-    @ranges = []
+    regexSearch = escapeRegExp(text)
 
     if atom.config.get('highlight-selected.onlyHighlightWholeWords')
-      if regexSearch.indexOf("\$") isnt -1 \
-      and editor.getGrammar()?.name in ['PHP', 'HACK', 'Perl']
-        regexSearch = regexSearch.replace("\$", "\$\\b")
-      else if regexSearch.indexOf("\%") isnt -1 \
-      and editor.getGrammar()?.name in ['Perl']
-        regexSearch = regexSearch.replace("\%", "\%\\b")
-      else if regexSearch.indexOf("\@") isnt -1 \
-      and editor.getGrammar()?.name in ['Perl']
-        regexSearch = regexSearch.replace("\@", "\@\\b")
-      else
-        regexSearch =  "\\b" + regexSearch
-      regexSearch = regexSearch + "\\b"
+      return unless @isWordSelected(lastSelection)
+      nonWordCharacters = atom.config.get('editor.nonWordCharacters')
+      allowedCharactersToSelect = atom.config.get('highlight-selected.allowedCharactersToSelect')
+      nonWordCharactersToStrip = nonWordCharacters.replace(
+        new RegExp("[#{allowedCharactersToSelect}]", 'g'), '')
+      regexForWholeWord = new RegExp("[ \\t#{escapeRegExp(nonWordCharactersToStrip)}]", regexFlags)
+      return if regexForWholeWord.test(text)
+      regexSearch =
+        "(?:[ \\t#{escapeRegExp(nonWordCharacters)}]|^)(" +
+        regexSearch +
+        ")(?:[ \\t#{escapeRegExp(nonWordCharacters)}]|$)"
 
     @resultCount = 0
     if atom.config.get('highlight-selected.highlightInPanes')
@@ -147,19 +143,27 @@ class HighlightedAreaView
     @markerLayers.push(markerLayer)
     @markerLayers.push(markerLayerForHiddenMarkers)
 
-    range =  [[0, 0], editor.getEofBufferPosition()]
-
-    editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
+    editor.scan new RegExp(regexSearch, regexFlags),
       (result) =>
+        newResult = result
+        if atom.config.get('highlight-selected.onlyHighlightWholeWords')
+          editor.scanInBufferRange(
+            new RegExp(escapeRegExp(result.match[1])),
+            result.range,
+            (e) -> newResult = e
+          )
+
+        return unless newResult?
         @resultCount += 1
-        if @showHighlightOnSelectedWord(result.range, @selections)
-          marker = markerLayerForHiddenMarkers.markBufferRange(result.range)
+
+        if @showHighlightOnSelectedWord(newResult.range, @selections)
+          marker = markerLayerForHiddenMarkers.markBufferRange(newResult.range)
           @emitter.emit 'did-add-selected-marker', marker
           @emitter.emit 'did-add-selected-marker-for-editor',
             marker: marker
             editor: editor
         else
-          marker = markerLayer.markBufferRange(result.range)
+          marker = markerLayer.markBufferRange(newResult.range)
           @emitter.emit 'did-add-marker', marker
           @emitter.emit 'did-add-marker-for-editor',
             marker: marker

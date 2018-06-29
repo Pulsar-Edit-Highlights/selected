@@ -120,7 +120,7 @@ class HighlightedAreaView
     editor = @getActiveEditor()
     return unless editor
 
-    @removeMarkers(editor.id)
+    @removeAllMarkers()
 
     return if @disabled
     return if editor.getLastSelection().isEmpty()
@@ -154,14 +154,15 @@ class HighlightedAreaView
 
     @resultCount = 0
     if atom.config.get('highlight-selected.highlightInPanes')
+      originalEditor = editor
       @getActiveEditors().forEach (editor) =>
-        @highlightSelectionInEditor(editor, regexSearch, regexFlags)
+        @highlightSelectionInEditor(editor, regexSearch, regexFlags, originalEditor)
     else
       @highlightSelectionInEditor(editor, regexSearch, regexFlags)
 
     @statusBarElement?.updateCount(@resultCount)
 
-  highlightSelectionInEditor: (editor, regexSearch, regexFlags) ->
+  highlightSelectionInEditor: (editor, regexSearch, regexFlags, originalEditor) ->
     return unless editor?
     markerLayer = @editorToMarkerLayerMap[editor.id]['visibleMarkerLayer']
     markerLayerForHiddenMarkers = @editorToMarkerLayerMap[editor.id]['hiddenMarkerLayer']
@@ -179,7 +180,8 @@ class HighlightedAreaView
         return unless newResult?
         @resultCount += 1
 
-        if @showHighlightOnSelectedWord(newResult.range, @selections)
+        if @showHighlightOnSelectedWord(newResult.range, @selections) &&
+           originalEditor?.id == editor.id
           marker = markerLayerForHiddenMarkers.markBufferRange(newResult.range)
           @emitter.emit 'did-add-selected-marker', marker
           @emitter.emit 'did-add-selected-marker-for-editor',
@@ -219,7 +221,7 @@ class HighlightedAreaView
     outcome
 
   removeAllMarkers: =>
-    Object.keys @editorToMarkerLayerMap, @removeMarkers
+    Object.keys(@editorToMarkerLayerMap).forEach(@removeMarkers)
 
   removeMarkers: (editorId) =>
     return unless @editorToMarkerLayerMap[editorId]?

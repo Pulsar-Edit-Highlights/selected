@@ -5,21 +5,18 @@ atom-text-editor .highlights {
     position: absolute;
     pointer-events: none;
     z-index: -1;
-  }
-
-  .highlight-selected .region {
-    border-radius: 3px;
     box-sizing: border-box;
     background-color: transparent;
-    border-width: 1px;
-    border-style: solid;
   }
 
   // Box
   .highlight-selected .region {
     border-color: #ddd;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
   }
-  // Background
+  // Background (set in settings)
   .highlight-selected.background .region {
     background-color: rgba(155, 149, 0, 0.6);
   }

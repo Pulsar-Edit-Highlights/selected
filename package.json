@@ -7,6 +7,11 @@
     "type": "git",
     "url": "https://github.com/richrace/highlight-selected"
   },
+  "keywords": [
+    "highlight selected",
+    "highlight selection",
+    "highlight occurrences"
+  ],
   "license": "MIT",
   "engines": {
     "atom": ">=1.13.0 <2.0.0"

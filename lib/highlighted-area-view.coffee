@@ -164,8 +164,10 @@ class HighlightedAreaView
 
   highlightSelectionInEditor: (editor, regexSearch, regexFlags, originalEditor) ->
     return unless editor?
-    markerLayer = @editorToMarkerLayerMap[editor.id]['visibleMarkerLayer']
-    markerLayerForHiddenMarkers = @editorToMarkerLayerMap[editor.id]['hiddenMarkerLayer']
+    markerLayers =  @editorToMarkerLayerMap[editor.id]
+    return unless markerLayers?
+    markerLayer = markerLayers['visibleMarkerLayer']
+    markerLayerForHiddenMarkers = markerLayers['hiddenMarkerLayer']
 
     editor.scan new RegExp(regexSearch, regexFlags),
       (result) =>

@@ -167,7 +167,7 @@ class HighlightedAreaView
     markerLayers =  @editorToMarkerLayerMap[editor.id]
     return unless markerLayers?
     markerLayer = markerLayers['visibleMarkerLayer']
-    markerLayerForHiddenMarkers = markerLayers['hiddenMarkerLayer']
+    markerLayerForHiddenMarkers = markerLayers['selectedMarkerLayer']
 
     editor.scan new RegExp(regexSearch, regexFlags),
       (result) =>
@@ -229,10 +229,10 @@ class HighlightedAreaView
     return unless @editorToMarkerLayerMap[editorId]?
 
     markerLayer = @editorToMarkerLayerMap[editorId]['visibleMarkerLayer']
-    hiddenMarkerLayer = @editorToMarkerLayerMap[editorId]['hiddenMarkerLayer']
+    selectedMarkerLayer = @editorToMarkerLayerMap[editorId]['selectedMarkerLayer']
 
     markerLayer.clear()
-    hiddenMarkerLayer.clear()
+    selectedMarkerLayer.clear()
 
     @statusBarElement?.updateCount(0)
     @emitter.emit 'did-remove-marker-layer'
@@ -310,13 +310,13 @@ class HighlightedAreaView
   setupMarkerLayers: (editor) =>
     if @editorToMarkerLayerMap[editor.id]?
       markerLayer = @editorToMarkerLayerMap[editor.id]['visibleMarkerLayer']
-      markerLayerForHiddenMarkers  = @editorToMarkerLayerMap[editor.id]['hiddenMarkerLayer']
+      markerLayerForHiddenMarkers  = @editorToMarkerLayerMap[editor.id]['selectedMarkerLayer']
     else
       markerLayer = editor.addMarkerLayer()
       markerLayerForHiddenMarkers = editor.addMarkerLayer()
       @editorToMarkerLayerMap[editor.id] =
         visibleMarkerLayer: markerLayer
-        hiddenMarkerLayer: markerLayerForHiddenMarkers
+        selectedMarkerLayer: markerLayerForHiddenMarkers
 
   setScrollMarkerView: (editor) =>
     return unless atom.config.get('highlight-selected.showResultsOnScrollBar')
@@ -325,12 +325,12 @@ class HighlightedAreaView
     scrollMarkerView = @scrollMarker.scrollMarkerViewForEditor(editor)
 
     markerLayer = @editorToMarkerLayerMap[editor.id]['visibleMarkerLayer']
-    hiddenMarkerLayer = @editorToMarkerLayerMap[editor.id]['hiddenMarkerLayer']
+    selectedMarkerLayer = @editorToMarkerLayerMap[editor.id]['selectedMarkerLayer']
 
     scrollMarkerView.getLayer("highlight-selected-marker-layer")
                     .syncToMarkerLayer(markerLayer)
-    scrollMarkerView.getLayer("highlight-selected-hidden-marker-layer")
-                    .syncToMarkerLayer(hiddenMarkerLayer)
+    scrollMarkerView.getLayer("highlight-selected-selected-marker-layer")
+                    .syncToMarkerLayer(selectedMarkerLayer)
 
   destroyScrollMarkers: (editor) =>
     return unless @scrollMarker?

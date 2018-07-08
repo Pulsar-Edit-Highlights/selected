@@ -289,13 +289,15 @@ class HighlightedAreaView
 
   selectAll: =>
     editor = @getActiveEditor()
-    markerLayers = @markerLayers
-    return unless markerLayers?.length > 0
+    markerLayers = @editorToMarkerLayerMap[editor.id]
+    return unless markerLayers?
     ranges = []
-    for markerLayer in markerLayers
+    for markerLayer in [markerLayers['visibleMarkerLayer'], markerLayers['selectedMarkerLayer']]
       for marker in markerLayer.getMarkers()
         ranges.push marker.getBufferRange()
-    editor.setSelectedBufferRanges(ranges, flash: true)
+
+    if ranges.length > 0
+      editor.setSelectedBufferRanges(ranges, flash: true)
 
   setScrollMarker: (scrollMarkerAPI) =>
     @scrollMarker = scrollMarkerAPI

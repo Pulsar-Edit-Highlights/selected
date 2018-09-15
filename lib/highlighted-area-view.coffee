@@ -329,9 +329,14 @@ class HighlightedAreaView
     markerLayer = @editorToMarkerLayerMap[editor.id]['visibleMarkerLayer']
     selectedMarkerLayer = @editorToMarkerLayerMap[editor.id]['selectedMarkerLayer']
 
-    scrollMarkerView.getLayer("highlight-selected-marker-layer")
+    if atom.config.get('highlight-selected.lightTheme')
+      scrollMarkerColor = "rgba(255, 128, 64, 0.4)"
+    else
+      scrollMarkerColor = "#ddd"
+
+    scrollMarkerView.getLayer("highlight-selected-marker-layer", scrollMarkerColor)
                     .syncToMarkerLayer(markerLayer)
-    scrollMarkerView.getLayer("highlight-selected-selected-marker-layer")
+    scrollMarkerView.getLayer("highlight-selected-selected-marker-layer", scrollMarkerColor)
                     .syncToMarkerLayer(selectedMarkerLayer)
 
   destroyScrollMarkers: (editor) =>

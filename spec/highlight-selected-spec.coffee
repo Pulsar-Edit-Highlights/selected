@@ -254,13 +254,24 @@ describe "HighlightSelected", ->
         expect(editorElement.querySelectorAll(
           '.highlight-selected .region')).toHaveLength(3)
 
-    describe "being able to highlight variables when not selecting '$'", ->
+    describe "not being able to highlight variables when not selecting '$'", ->
       beforeEach ->
         atom.config.set('highlight-selected.onlyHighlightWholeWords', true)
         range = new Range(new Point(1, 3), new Point(1, 7))
         editor.setSelectedBufferRange(range)
         advanceClock(20000)
 
-      it "finds 4 regions", ->
+      it "finds 0 regions", ->
         expect(editorElement.querySelectorAll(
-          '.highlight-selected .region')).toHaveLength(4)
+          '.highlight-selected .region')).toHaveLength(0)
+
+    describe "being able to highlight other strings when not selecting '@'", ->
+      beforeEach ->
+        atom.config.set('highlight-selected.onlyHighlightWholeWords', true)
+        range = new Range(new Point(3, 6), new Point(3, 10))
+        editor.setSelectedBufferRange(range)
+        advanceClock(20000)
+
+      it "finds 0 regions", ->
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(2)

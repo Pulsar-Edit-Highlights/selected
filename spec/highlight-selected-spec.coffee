@@ -135,13 +135,6 @@ describe "HighlightSelected", ->
       beforeEach ->
         atom.config.set('highlight-selected.onlyHighlightWholeWords', false)
 
-      it "ignores newline only selections", ->
-        range = new Range(new Point(7, 14), new Point(8, 0))
-        editor.setSelectedBufferRange(range)
-        advanceClock(20000)
-        expect(editorElement.querySelectorAll(
-          '.highlight-selected .region')).toHaveLength(0)
-
       it "ignores space only selections", ->
         range = new Range(new Point(8, 0), new Point(8, 2))
         editor.setSelectedBufferRange(range)
@@ -155,6 +148,24 @@ describe "HighlightSelected", ->
         advanceClock(20000)
         expect(editorElement.querySelectorAll(
           '.highlight-selected .region')).toHaveLength(3)
+
+    describe "ignores selections that contain a new line", ->
+      beforeEach ->
+        atom.config.set('highlight-selected.onlyHighlightWholeWords', false)
+
+      it "ignores a selection of a single newline", ->
+        range = new Range(new Point(7, 14), new Point(8, 0)) # '\n'
+        editor.setSelectedBufferRange(range)
+        advanceClock(20000)
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(0)
+
+      it "ignores any selection containing a newline", ->
+        range = new Range(new Point(7, 14), new Point(8, 8)) # '\n  string'
+        editor.setSelectedBufferRange(range)
+        advanceClock(20000)
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(0)
 
     describe "will highlight non whole words", ->
       beforeEach ->

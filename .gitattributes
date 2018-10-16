@@ -1,4 +1,4 @@
-* text eol=lf
+* text=auto eol=lf
 
 /spec export-ignore
 /.gitignore export-ignore

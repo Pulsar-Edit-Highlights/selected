@@ -21,6 +21,10 @@ module.exports =
     minimumLength:
       type: 'integer'
       default: 2
+    maximumHighlights:
+      type: 'integer'
+      default: 500
+      description: 'For performance purposes, the number of highlights is limited'
     timeout:
       type: 'integer'
       default: 20

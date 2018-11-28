@@ -164,37 +164,60 @@ class HighlightedAreaView
 
   highlightSelectionInEditor: (editor, regexSearch, regexFlags, originalEditor) ->
     return unless editor?
+    maximumHighlights = atom.config.get('highlight-selected.maximumHighlights')
+    return unless this.resultCount < maximumHighlights
+
     markerLayers =  @editorToMarkerLayerMap[editor.id]
     return unless markerLayers?
     markerLayer = markerLayers['visibleMarkerLayer']
     markerLayerForHiddenMarkers = markerLayers['selectedMarkerLayer']
 
-    editor.scan new RegExp(regexSearch, regexFlags),
-      (result) =>
-        newResult = result
-        if atom.config.get('highlight-selected.onlyHighlightWholeWords')
-          editor.scanInBufferRange(
-            new RegExp(escapeRegExp(result.match[1])),
-            result.range,
-            (e) -> newResult = e
-          )
+    # HACK: `editor.scan` is a synchronous process which iterates the entire buffer,
+    # executing a regex against every line and yielding each match. This can be
+    # costly for very large files with many matches.
+    #
+    # While we can and do limit the maximum number of highlight markers,
+    # `editor.scan` cannot be terminated early, meaning that we are forced to
+    # pay the cost of iterating every line in the file, running the regex, and
+    # returning matches, even if we shouldn't be creating any more markers.
+    #
+    # Instead, throw an exception. This isn't pretty, but it prevents the
+    # scan from running to completion unnecessarily.
+    try
+      editor.scan new RegExp(regexSearch, regexFlags),
+        (result) =>
+          if (this.resultCount >= maximumHighlights)
+            throw new EarlyTerminationSignal
 
-        return unless newResult?
-        @resultCount += 1
+          newResult = result
+          if atom.config.get('highlight-selected.onlyHighlightWholeWords')
+            editor.scanInBufferRange(
+              new RegExp(escapeRegExp(result.match[1])),
+              result.range,
+              (e) -> newResult = e
+            )
 
-        if @showHighlightOnSelectedWord(newResult.range, @selections) &&
-           originalEditor?.id == editor.id
-          marker = markerLayerForHiddenMarkers.markBufferRange(newResult.range)
-          @emitter.emit 'did-add-selected-marker', marker
-          @emitter.emit 'did-add-selected-marker-for-editor',
-            marker: marker
-            editor: editor
-        else
-          marker = markerLayer.markBufferRange(newResult.range)
-          @emitter.emit 'did-add-marker', marker
-          @emitter.emit 'did-add-marker-for-editor',
-            marker: marker
-            editor: editor
+          return unless newResult?
+          @resultCount += 1
+
+          if @showHighlightOnSelectedWord(newResult.range, @selections) &&
+             originalEditor?.id == editor.id
+            marker = markerLayerForHiddenMarkers.markBufferRange(newResult.range)
+            @emitter.emit 'did-add-selected-marker', marker
+            @emitter.emit 'did-add-selected-marker-for-editor',
+              marker: marker
+              editor: editor
+          else
+            marker = markerLayer.markBufferRange(newResult.range)
+            @emitter.emit 'did-add-marker', marker
+            @emitter.emit 'did-add-marker-for-editor',
+              marker: marker
+              editor: editor
+    catch error
+      if error not instanceof EarlyTerminationSignal
+        # If this is an early termination, just continue on.
+        throw error
+
     editor.decorateMarkerLayer(markerLayer, {
       type: 'highlight',
       class: @makeClasses()
@@ -339,3 +362,5 @@ class HighlightedAreaView
 
     scrollMarkerView = @scrollMarker.scrollMarkerViewForEditor(editor)
     scrollMarkerView.destroy()
+
+class EarlyTerminationSignal extends Error

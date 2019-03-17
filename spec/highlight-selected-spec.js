@@ -80,12 +80,12 @@ describe('HighlightSelected', () => {
 
     describe('updates debounce when config is changed', () => {
       beforeEach(() => {
-        spyOn(highlightSelected.areaView, 'debouncedHandleSelection');
+        spyOn(highlightSelected.selectionManager, 'debouncedHandleSelection');
         atom.config.set('highlight-selected.timeout', 20000);
       });
 
       it('calls createDebouce', () => {
-        expect(highlightSelected.areaView.debouncedHandleSelection).toHaveBeenCalled();
+        expect(highlightSelected.selectionManager.debouncedHandleSelection).toHaveBeenCalled();
       });
     });
 

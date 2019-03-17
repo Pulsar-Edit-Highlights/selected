@@ -1,31 +1,21 @@
-desc 'Compile all CoffeeScript files'
-task :compile do
-  puts 'Compiling all CoffeeScript files...'
-  sh 'coffee -o tmp -c lib spec'
-  puts 'Done.'
-end
-
 desc 'Run package specs'
 task :spec do
   puts 'Running package specs...'
   sh 'apm test'
 end
 
-desc 'Run CoffeeLint'
+desc 'Run ESlint'
 task :lint do
-  puts 'Running CoffeeLint...'
-  sh 'coffeelint lib spec'
+  puts 'Running ESlint...'
+  sh './node_modules/.bin/eslint lib spec'
 end
 
 namespace :travis do
-  task :prepare do
-    sh 'npm install --global coffee-script coffeelint'
-  end
-
   task :spec do
+    # `build-package.sh` installs packages and runs Lint stage.
     sh 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh'
   end
 end
 
-task default: [:compile, :spec, :lint]
-task travis: ['travis:prepare', :compile, 'travis:spec']
+task default: [:spec, :lint]
+task travis: ['travis:spec']

@@ -130,8 +130,9 @@ class HighlightedAreaView
     text = lastSelection.getText()
 
     return if text.length < atom.config.get('highlight-selected.minimumLength')
-    regex = new RegExp("\\n")
-    return if regex.exec(text)
+    return if text.includes('\n')
+    regex = new RegExp("^\\s+$")
+    return if regex.test(text)
 
     regexFlags = 'g'
     if atom.config.get('highlight-selected.ignoreCase')

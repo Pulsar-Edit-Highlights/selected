@@ -1,0 +1,16 @@
+{
+  "extends": ["airbnb/base", "prettier", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "import/no-unresolved": [2, { "ignore": ["atom"] }],
+    "import/extensions": ["error", "always", { "ignorePackages": true }]
+  },
+  "env": {
+    "browser": true,
+    "jasmine": true
+  },
+  "globals": {
+    "atom": "on"
+  }
+}

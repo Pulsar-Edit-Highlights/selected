@@ -141,7 +141,8 @@ class HighlightedAreaView
 
     if atom.config.get('highlight-selected.onlyHighlightWholeWords')
       return unless @isWordSelected(lastSelection)
-      nonWordCharacters = atom.config.get('editor.nonWordCharacters')
+      selectionStart = lastSelection.getBufferRange().start
+      nonWordCharacters = @getNonWordCharacters(editor, selectionStart)
       allowedCharactersToSelect = atom.config.get('highlight-selected.allowedCharactersToSelect')
       nonWordCharactersToStrip = nonWordCharacters.replace(
         new RegExp("[#{allowedCharactersToSelect}]", 'g'), '')
@@ -253,19 +254,24 @@ class HighlightedAreaView
     else
       false
 
-  isNonWordCharacter: (character) ->
-    nonWordCharacters = atom.config.get('editor.nonWordCharacters')
-    new RegExp("[ \t#{escapeRegExp(nonWordCharacters)}]").test(character)
+  getNonWordCharacters: (editor, point) ->
+    scopeDescriptor = editor.scopeDescriptorForBufferPosition(point)
+    nonWordCharacters = atom.config.get('editor.nonWordCharacters', scope: scopeDescriptor)
+
+  isNonWord: (editor, range) ->
+    nonWordCharacters = @getNonWordCharacters(editor, range.start)
+    text = editor.getTextInBufferRange(range)
+    new RegExp("[ \t#{escapeRegExp(nonWordCharacters)}]").test(text)
 
   isNonWordCharacterToTheLeft: (selection) ->
     selectionStart = selection.getBufferRange().start
     range = Range.fromPointWithDelta(selectionStart, 0, -1)
-    @isNonWordCharacter(@getActiveEditor().getTextInBufferRange(range))
+    @isNonWord(@getActiveEditor(), range)
 
   isNonWordCharacterToTheRight: (selection) ->
     selectionEnd = selection.getBufferRange().end
     range = Range.fromPointWithDelta(selectionEnd, 0, 1)
-    @isNonWordCharacter(@getActiveEditor().getTextInBufferRange(range))
+    @isNonWord(@getActiveEditor(), range)
 
   setupStatusBar: =>
     return if @statusBarElement?

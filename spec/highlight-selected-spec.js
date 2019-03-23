@@ -1,5 +1,3 @@
-/* globals jasmine waitsForPromise runs advanceClock spyOn */
-
 const path = require('path');
 const { Range, Point } = require('atom');
 

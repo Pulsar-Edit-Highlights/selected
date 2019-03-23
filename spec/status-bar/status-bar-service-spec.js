@@ -1,4 +1,3 @@
-/* globals waitsForPromise */
 const StatusBarService = require('../../lib/status-bar/status-bar-service');
 
 describe('StatusBarService', () => {

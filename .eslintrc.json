@@ -8,7 +8,8 @@
   },
   "env": {
     "browser": true,
-    "jasmine": true
+    "jasmine": true,
+    "atomtest": true
   },
   "globals": {
     "atom": "on"

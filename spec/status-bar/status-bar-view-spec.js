@@ -1,4 +1,3 @@
-/* globals waitsForPromise */
 const StatusBarView = require('../../lib/status-bar/status-bar-view');
 
 describe('StatusBarView', () => {

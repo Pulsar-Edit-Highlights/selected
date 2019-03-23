@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "atom-package-deps": "^5.0.0",
+    "debounce": "^1.2.0",
     "grim": "^2.0.2"
   },
   "devDependencies": {

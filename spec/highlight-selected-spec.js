@@ -1,6 +1,7 @@
 const path = require('path');
 const { Range, Point } = require('atom');
 
+// This spec is more of an end-to-end test.
 describe('HighlightSelected', () => {
   let [
     workspaceElement,

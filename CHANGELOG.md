@@ -1,7 +1,18 @@
 # Change Log
 
-## [0.15.0](https://github.com/richrace/highlight-selected/tree/0.15.0) (2019-03-17)
-[Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.14.0...0.15.0)
+## [0.16.0](https://github.com/richrace/highlight-selected/tree/0.16.0) (2019-03-24)
+[Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.15.0...0.16.0)
+
+**Closed issues:**
+
+- Rewrite to JS  [\#175](https://github.com/richrace/highlight-selected/issues/175)
+
+**Merged pull requests:**
+
+- Rewrite to ES6 [\#196](https://github.com/richrace/highlight-selected/pull/196) ([richrace](https://github.com/richrace))
+
+## [v0.15.0](https://github.com/richrace/highlight-selected/tree/v0.15.0) (2019-03-17)
+[Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.14.0...v0.15.0)
 
 **Fixed bugs:**
 

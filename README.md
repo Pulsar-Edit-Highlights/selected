@@ -90,3 +90,7 @@ atom-text-editor .highlights {
 ## Contributing
 
 Please look at the [Contributing Guide](https://github.com/richrace/highlight-selected/blob/master/CONTRIBUTING.md)
+
+## Donate
+
+If you want to say thanks by buying me a coffee/beer, that would be awesome! You can do so via [Monzo](https://monzo.me/richrace/3.00?d=For%20a%20coffee,%20thanks%20for%20Highlight%20Selected!%20%F0%9F%8E%89%20%E2%98%95%EF%B8%8F)

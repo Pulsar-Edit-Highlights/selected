@@ -367,7 +367,7 @@ describe('HighlightSelected', () => {
         advanceClock(20000);
       });
 
-      it('finds 0 regions', () => {
+      it('finds 2 regions', () => {
         expect(editorElement.querySelectorAll('.highlight-selected .region')).toHaveLength(2);
       });
     });

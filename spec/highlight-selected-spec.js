@@ -372,4 +372,62 @@ describe('HighlightSelected', () => {
       });
     });
   });
+
+  describe('when opening a file with hex like data', () => {
+    beforeEach(() => {
+      waitsForPromise(() =>
+        atom.packages.activatePackage('status-bar').then(() => {
+          workspaceElement.querySelector('status-bar');
+        })
+      );
+
+      waitsForPromise(() =>
+        atom.packages.activatePackage('highlight-selected').then(({ mainModule }) => {
+          highlightSelected = mainModule;
+        })
+      );
+
+      if (hasMinimap) {
+        waitsForPromise(() =>
+          atom.packages.activatePackage('minimap').then(({ mainModule }) => {
+            minimapModule = mainModule;
+          })
+        );
+        waitsForPromise(() =>
+          atom.packages.activatePackage('minimap-highlight-selected').then(({ mainModule }) => {
+            minimapHS = mainModule;
+          })
+        );
+      }
+
+      waitsForPromise(() =>
+        atom.workspace.open('hex.md').then(
+          () => null,
+          error => {
+            throw error.stack;
+          }
+        )
+      );
+
+      runs(() => {
+        jasmine.attachToDOM(workspaceElement);
+        editor = atom.workspace.getActiveTextEditor();
+        editorElement = atom.views.getView(editor);
+        editorElement.setHeight(250);
+        editorElement.component.measureDimensions();
+      });
+    });
+
+    describe("being able to highlight the first '00000000'", () => {
+      beforeEach(() => {
+        const range = new Range(new Point(0, 0), new Point(0, 8));
+        editor.setSelectedBufferRange(range);
+        advanceClock(20000);
+      });
+
+      it('finds 18 regions', () => {
+        expect(editorElement.querySelectorAll('.highlight-selected .region')).toHaveLength(18);
+      });
+    });
+  });
 });

@@ -430,4 +430,74 @@ describe('HighlightSelected', () => {
       });
     });
   });
+
+  describe('when opening a big file', () => {
+    beforeEach(() => {
+      waitsForPromise(() =>
+        atom.packages.activatePackage('status-bar').then(() => {
+          workspaceElement.querySelector('status-bar');
+        })
+      );
+
+      waitsForPromise(() =>
+        atom.packages.activatePackage('highlight-selected').then(({ mainModule }) => {
+          highlightSelected = mainModule;
+        })
+      );
+
+      if (hasMinimap) {
+        waitsForPromise(() =>
+          atom.packages.activatePackage('minimap').then(({ mainModule }) => {
+            minimapModule = mainModule;
+          })
+        );
+        waitsForPromise(() =>
+          atom.packages.activatePackage('minimap-highlight-selected').then(({ mainModule }) => {
+            minimapHS = mainModule;
+          })
+        );
+      }
+
+      waitsForPromise(() =>
+        atom.workspace.open().then(
+          () => null,
+          error => {
+            throw error.stack;
+          }
+        )
+      );
+
+      runs(() => {
+        jasmine.attachToDOM(workspaceElement);
+        editor = atom.workspace.getActiveTextEditor();
+        editor.setText('a'.repeat(40000));
+        editorElement = atom.views.getView(editor);
+        editorElement.setHeight(250);
+        editorElement.component.measureDimensions();
+      });
+    });
+
+    describe('when doing a big selection', () => {
+      // see: https://github.com/richrace/highlight-selected/issues/206
+      beforeEach(() => {
+        const range = new Range(new Point(0, 3), new Point(0, 38000));
+        editor.setSelectedBufferRange(range);
+        advanceClock(20000);
+      });
+
+      it('updates the status bar with highlights number', () => {
+        const content = workspaceElement.querySelector('.highlight-selected-status').innerHTML;
+        expect(content).toBe('Highlighted: 0');
+      });
+
+      describe('when the status bar is disabled', () => {
+        beforeEach(() => atom.config.set('highlight-selected.showInStatusBar', false));
+
+        it("highlight isn't attached", () => {
+          expect(workspaceElement.querySelector('status-bar')).toExist();
+          expect(workspaceElement.querySelector('.highlight-selected-status')).not.toExist();
+        });
+      });
+    });
+  });
 });

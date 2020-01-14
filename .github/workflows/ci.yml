@@ -26,7 +26,7 @@ jobs:
           APM_TEST_PACKAGES: 'minimap minimap-highlight-selected status-bar'
         run: apm ci
       - name: Run tests
-        run: npm test
+        run: npm run test
   Lint:
     runs-on: ubuntu-latest
     steps:
@@ -35,4 +35,4 @@ jobs:
         with:
           cmd: install
       - name: ESlint
-        run: npm lint
+        run: npm run lint

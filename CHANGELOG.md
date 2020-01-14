@@ -1,7 +1,30 @@
-# Change Log
+# Changelog
 
-## [0.16.0](https://github.com/richrace/highlight-selected/tree/0.16.0) (2019-03-24)
-[Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.15.0...0.16.0)
+## [v0.17.0](https://github.com/richrace/highlight-selected/tree/v0.17.0) (2020-01-14)
+
+[Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.16.0...v0.17.0)
+
+**Fixed bugs:**
+
+- Highlight fails on neighbouring words [\#201](https://github.com/richrace/highlight-selected/issues/201)
+
+**Closed issues:**
+
+- Uncaught Error: regular expression is too large [\#206](https://github.com/richrace/highlight-selected/issues/206)
+- Change Text color of selected word [\#98](https://github.com/richrace/highlight-selected/issues/98)
+
+**Merged pull requests:**
+
+- Use GitHub actions [\#211](https://github.com/richrace/highlight-selected/pull/211) ([richrace](https://github.com/richrace))
+- Correctly handle huge selection. [\#210](https://github.com/richrace/highlight-selected/pull/210) ([elarivie](https://github.com/elarivie))
+- Bump eslint-utils from 1.3.1 to 1.4.2 [\#205](https://github.com/richrace/highlight-selected/pull/205) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump lodash from 4.17.11 to 4.17.14 [\#204](https://github.com/richrace/highlight-selected/pull/204) ([dependabot[bot]](https://github.com/apps/dependabot))
+- 201 fix regex [\#202](https://github.com/richrace/highlight-selected/pull/202) ([richrace](https://github.com/richrace))
+- Bump js-yaml from 3.12.1 to 3.13.1 [\#200](https://github.com/richrace/highlight-selected/pull/200) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v0.16.0](https://github.com/richrace/highlight-selected/tree/v0.16.0) (2019-03-24)
+
+[Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.15.0...v0.16.0)
 
 **Closed issues:**
 
@@ -12,6 +35,7 @@
 - Rewrite to ES6 [\#196](https://github.com/richrace/highlight-selected/pull/196) ([richrace](https://github.com/richrace))
 
 ## [v0.15.0](https://github.com/richrace/highlight-selected/tree/v0.15.0) (2019-03-17)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.14.0...v0.15.0)
 
 **Fixed bugs:**
@@ -29,6 +53,7 @@
 - Use the grammar's definition of nonWordCharacters [\#189](https://github.com/richrace/highlight-selected/pull/189) ([Arcanemagus](https://github.com/Arcanemagus))
 
 ## [v0.14.0](https://github.com/richrace/highlight-selected/tree/v0.14.0) (2018-07-08)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.13.1...v0.14.0)
 
 **Implemented enhancements:**
@@ -76,6 +101,7 @@
 - Allow highlighting across word boundaries [\#154](https://github.com/richrace/highlight-selected/pull/154) ([ion201](https://github.com/ion201))
 
 ## [v0.13.1](https://github.com/richrace/highlight-selected/tree/v0.13.1) (2017-03-24)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.13.0...v0.13.1)
 
 **Closed issues:**
@@ -88,6 +114,7 @@
 - Optimize load time [\#148](https://github.com/richrace/highlight-selected/pull/148) ([zertosh](https://github.com/zertosh))
 
 ## [v0.13.0](https://github.com/richrace/highlight-selected/tree/v0.13.0) (2017-03-23)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.12.0...v0.13.0)
 
 **Closed issues:**
@@ -103,6 +130,7 @@
 - Add a Gitter chat badge to README.md [\#86](https://github.com/richrace/highlight-selected/pull/86) ([gitter-badger](https://github.com/gitter-badger))
 
 ## [v0.12.0](https://github.com/richrace/highlight-selected/tree/v0.12.0) (2017-01-11)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.11.2...v0.12.0)
 
 **Closed issues:**
@@ -128,6 +156,7 @@
 - Highlight selection across active panes [\#126](https://github.com/richrace/highlight-selected/pull/126) ([mswiszcz](https://github.com/mswiszcz))
 
 ## [v0.11.2](https://github.com/richrace/highlight-selected/tree/v0.11.2) (2016-02-02)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.11.1...v0.11.2)
 
 **Closed issues:**
@@ -140,9 +169,11 @@
 - Added inline-block class for better compatibility [\#106](https://github.com/richrace/highlight-selected/pull/106) ([scippio](https://github.com/scippio))
 
 ## [v0.11.1](https://github.com/richrace/highlight-selected/tree/v0.11.1) (2015-11-15)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.11.0...v0.11.1)
 
 ## [v0.11.0](https://github.com/richrace/highlight-selected/tree/v0.11.0) (2015-11-15)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.10.1...v0.11.0)
 
 **Implemented enhancements:**
@@ -166,6 +197,7 @@
 - Add basic API [\#81](https://github.com/richrace/highlight-selected/pull/81) ([richrace](https://github.com/richrace))
 
 ## [v0.10.1](https://github.com/richrace/highlight-selected/tree/v0.10.1) (2015-06-17)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.10.0...v0.10.1)
 
 **Fixed bugs:**
@@ -177,6 +209,7 @@
 - Highlight with one click [\#83](https://github.com/richrace/highlight-selected/issues/83)
 
 ## [v0.10.0](https://github.com/richrace/highlight-selected/tree/v0.10.0) (2015-06-14)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.9.3...v0.10.0)
 
 **Implemented enhancements:**
@@ -196,9 +229,9 @@
 
 - Add special case for PHP `$` variables [\#80](https://github.com/richrace/highlight-selected/pull/80) ([richrace](https://github.com/richrace))
 - Add debounce feature [\#79](https://github.com/richrace/highlight-selected/pull/79) ([richrace](https://github.com/richrace))
-- Remove dependency on 'atom-space-pen-views' [\#78](https://github.com/richrace/highlight-selected/pull/78) ([jccr](https://github.com/jccr))
 
 ## [v0.9.3](https://github.com/richrace/highlight-selected/tree/v0.9.3) (2015-05-15)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.9.2...v0.9.3)
 
 **Closed issues:**
@@ -209,11 +242,13 @@
 
 **Merged pull requests:**
 
+- Remove dependency on 'atom-space-pen-views' [\#78](https://github.com/richrace/highlight-selected/pull/78) ([jccr](https://github.com/jccr))
 - fix \#67 [\#68](https://github.com/richrace/highlight-selected/pull/68) ([yongkangchen](https://github.com/yongkangchen))
 - Update README.md [\#66](https://github.com/richrace/highlight-selected/pull/66) ([simon-clay](https://github.com/simon-clay))
 - Test minimap dependencies  [\#62](https://github.com/richrace/highlight-selected/pull/62) ([richrace](https://github.com/richrace))
 
 ## [v0.9.2](https://github.com/richrace/highlight-selected/tree/v0.9.2) (2015-04-18)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.9.1...v0.9.2)
 
 **Fixed bugs:**
@@ -231,6 +266,7 @@
 - update link reference [\#57](https://github.com/richrace/highlight-selected/pull/57) ([nobitagit](https://github.com/nobitagit))
 
 ## [v0.9.1](https://github.com/richrace/highlight-selected/tree/v0.9.1) (2015-03-01)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.9.0...v0.9.1)
 
 **Implemented enhancements:**
@@ -248,6 +284,7 @@
 - Update README example [\#51](https://github.com/richrace/highlight-selected/pull/51) ([tylerdiaz](https://github.com/tylerdiaz))
 
 ## [v0.9.0](https://github.com/richrace/highlight-selected/tree/v0.9.0) (2015-02-13)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.8.0...v0.9.0)
 
 **Closed issues:**
@@ -269,6 +306,7 @@
 - Fix atom engine semver [\#48](https://github.com/richrace/highlight-selected/pull/48) ([izuzak](https://github.com/izuzak))
 
 ## [v0.8.0](https://github.com/richrace/highlight-selected/tree/v0.8.0) (2015-02-02)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.7.0...v0.8.0)
 
 **Closed issues:**
@@ -280,17 +318,20 @@
 - Upgrade this package to 1.0 APIs [\#46](https://github.com/richrace/highlight-selected/pull/46) ([hmatsuda](https://github.com/hmatsuda))
 
 ## [v0.7.0](https://github.com/richrace/highlight-selected/tree/v0.7.0) (2014-12-17)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.6.3...v0.7.0)
 
 **Closed issues:**
 
 - Styles needs an update to support new shadow DOM setting [\#30](https://github.com/richrace/highlight-selected/issues/30)
+- Better colors for light theme [\#26](https://github.com/richrace/highlight-selected/issues/26)
 
 **Merged pull requests:**
 
 - Fix \#30 [\#33](https://github.com/richrace/highlight-selected/pull/33) ([yongkangchen](https://github.com/yongkangchen))
 
 ## [v0.6.3](https://github.com/richrace/highlight-selected/tree/v0.6.3) (2014-11-20)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.6.2...v0.6.3)
 
 **Closed issues:**
@@ -303,17 +344,15 @@
 - fix hideHighlightOnSelectedWord sometimes not work [\#32](https://github.com/richrace/highlight-selected/pull/32) ([yongkangchen](https://github.com/yongkangchen))
 
 ## [v0.6.2](https://github.com/richrace/highlight-selected/tree/v0.6.2) (2014-09-20)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.6.1...v0.6.2)
-
-**Closed issues:**
-
-- Better colors for light theme [\#26](https://github.com/richrace/highlight-selected/issues/26)
 
 **Merged pull requests:**
 
 - implement better colors for light theme [\#27](https://github.com/richrace/highlight-selected/pull/27) ([Bengt](https://github.com/Bengt))
 
 ## [v0.6.1](https://github.com/richrace/highlight-selected/tree/v0.6.1) (2014-09-15)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.6.0...v0.6.1)
 
 **Closed issues:**
@@ -323,9 +362,11 @@
 - Ignore 1-char selections [\#22](https://github.com/richrace/highlight-selected/issues/22)
 
 ## [v0.6.0](https://github.com/richrace/highlight-selected/tree/v0.6.0) (2014-08-23)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.5.5...v0.6.0)
 
 ## [v0.5.5](https://github.com/richrace/highlight-selected/tree/v0.5.5) (2014-08-22)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.5.4...v0.5.5)
 
 **Closed issues:**
@@ -334,12 +375,15 @@
 - Highlight Background appears twice in settings [\#20](https://github.com/richrace/highlight-selected/issues/20)
 
 ## [v0.5.4](https://github.com/richrace/highlight-selected/tree/v0.5.4) (2014-08-19)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.5.3...v0.5.4)
 
 ## [v0.5.3](https://github.com/richrace/highlight-selected/tree/v0.5.3) (2014-08-18)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.5.2...v0.5.3)
 
 ## [v0.5.2](https://github.com/richrace/highlight-selected/tree/v0.5.2) (2014-08-18)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.5.1...v0.5.2)
 
 **Closed issues:**
@@ -348,9 +392,11 @@
 - The highlighted words are almost invisible in light theme [\#14](https://github.com/richrace/highlight-selected/issues/14)
 
 ## [v0.5.1](https://github.com/richrace/highlight-selected/tree/v0.5.1) (2014-08-18)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.5.0...v0.5.1)
 
 ## [v0.5.0](https://github.com/richrace/highlight-selected/tree/v0.5.0) (2014-08-17)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.4.1...v0.5.0)
 
 **Closed issues:**
@@ -366,6 +412,7 @@
 - Add Ignore Case Option [\#18](https://github.com/richrace/highlight-selected/pull/18) ([andreldm](https://github.com/andreldm))
 
 ## [v0.4.1](https://github.com/richrace/highlight-selected/tree/v0.4.1) (2014-07-19)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.4.0...v0.4.1)
 
 **Implemented enhancements:**
@@ -377,6 +424,7 @@
 - Uncaught TypeError: Cannot call method 'pixelPositionForScreenPosition' of null -React-  [\#10](https://github.com/richrace/highlight-selected/issues/10)
 
 ## [v0.4.0](https://github.com/richrace/highlight-selected/tree/v0.4.0) (2014-07-03)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.3.0...v0.4.0)
 
 **Closed issues:**
@@ -388,6 +436,7 @@
 - React Editor pixelPositionForScreenPosition fix [\#9](https://github.com/richrace/highlight-selected/pull/9) ([taylorludwig](https://github.com/taylorludwig))
 
 ## [v0.3.0](https://github.com/richrace/highlight-selected/tree/v0.3.0) (2014-06-29)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.11...v0.3.0)
 
 **Merged pull requests:**
@@ -395,9 +444,11 @@
 - fix\(marker-view.coffee\): on Windows, lineHeight undefined. [\#6](https://github.com/richrace/highlight-selected/pull/6) ([nickeddy](https://github.com/nickeddy))
 
 ## [v0.2.11](https://github.com/richrace/highlight-selected/tree/v0.2.11) (2014-04-06)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.10...v0.2.11)
 
 ## [v0.2.10](https://github.com/richrace/highlight-selected/tree/v0.2.10) (2014-04-06)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.9...v0.2.10)
 
 **Closed issues:**
@@ -405,6 +456,7 @@
 - Only highlight whole words [\#5](https://github.com/richrace/highlight-selected/issues/5)
 
 ## [v0.2.9](https://github.com/richrace/highlight-selected/tree/v0.2.9) (2014-03-22)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.8...v0.2.9)
 
 **Closed issues:**
@@ -412,18 +464,23 @@
 - Match "$" and "@" [\#4](https://github.com/richrace/highlight-selected/issues/4)
 
 ## [v0.2.8](https://github.com/richrace/highlight-selected/tree/v0.2.8) (2014-03-15)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.7...v0.2.8)
 
 ## [v0.2.7](https://github.com/richrace/highlight-selected/tree/v0.2.7) (2014-03-15)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.6...v0.2.7)
 
 ## [v0.2.6](https://github.com/richrace/highlight-selected/tree/v0.2.6) (2014-03-13)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.5...v0.2.6)
 
 ## [v0.2.5](https://github.com/richrace/highlight-selected/tree/v0.2.5) (2014-03-05)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.4...v0.2.5)
 
 ## [v0.2.4](https://github.com/richrace/highlight-selected/tree/v0.2.4) (2014-03-05)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.3...v0.2.4)
 
 **Fixed bugs:**
@@ -432,27 +489,37 @@
 - Strange offset with highlight  [\#1](https://github.com/richrace/highlight-selected/issues/1)
 
 ## [v0.2.3](https://github.com/richrace/highlight-selected/tree/v0.2.3) (2014-03-05)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.2...v0.2.3)
 
 ## [v0.2.2](https://github.com/richrace/highlight-selected/tree/v0.2.2) (2014-03-04)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.1...v0.2.2)
 
 ## [v0.2.1](https://github.com/richrace/highlight-selected/tree/v0.2.1) (2014-03-04)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.2.0...v0.2.1)
 
 ## [v0.2.0](https://github.com/richrace/highlight-selected/tree/v0.2.0) (2014-03-04)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.1.3...v0.2.0)
 
 ## [v0.1.3](https://github.com/richrace/highlight-selected/tree/v0.1.3) (2014-03-03)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.1.2...v0.1.3)
 
 ## [v0.1.2](https://github.com/richrace/highlight-selected/tree/v0.1.2) (2014-03-02)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.1.1...v0.1.2)
 
 ## [v0.1.1](https://github.com/richrace/highlight-selected/tree/v0.1.1) (2014-03-02)
+
 [Full Changelog](https://github.com/richrace/highlight-selected/compare/v0.1.0...v0.1.1)
 
 ## [v0.1.0](https://github.com/richrace/highlight-selected/tree/v0.1.0) (2014-03-02)
 
+[Full Changelog](https://github.com/richrace/highlight-selected/compare/6a35111b27d087957b6ec9d0fa56c6b095c11fb2...v0.1.0)
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+
+
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*

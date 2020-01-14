@@ -16,6 +16,11 @@
   "engines": {
     "atom": ">=1.13.0 <2.0.0"
   },
+  "scripts": {
+    "check": "npm run lint && npm run test",
+    "test": "atom --test spec",
+    "lint": "./node_modules/.bin/eslint lib spec"
+  },
   "dependencies": {
     "atom-package-deps": "^5.0.0",
     "debounce": "^1.2.0",

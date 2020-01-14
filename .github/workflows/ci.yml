@@ -1,0 +1,46 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  Test:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        channel: [stable, beta]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v1
+      - uses: UziTech/action-setup-atom@v1
+        with:
+          channel: ${{ matrix.channel }}
+      - name: Atom version
+        run: atom -v
+      - name: APM version
+        run: apm -v
+      - name: Install dependencies
+        env:
+          APM_TEST_PACKAGES: 'minimap minimap-highlight-selected status-bar'
+        run: apm ci
+      - name: Run tests
+        run: npm run test
+  Lint:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+      - name: Install
+        run: npm install
+      - name: ESlint
+        run: npm run lint
+  Skip:
+    if: contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip CI 🚫
+        run: echo skip ci

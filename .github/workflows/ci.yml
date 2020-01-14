@@ -33,6 +33,6 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
       - name: Install
-        run: npm Install
+        run: npm install
       - name: ESlint
         run: npm run lint

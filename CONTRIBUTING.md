@@ -6,13 +6,12 @@ If you're going to report an issue or submit a pull request, please follow these
 
 Provide the following information:
 
-* Version of Atom (`atom --version`)
-* Version of atom-lint (`apm list | grep atom-lint`)
-* Whether using React editor (See **Use React Editor** checkbox in **Core Settings**)
-* Backtrace
+- Version of Atom (`atom --version`)
+- Version of atom-lint (`apm list | grep atom-lint`)
+- Backtrace
 
 ## Pull Requests
 
-Run `rake` before submit.
-This will run CoffeeScript compilation, package specs and CoffeeLint.
-If any issue is reported, fix it.
+Run `npm run check` before submit.
+
+This will run ESlint and Tests.

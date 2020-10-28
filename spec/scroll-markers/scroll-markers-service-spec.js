@@ -9,7 +9,7 @@ describe('ScrollMarkersService', () => {
   const createScrollMarkersService = () => {
     selectionManager = {
       onDidFinishAddingMarkers: () => {},
-      onDidRemoveAllMarkers: () => {}
+      onDidRemoveAllMarkers: () => {},
     };
     spyOn(selectionManager, 'onDidFinishAddingMarkers');
     spyOn(selectionManager, 'onDidRemoveAllMarkers');
@@ -75,7 +75,7 @@ describe('ScrollMarkersService', () => {
       selectionManager.editorToMarkerLayerMap = {};
       selectionManager.editorToMarkerLayerMap[editor.id] = {
         visibleMarkerLayer,
-        selectedMarkerLayer
+        selectedMarkerLayer,
       };
     });
 

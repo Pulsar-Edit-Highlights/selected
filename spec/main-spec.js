@@ -254,6 +254,7 @@ describe('Main', () => {
         onDidFinishAddingMarkers: () => {},
         onDidRemoveAllMarkers: () => {}
       };
+      main.scrollMarkersService = new ScrollMarkersService(selectionManager);
       main.selectionManager = selectionManager;
       main.consumeScrollMarker(scrollMarkerAPI);
     });

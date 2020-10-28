@@ -14,7 +14,8 @@ describe('ScrollMarkersService', () => {
     spyOn(selectionManager, 'onDidFinishAddingMarkers');
     spyOn(selectionManager, 'onDidRemoveAllMarkers');
     scrollMarkerApi = {};
-    scrollMarkersService = new ScrollMarkersService(selectionManager, scrollMarkerApi);
+    scrollMarkersService = new ScrollMarkersService(selectionManager);
+    scrollMarkersService.setScrollMarkerAPI(scrollMarkerApi);
   };
 
   beforeEach(() => {

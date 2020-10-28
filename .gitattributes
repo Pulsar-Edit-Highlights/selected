@@ -3,8 +3,7 @@
 /spec export-ignore
 /.gitignore export-ignore
 /.gitattributes export-ignore
-/.travis.yml export-ignore
+/.eslintrc.json export-ignore
+/.prettierrc export-ignore
 /CONTRIBUTING.md export-ignore
-/Rakefile export-ignore
-/coffelint.json export-ignore
 /package-lock.json export-ignore

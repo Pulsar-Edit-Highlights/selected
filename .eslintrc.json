@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb/base", "prettier", "plugin:prettier/recommended"],
+  "extends": ["airbnb-base", "prettier", "plugin:prettier/recommended"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error"],
@@ -12,6 +12,6 @@
     "atomtest": true
   },
   "globals": {
-    "atom": "on"
+    "atom": "readonly"
   }
 }

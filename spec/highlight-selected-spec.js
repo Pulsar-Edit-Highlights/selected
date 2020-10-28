@@ -10,7 +10,7 @@ describe('HighlightSelected', () => {
     editorElement,
     highlightSelected,
     minimapHS,
-    minimapModule
+    minimapModule,
   ] = Array.from([]);
 
   const hasMinimap =
@@ -62,7 +62,7 @@ describe('HighlightSelected', () => {
       waitsForPromise(() =>
         atom.workspace.open('sample.coffee').then(
           () => null,
-          error => {
+          (error) => {
             throw error.stack;
           }
         )
@@ -318,7 +318,7 @@ describe('HighlightSelected', () => {
       waitsForPromise(() =>
         atom.workspace.open('sample.php').then(
           () => editor,
-          error => {
+          (error) => {
             throw error.stack;
           }
         )
@@ -403,7 +403,7 @@ describe('HighlightSelected', () => {
       waitsForPromise(() =>
         atom.workspace.open('hex.md').then(
           () => null,
-          error => {
+          (error) => {
             throw error.stack;
           }
         )
@@ -461,7 +461,7 @@ describe('HighlightSelected', () => {
       waitsForPromise(() =>
         atom.workspace.open().then(
           () => null,
-          error => {
+          (error) => {
             throw error.stack;
           }
         )

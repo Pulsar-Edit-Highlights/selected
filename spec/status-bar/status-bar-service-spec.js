@@ -8,12 +8,12 @@ describe('StatusBarService', () => {
 
   const createStatusBarService = () => {
     statusBarApi = {
-      addLeftTile: () => tile
+      addLeftTile: () => tile,
     };
     spyOn(statusBarApi, 'addLeftTile').andCallThrough();
     selectionManager = {
       onDidFinishAddingMarkers: () => {},
-      onDidRemoveAllMarkers: () => {}
+      onDidRemoveAllMarkers: () => {},
     };
     spyOn(selectionManager, 'onDidFinishAddingMarkers');
     spyOn(selectionManager, 'onDidRemoveAllMarkers');
@@ -41,7 +41,7 @@ describe('StatusBarService', () => {
     beforeEach(() => {
       createStatusBarService();
       selectionSubscriptionSpy = {
-        dispose: () => {}
+        dispose: () => {},
       };
       spyOn(selectionSubscriptionSpy, 'dispose');
       statusBarService.selectionSubscription = selectionSubscriptionSpy;
@@ -68,7 +68,7 @@ describe('StatusBarService', () => {
       beforeEach(() => {
         atom.config.set('highlight-selected.showInStatusBar', true);
         const selectionSubscriptionSpy = {
-          dispose: () => {}
+          dispose: () => {},
         };
         spyOn(selectionSubscriptionSpy, 'dispose');
         statusBarService.selectionSubscription = selectionSubscriptionSpy;
@@ -98,7 +98,7 @@ describe('StatusBarService', () => {
   describe('setupStatusBarView', () => {
     describe('when we already have an element setup', () => {
       const element = {
-        temp: 'Object'
+        temp: 'Object',
       };
 
       beforeEach(() => {
@@ -132,7 +132,7 @@ describe('StatusBarService', () => {
       it('adds the status bar to the left hand side', () => {
         expect(statusBarApi.addLeftTile).toHaveBeenCalledWith({
           item: statusBarService.statusBarElement.getElement(),
-          priority: 100
+          priority: 100,
         });
       });
     });

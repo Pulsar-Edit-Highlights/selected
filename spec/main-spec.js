@@ -172,7 +172,7 @@ describe('Main', () => {
       statusBar = {};
       selectionManager = {
         onDidFinishAddingMarkers: () => {},
-        onDidRemoveAllMarkers: () => {}
+        onDidRemoveAllMarkers: () => {},
       };
       main.selectionManager = selectionManager;
       main.consumeStatusBar(statusBar);
@@ -199,7 +199,7 @@ describe('Main', () => {
         selectionManager = {
           disabled: true,
           enable: () => {},
-          disable: () => {}
+          disable: () => {},
         };
 
         spyOn(selectionManager, 'enable');
@@ -219,7 +219,7 @@ describe('Main', () => {
         selectionManager = {
           disabled: false,
           enable: () => {},
-          disable: () => {}
+          disable: () => {},
         };
 
         spyOn(selectionManager, 'enable');
@@ -252,7 +252,7 @@ describe('Main', () => {
       scrollMarkerAPI = {};
       selectionManager = {
         onDidFinishAddingMarkers: () => {},
-        onDidRemoveAllMarkers: () => {}
+        onDidRemoveAllMarkers: () => {},
       };
       main.scrollMarkersService = new ScrollMarkersService(selectionManager);
       main.selectionManager = selectionManager;

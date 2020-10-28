@@ -13,7 +13,7 @@ describe('with a CoffeeScript file', () => {
     waitsForPromise(() => atom.packages.activatePackage('language-coffee-script'));
 
     atom.config.set('editor.nonWordCharacters', nonWordCharacters, {
-      scopeSelector: '.source.coffee'
+      scopeSelector: '.source.coffee',
     });
 
     workspaceElement = atom.views.getView(atom.workspace);

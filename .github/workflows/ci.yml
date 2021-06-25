@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: UziTech/action-setup-atom@v2
         with:
-          version: ${{ matrix.channel }}
+          version: ${{ matrix.version }}
       - name: Atom version
         run: atom -v
       - name: APM version

@@ -11,13 +11,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        channel: [stable, beta]
+        version: [stable, beta]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: UziTech/action-setup-atom@v2
         with:
-          channel: ${{ matrix.channel }}
+          version: ${{ matrix.version }}
       - name: Atom version
         run: atom -v
       - name: APM version

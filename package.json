@@ -1,77 +1,139 @@
 {
-  "name": "highlight-selected",
-  "main": "./lib/main",
-  "version": "0.17.0",
-  "description": "Highlights the current word selected when double clicking",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/richrace/highlight-selected"
-  },
-  "keywords": [
-    "highlight selected",
-    "highlight selection",
-    "highlight occurrences"
-  ],
-  "license": "MIT",
-  "engines": {
-    "atom": ">=1.13.0 <2.0.0"
-  },
-  "scripts": {
-    "check": "npm run lint && npm run test",
-    "test": "atom --test spec",
-    "lint": "./node_modules/.bin/eslint lib spec"
-  },
-  "dependencies": {
-    "atom-package-deps": "^7.0.0",
-    "debounce": "^1.2.0",
-    "grim": "^2.0.2"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.0.1",
-    "minimist": ">=1.2.6",
-    "prettier": "^2.1.2"
-  },
-  "readme": "# Highlight Selected\n\nDouble click on a word to highlight it throughout the open file.\n\nThis is something hacky I've put together as I missed the functionality that Sublime gave. As such, it's doesn't work 100% but is good enough to start!\n\nSome code and has been take from Atom's find and replace package ([link](https://github.com/atom/find-and-replace))\n\nPlease log any issues and pull requests are more than welcome!\n\n![Gif in action](http://i.imgur.com/C5FnzzQ.gif)\n\n# Issues and Todo\n\n- Some double click events are not triggered\n- Refactor and tidy up the code\n- Add specs to test it\n",
-  "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/richrace/highlight-selected/issues"
-  },
-  "homepage": "https://github.com/richrace/highlight-selected",
-  "_id": "highlight-selected@0.1.2",
-  "dist": {
-    "shasum": "7c9da46b1412aceb069f8ca2ca54d014986ad408"
-  },
-  "_resolved": "/var/folders/_x/p3bsx_694dx6h4t_jmpybn6c0000gp/T/d-11422-15778-1djbgod/package.tgz",
-  "_from": "/var/folders/_x/p3bsx_694dx6h4t_jmpybn6c0000gp/T/d-11422-15778-1djbgod/package.tgz",
-  "providedServices": {
-    "highlightSelected": {
-      "description": "Exposes Highlight Selected Events",
-      "versions": {
-        "1.0.0": "provideHighlightSelectedV1Deprecated",
-        "2.0.0": "provideHighlightSelectedV2"
-      }
-    }
-  },
-  "consumedServices": {
-    "status-bar": {
-      "versions": {
-        "^1.0.0": "consumeStatusBar"
-      }
+    "description" : "Highlights the current word selected when double clicking" ,
+    "version" : "1.0.0" ,
+    "license" : "MIT" ,
+    "name" : "highlight-selected" ,
+    "main" : "./lib/main" ,
+
+    "keywords" : [ "highlight" , "select" , "occurrence" , "mark" ] ,
+
+    "homepage" : "https://github.com/Pulsar-Edit-Highlights/selected" ,
+
+    "repository" : {
+        "type" : "git" ,
+        "url" : "https://github.com/Pulsar-Edit-Highlights/selected"
     },
-    "scroll-marker": {
-      "versions": {
-        "0.1.0": "consumeScrollMarker"
-      }
+
+    "bugs" : {
+        "url" : "https://github.com/Pulsar-Edit-Highlights/selected/issues"
+    },
+
+    "engines" : {
+        "pulsar" : ">=1.100.0 <2.0.0"
+    },
+
+    "scripts" : {
+        "test" : "pulsar --test spec"
+    },
+
+    "dependencies" : {
+        "atom-package-deps" : "^7.0.0" ,
+        "debounce" : "^1.2.0" ,
+        "grim" : "^2.0.2"
+    },
+
+
+    "providedServices" : {
+        "highlightSelected" : {
+
+            "description" : "Exposes Highlight Selected Events" ,
+
+            "versions" : {
+                "1.0.0" : "provideHighlightSelectedV1Deprecated" ,
+                "2.0.0" : "provideHighlightSelectedV2"
+            }
+        }
+    },
+
+    "consumedServices" : {
+
+        "status-bar" : {
+            "versions" : {
+                "^1.0.0" : "consumeStatusBar"
+            }
+        },
+
+        "scroll-marker" : {
+            "versions" : {
+                "0.1.0" : "consumeScrollMarker"
+            }
+        }
+    },
+
+    "package-deps" : [{ "name" : "scroll-marker" }],
+
+    "configSchema" : {
+
+        "onlyHighlightWholeWords" : {
+            "default" : true ,
+            "type" : "boolean"
+        },
+
+        "hideHighlightOnSelectedWord" : {
+            "default" : false ,
+            "type" : "boolean"
+        },
+
+        "ignoreCase" : {
+            "default" : false ,
+            "type" : "boolean"
+        },
+
+        "lightTheme" : {
+            "default" : false ,
+            "type" : "boolean"
+        },
+
+        "highlightBackground" : {
+            "default" : false ,
+            "type" : "boolean"
+        },
+
+        "minimumLength" : {
+            "default" : 2 ,
+            "type" : "integer"
+        },
+
+        "maximumHighlights" : {
+            "description" : "For performance purposes, the number of highlights is limited." ,
+            "default" : 500 ,
+            "type" : "integer"
+        },
+
+        "timeout" : {
+            "description" : "Defers searching for matching strings for X ms." ,
+            "default" : 20 ,
+            "type" : "integer"
+        },
+
+        "showInStatusBar" : {
+            "description" : "Show how many matches there are." ,
+            "default" : true ,
+            "type" : "boolean"
+        },
+
+        "highlightInPanes" : {
+            "description" : "Highlight selection in another panes." ,
+            "default" : true ,
+            "type" : "boolean"
+        },
+
+        "statusBarString" : {
+            "description" : "The text to show in the status bar. %c = number of occurrences." ,
+            "default" : "Highlighted: %c" ,
+            "type" : "string"
+        },
+
+        "allowedCharactersToSelect" : {
+            "description" : "Non Word Characters that are allowed to be selected." ,
+            "default" : "$@%-" ,
+            "type" : "string"
+        },
+
+        "showResultsOnScrollBar" : {
+            "description" : "Show highlight on the scroll bar." ,
+            "default" : false ,
+            "type" : "boolean"
+        }
     }
-  },
-  "package-deps": [
-    {
-      "name": "scroll-marker"
-    }
-  ]
 }

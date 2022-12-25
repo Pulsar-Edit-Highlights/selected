@@ -1,7 +1,8 @@
-<hr>
-<p><strong>This project is in search of a new contributor/maintainer as the author is no longer using Atom.</strong></p>
-<hr>
 
+***Currently being reworked! Thank you for your patience!***
+
+<br>
+<br>
 
 # Highlight Selected
 

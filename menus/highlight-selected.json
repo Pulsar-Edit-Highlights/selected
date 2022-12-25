@@ -1,18 +1,16 @@
 {
-  "menu": [
-    {
-      "label": "Packages",
-      "submenu": [
-        {
-          "label": "Highlight Selected",
-          "submenu": [
-            {
-              "label": "Toggle",
-              "command": "highlight-selected:toggle"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+    "menu" : [{
+
+        "label" : "Packages" ,
+
+        "submenu" : [{
+
+            "label" : "Highlight Selected" ,
+
+            "submenu" : [{
+                "command" : "highlight-selected:toggle" ,
+                "label" : "Toggle"
+            }]
+        }]
+    }]
 }

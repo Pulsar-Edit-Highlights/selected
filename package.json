@@ -28,7 +28,7 @@
     },
 
     "scripts" : {
-        "test" : "pulsar --test spec"
+        "test" : "pulsar --test Tests"
     },
 
     "dependencies" : {

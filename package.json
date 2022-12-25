@@ -18,7 +18,7 @@
     },
 
     "mainStyleSheet" : "./Resources/Stylesheet.less" ,
-    "main" : "./lib/main" ,
+    "main" : "./Source/App.js" ,
 
     "keymaps" : [ "../Resources/Keymap.json" ] ,
     "menus" : [ "../Resources/Menus.json" ] ,

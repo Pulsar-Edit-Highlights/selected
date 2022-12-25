@@ -1,5 +1,5 @@
 const path = require('path');
-const ScrollMarkersService = require('../../lib/scroll-markers/scroll-markers-service');
+const ScrollMarkersService = require('../../Source/scroll-markers/scroll-markers-service');
 
 describe('ScrollMarkersService', () => {
   let scrollMarkersService;

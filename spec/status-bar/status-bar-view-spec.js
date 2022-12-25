@@ -1,4 +1,4 @@
-const StatusBarView = require('../../lib/status-bar/status-bar-view');
+const StatusBarView = require('../../Source/status-bar/status-bar-view');
 
 describe('StatusBarView', () => {
   let statusBarView;

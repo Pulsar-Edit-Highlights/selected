@@ -1,4 +1,4 @@
-const StatusBarService = require('../../lib/status-bar/status-bar-service');
+const StatusBarService = require('../../Source/status-bar/status-bar-service');
 
 describe('StatusBarService', () => {
   let statusBarService;

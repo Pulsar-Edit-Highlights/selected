@@ -1,8 +1,8 @@
 const { CompositeDisposable } = require('atom');
-const main = require('../lib/main.js');
-const SelectionManager = require('../lib/selection-manager.js');
-const StatusBarService = require('../lib/status-bar/status-bar-service.js');
-const ScrollMarkersService = require('../lib/scroll-markers/scroll-markers-service.js');
+const main = require('../Source/App.js');
+const SelectionManager = require('../Source/selection-manager.js');
+const StatusBarService = require('../Source/status-bar/status-bar-service.js');
+const ScrollMarkersService = require('../Source/scroll-markers/scroll-markers-service.js');
 
 describe('Main', () => {
 

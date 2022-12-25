@@ -14,10 +14,10 @@
   ],
   "license": "MIT",
   "engines": {
-    "atom": ">=1.13.0 <2.0.0"
+    "pulsar": ">=1.100.0 <2.0.0"
   },
   "scripts": {
-    "test": "atom --test spec"
+    "test": "pulsar --test spec"
   },
   "dependencies": {
     "atom-package-deps": "^7.0.0",
@@ -62,5 +62,80 @@
     {
       "name": "scroll-marker"
     }
-  ]
+  ],
+
+    "configSchema" : {
+
+        "onlyHighlightWholeWords" : {
+            "default" : true ,
+            "type" : "boolean"
+        },
+
+        "hideHighlightOnSelectedWord" : {
+            "default" : false ,
+            "type" : "boolean"
+        },
+
+        "ignoreCase" : {
+            "default" : false ,
+            "type" : "boolean"
+        },
+
+        "lightTheme" : {
+            "default" : false ,
+            "type" : "boolean"
+        },
+
+        "highlightBackground" : {
+            "default" : false ,
+            "type" : "boolean"
+        },
+
+        "minimumLength" : {
+            "default" : 2 ,
+            "type" : "integer"
+        },
+
+        "maximumHighlights" : {
+            "description" : "For performance purposes, the number of highlights is limited." ,
+            "default" : 500 ,
+            "type" : "integer"
+        },
+
+        "timeout" : {
+            "description" : "Defers searching for matching strings for X ms." ,
+            "default" : 20 ,
+            "type" : "integer"
+        },
+
+        "showInStatusBar" : {
+            "description" : "Show how many matches there are." ,
+            "default" : true ,
+            "type" : "boolean"
+        },
+
+        "highlightInPanes" : {
+            "description" : "Highlight selection in another panes." ,
+            "default" : true ,
+            "type" : "boolean"
+        },
+
+        "statusBarString" : {
+            "description" : "The text to show in the status bar. %c = number of occurrences." ,
+            "default" : "Highlighted: %c" ,
+            "type" : "string"
+        },
+
+        "allowedCharactersToSelect" : {
+            "description" : "Non Word Characters that are allowed to be selected." ,
+            "default" : "$@%-" ,
+            "type" : "string"
+        },
+
+        "showResultsOnScrollBar" : {
+            "description" : "Show highlight on the scroll bar." ,
+            "default" : false ,
+            "type" : "boolean"
+        }
+    }
 }

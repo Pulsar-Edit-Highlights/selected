@@ -3,7 +3,6 @@
     "version" : "1.0.0" ,
     "license" : "MIT" ,
     "name" : "highlight-selected" ,
-    "main" : "./lib/main" ,
 
     "keywords" : [ "highlight" , "select" , "occurrence" , "mark" ] ,
 
@@ -17,6 +16,12 @@
     "bugs" : {
         "url" : "https://github.com/Pulsar-Edit-Highlights/selected/issues"
     },
+
+    "mainStyleSheet" : "./Resources/Stylesheet.less" ,
+    "main" : "./lib/main" ,
+
+    "keymaps" : [ "../Resources/Keymap.json" ] ,
+    "menus" : [ "../Resources/Menus.json" ] ,
 
     "engines" : {
         "pulsar" : ">=1.100.0 <2.0.0"

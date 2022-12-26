@@ -1,0 +1,84 @@
+
+@import 'ui-variables';
+
+
+atom-text-editor .highlights {
+
+    .highlight.highlight-selected .region {
+
+        background-color : transparent ;
+        pointer-events : none ;
+        box-sizing : border-box ;
+        position : absolute ;
+        z-index : -1 ;
+    }
+
+
+    //  Box
+
+    .highlight-selected .region {
+
+        border-radius : 3px ;
+        border-color : #ddd ;
+        border-style : solid ;
+        border-width : 1px ;
+    }
+
+
+    /*
+     *  Background
+     *  ( Set in settings )
+     */
+
+    .highlight-selected.background .region {
+        background-color : rgba( 155 , 149 , 0 , 0.6 ) ;
+    }
+
+
+    /*
+     *  Light Theme Box
+     *  ( Set in settings )
+     */
+
+    .highlight-selected.light-theme .region {
+        border-color : rgba( 255 , 128 , 64 , 0.4 ) ;
+    }
+
+
+    /*
+     *  Light Theme Background
+     *  ( Set in settings )
+     */
+
+    .highlight-selected.light-theme.background .region {
+        background-color : rgba( 255 , 128 , 64 , 0.2 ) ;
+    }
+}
+
+
+status-bar {
+
+    .highlight-selected-status {
+        display : inline-block ;
+    }
+
+    .highlight-selected-hidden {
+        display : none ;
+    }
+}
+
+
+.highlight-selected-marker-layer.scroll-marker-layer {
+
+    .scroll-marker {
+        background-color : #ffff00 ;
+    }
+}
+
+
+.highlight-selected-selected-marker-layer.scroll-marker-layer {
+
+    .scroll-marker {
+        background-color : #f71010 ;
+    }
+}

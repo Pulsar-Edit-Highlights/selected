@@ -1,4 +1,4 @@
-const StatusBarView = require('../../lib/status-bar/status-bar-view');
+const StatusBarView = require('../../Source/status-bar/status-bar-view');
 
 describe('StatusBarView', () => {
   let statusBarView;
@@ -17,8 +17,8 @@ describe('StatusBarView', () => {
     expect(statusBarView.element).toHaveClass('inline-block');
   });
 
-  it('returns element for getElement()', () => {
-    expect(statusBarView.getElement()).toBe(statusBarView.element);
+  it('returns element', () => {
+    expect(statusBarView.element).toBe(statusBarView.element);
   });
 
   describe('updateCount', () => {

@@ -1,5 +1,5 @@
 const path = require('path');
-const getNonWordCharacters = require('../../lib/utils/non-word-characters.js');
+const getNonWordCharacters = require('../../Source/utils/non-word-characters.js');
 
 describe('with a CoffeeScript file', () => {
   const nonWordCharacters = '{}[]<>';

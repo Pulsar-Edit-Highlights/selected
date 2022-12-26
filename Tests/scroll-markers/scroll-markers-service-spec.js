@@ -1,5 +1,5 @@
 const path = require('path');
-const ScrollMarkersService = require('../../lib/scroll-markers/scroll-markers-service');
+const ScrollMarkersService = require('../../Source/scroll-markers/scroll-markers-service');
 
 describe('ScrollMarkersService', () => {
   let scrollMarkersService;
@@ -44,7 +44,7 @@ describe('ScrollMarkersService', () => {
 
     describe('when there is no scroll marker API', () => {
       it('does not blow up', () => {
-        scrollMarkersService.scrollMarkerAPI = null;
+        scrollMarkersService.api = null;
         scrollMarkersService.destroyScrollMarkers();
       });
     });
@@ -94,7 +94,7 @@ describe('ScrollMarkersService', () => {
 
     describe('when the scroll marker API is not set', () => {
       it('does not blow up', () => {
-        scrollMarkersService.scrollMarkerAPI = null;
+        scrollMarkersService.api = null;
         expect(scrollMarkersService.setScrollMarkerView()).toBeUndefined();
       });
     });

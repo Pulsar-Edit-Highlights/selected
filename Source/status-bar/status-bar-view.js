@@ -7,7 +7,6 @@ module.exports = class StatusBarView {
     constructor (){
 
         this.removeElement = this.removeElement.bind(this);
-        this.getElement = this.getElement.bind(this);
 
         this.element = document.createElement('div');
 
@@ -29,10 +28,6 @@ module.exports = class StatusBarView {
             classList.remove('highlight-selected-hidden');
         else
             classList.add('highlight-selected-hidden');
-    }
-
-    getElement (){
-        return this.element;
     }
 
     removeElement (){

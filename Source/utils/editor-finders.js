@@ -6,18 +6,16 @@ function getActiveEditor (){
     return workspace.getActiveTextEditor();
 }
 
+
+const isTextEditor = ( item ) =>
+    item?.constructor.name === 'TextEditor';
+
+
 function getActiveEditors (){
     return workspace
         .getPanes()
-        .map((pane) => {
-
-            const { activeItem } = pane;
-
-            const { name } = activeItem?.constructor ?? {};
-
-            if( name === 'TextEditor' )
-                return activeItem
-        })
+        .map(({ activeItem }) => activeItem)
+        .filter(isTextEditor)
 }
 
 

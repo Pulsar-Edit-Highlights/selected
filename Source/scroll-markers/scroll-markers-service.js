@@ -5,6 +5,12 @@ const { CompositeDisposable } = require('atom');
 const { workspace , config } = atom;
 
 
+
+const showResultsOnScrollbar = () =>
+    config.get('highlight-selected.showResultsOnScrollBar');
+
+
+
 module.exports = class ScrollMarkersService {
 
     static ensureScrollViewInstalled (){
@@ -17,11 +23,17 @@ module.exports = class ScrollMarkersService {
     }
 
 
+    editorSubscriptions = new CompositeDisposable;
+    selectionManager;
+    configObserver;
+    api;
+
+
     constructor ( selectionManager ){
 
         this.selectionManager = selectionManager;
 
-        if( config.get('highlight-selected.showResultsOnScrollBar') ){
+        if( showResultsOnScrollbar() ){
 
             ScrollMarkersService.ensureScrollViewInstalled();
 
@@ -30,98 +42,99 @@ module.exports = class ScrollMarkersService {
             .forEach((editor) => this.setScrollMarkerView(editor));
         }
 
-        this.setupEditorSubscriptions();
+        this.editorSubscriptions
+            .add( ... this.setupEditorSubscriptions() );
+
         this.setupConfigObserver();
     }
 
 
     destroy (){
-        this.enableScrollViewObserveSubscription.dispose();
+        this.configObserver.dispose();
         this.editorSubscriptions.dispose();
     }
 
 
-    setScrollMarkerAPI ( scrollMarkerAPI ){
-        this.scrollMarkerAPI = scrollMarkerAPI;
+    setScrollMarkerAPI ( api ){
+        this.api = api;
     }
 
 
-    setupEditorSubscriptions (){
+    * setupEditorSubscriptions (){
 
-        this.editorSubscriptions = new CompositeDisposable();
+        yield workspace
+            .observeTextEditors((editor) =>
+                this.setScrollMarkerView(editor));
 
-        this.editorSubscriptions.add(
-            workspace.observeTextEditors((editor) => {
-                this.setScrollMarkerView(editor);
-            }));
+        yield workspace
+            .onWillDestroyPaneItem(({ item }) => {
 
-        this.editorSubscriptions.add(
-            workspace.onWillDestroyPaneItem((item) => {
-
-                if( item.item.constructor.name !== 'TextEditor' )
+                if( item.constructor.name !== 'TextEditor' )
                     return
 
-                const editor = item.item;
-
-                this.destroyScrollMarkers(editor);
-            }));
+                this.destroyScrollMarkers(item);
+            });
     }
 
 
     setupConfigObserver (){
 
-        this.enableScrollViewObserveSubscription = config.observe(
-            'highlight-selected.showResultsOnScrollBar',
-            ( enabled ) => {
+        const onChange = ( enabled ) => {
 
-                if( enabled ){
-                    ScrollMarkersService.ensureScrollViewInstalled();
-                    workspace.getTextEditors()
-                    .forEach((editor) => this.setScrollMarkerView(editor));
-                } else {
-                    workspace.getTextEditors()
-                    .forEach((editor) => this.destroyScrollMarkers(editor));
-                }
-            }
-        );
+            if( enabled )
+                ScrollMarkersService.ensureScrollViewInstalled();
+
+            const processMarkers = ( enabled )
+                ? ( editor ) => this.setScrollMarkerView(editor)
+                : ( editor ) => this.destroyScrollMarkers(editor) ;
+
+            workspace
+            .getTextEditors()
+            .forEach(processMarkers);
+        }
+
+        this.configObserver = config
+            .observe('highlight-selected.showResultsOnScrollBar',onChange);
     }
 
 
     setScrollMarkerView ( editor ){
 
-        if( ! config.get('highlight-selected.showResultsOnScrollBar') )
+        if( ! showResultsOnScrollbar() )
             return
 
-        if( ! this.scrollMarkerAPI )
+
+        const { selectionManager , api } = this;
+
+        if( ! api )
            return
 
-        const scrollMarkerView = this.scrollMarkerAPI
+
+        const view = api
             .scrollMarkerViewForEditor(editor);
 
-        const markerLayer = this.selectionManager
-            .editorToMarkerLayerMap[editor.id].visibleMarkerLayer;
+        const { selectedMarkerLayer , visibleMarkerLayer } =
+            selectionManager.editorToMarkerLayerMap[editor.id];
 
-        const { selectedMarkerLayer } = this.selectionManager
-            .editorToMarkerLayerMap[editor.id];
-
-        scrollMarkerView
+        view
         .getLayer('highlight-selected-marker-layer')
-        .syncToMarkerLayer(markerLayer);
+        .syncToMarkerLayer(visibleMarkerLayer);
 
-        scrollMarkerView
+        view
         .getLayer('highlight-selected-selected-marker-layer')
         .syncToMarkerLayer(selectedMarkerLayer);
     }
 
 
-    destroyScrollMarkers(editor) {
+    destroyScrollMarkers ( editor ){
 
-        if( ! this.scrollMarkerAPI )
+        const { api } = this;
+
+        if( ! api )
             return
 
-        const scrollMarkerView = this.scrollMarkerAPI
-            .scrollMarkerViewForEditor(editor);
-
-        scrollMarkerView.destroy();
+        api
+        .scrollMarkerViewForEditor(editor)
+        .destroy();
     }
 }

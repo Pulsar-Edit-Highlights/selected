@@ -17,8 +17,8 @@ describe('StatusBarView', () => {
     expect(statusBarView.element).toHaveClass('inline-block');
   });
 
-  it('returns element for getElement()', () => {
-    expect(statusBarView.getElement()).toBe(statusBarView.element);
+  it('returns element', () => {
+    expect(statusBarView.element).toBe(statusBarView.element);
   });
 
   describe('updateCount', () => {

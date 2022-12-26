@@ -131,7 +131,7 @@ describe('StatusBarService', () => {
 
       it('adds the status bar to the left hand side', () => {
         expect(statusBarApi.addLeftTile).toHaveBeenCalledWith({
-          item: statusBarService.statusBarElement.getElement(),
+          item: statusBarService.statusBarElement.element ,
           priority: 100,
         });
       });

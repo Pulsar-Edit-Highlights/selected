@@ -101,6 +101,7 @@ module.exports = class SearchModel {
         this.selectionManager = selectionManager;
     }
 
+
     handleSelection (){
 
         const editor = getActiveEditor();
@@ -158,9 +159,9 @@ module.exports = class SearchModel {
 
             const originalEditor = editor;
 
-            getActiveEditors().forEach((otherEditor) => {
-                this.highlightSelectionInEditor( otherEditor , regexSearch , regexFlags , originalEditor );
-            });
+            for ( const editor of getActiveEditors() )
+                this.highlightSelectionInEditor( editor , regexSearch , regexFlags , originalEditor );
+
         } else {
             this.highlightSelectionInEditor(editor,regexSearch,regexFlags);
         }
@@ -170,9 +171,6 @@ module.exports = class SearchModel {
 
 
     highlightSelectionInEditor ( editor , regexSearch , regexFlags , originalEditor ){
-
-        if( ! editor )
-            return
 
         const maximumHighlights = atom.config
             .get('highlight-selected.maximumHighlights');
@@ -238,17 +236,19 @@ module.exports = class SearchModel {
                 // matches. We do not tell the editor to decorate this marker layer. We also use fire
                 // different events. This is so other packages and render them differently if they want.
 
-                if( hideHighlight && originalEditor && originalEditor.id === editor.id ){
+                if( hideHighlight && originalEditor?.id === editor.id ){
+
                     const marker = markerLayerForHiddenMarkers.markBufferRange(newResult.range);
+
                     this.selectionManager.emitter.emit('did-add-selected-marker', marker);
-                    this.selectionManager.emitter.emit('did-add-selected-marker-for-editor', {
-                    marker,
-                    editor,
-                    });
+                    this.selectionManager.emitter.emit('did-add-selected-marker-for-editor',{ marker , editor });
+
                 } else {
+
                     const marker = markerLayer.markBufferRange(newResult.range);
+
                     this.selectionManager.emitter.emit('did-add-marker', marker);
-                    this.selectionManager.emitter.emit('did-add-marker-for-editor',{ marker, editor });
+                    this.selectionManager.emitter.emit('did-add-marker-for-editor',{ marker , editor });
                 }
             });
 

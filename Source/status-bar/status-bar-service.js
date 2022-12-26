@@ -5,7 +5,7 @@ const StatusBarView = require('./status-bar-view');
 const { config } = atom;
 
 
-module.exports = class StatusBarService {
+class StatusBarService {
 
     constructor ( statusBar , selectionManager ){
 
@@ -16,7 +16,6 @@ module.exports = class StatusBarService {
 
         this.listenForStatusBarConfigChange();
         this.setupListeners();
-
         this.setupStatusBarView();
     }
 
@@ -39,8 +38,11 @@ module.exports = class StatusBarService {
 
 
     setupListeners (){
-        this.selectionManager.onDidFinishAddingMarkers(this.updateCount);
-        this.selectionManager.onDidRemoveAllMarkers(this.updateCount);
+
+        const { selectionManager } = this;
+
+        selectionManager.onDidFinishAddingMarkers(this.updateCount);
+        selectionManager.onDidRemoveAllMarkers(this.updateCount);
     }
 
 
@@ -58,7 +60,7 @@ module.exports = class StatusBarService {
         this.statusBarTile = this.statusBar
             .addLeftTile({
                 priority : 100 ,
-                item : this.statusBarElement.getElement()
+                item : this.statusBarElement.element
             })
     }
 
@@ -69,9 +71,7 @@ module.exports = class StatusBarService {
             return
 
         this.statusBarElement.removeElement();
-
-        if( this.statusBarTile )
-            this.statusBarTile.destroy();
+        this.statusBarTile?.destroy();
 
         this.statusBarElement = null;
         this.statusBarTile = null;
@@ -80,10 +80,13 @@ module.exports = class StatusBarService {
 
     updateCount (){
 
-        if( ! this.statusBarElement )
-            return
+        const { statusBarElement , selectionManager } = this;
 
-        this.statusBarElement
-            .updateCount(this.selectionManager.resultCount);
+        statusBarElement?.updateCount(
+            selectionManager.resultCount);
     }
 }
+
+
+
+module.exports = StatusBarService;

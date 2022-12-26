@@ -162,7 +162,7 @@ describe('Main', () => {
     });
 
     it('assings status bar object correctly', () => {
-      expect(main.scrollMarkersService.scrollMarkerAPI).toBe(scrollMarkerAPI);
+      expect(main.scrollMarkersService.api).toBe(scrollMarkerAPI);
     });
   });
 

@@ -6,15 +6,19 @@ const { Range } = require('atom');
 
 function isNonWord ( editor , range ){
 
-    const nonWordCharacters =
-        getNonWordCharacters(editor, range.start);
+    const { start } = range;
+
+    const nonWords = escapeRegExp(
+        getNonWordCharacters(editor,start));
+
+    const pattern =
+        new RegExp(`[ \t${ nonWords }]`);
 
     const text = editor
         .getTextInBufferRange(range);
 
-    return new RegExp(`[ \t${
-        escapeRegExp(nonWordCharacters)
-    }]`).test(text);
+    return pattern
+        .test(text)
 }
 
 
@@ -44,22 +48,25 @@ function isNonWordCharacterToTheRight ( editor , selection ){
 
 function isWordSelected ( editor , selection ){
 
-    if( ! selection.getBufferRange().isSingleLine() )
-        return false;
-
-    const selectionRange = selection
+    const range = selection
         .getBufferRange();
 
+    if( ! range.isSingleLine() )
+        return false;
+
+
+    const { start , end } = range;
+
     const lineRange = editor
-        .bufferRangeForBufferRow(selectionRange.start.row);
+        .bufferRangeForBufferRow(start.row);
 
     const nonWordCharacterToTheLeft =
-        selectionRange.start.isEqual(lineRange.start) ||
-        isNonWordCharacterToTheLeft(editor, selection);
+        start.isEqual(lineRange.start) ||
+        isNonWordCharacterToTheLeft(editor,selection);
 
     const nonWordCharacterToTheRight =
-        selectionRange.end.isEqual(lineRange.end) ||
-        isNonWordCharacterToTheRight(editor, selection);
+        end.isEqual(lineRange.end) ||
+        isNonWordCharacterToTheRight(editor,selection);
 
     return nonWordCharacterToTheRight
         && nonWordCharacterToTheLeft

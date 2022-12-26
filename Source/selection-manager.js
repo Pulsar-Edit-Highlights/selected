@@ -10,16 +10,17 @@ const { workspace , config } = atom;
 
 module.exports = class SelectionManager {
 
+    editorToMarkerLayerMap = [];
+    markerLayer = [];
+    resultCount = 0;
+    emitter = new Emitter;
+
+
     constructor (){
 
         this.debouncedHandleSelection = this.debouncedHandleSelection.bind(this);
 
         this.searchModel = new SearchModel(this);
-
-        this.emitter = new Emitter;
-        this.editorToMarkerLayerMap = {};
-        this.markerLayers = [];
-        this.resultCount = 0;
 
         this.editorSubscriptions = new CompositeDisposable;
         this.editorSubscriptions.add(
@@ -124,8 +125,8 @@ module.exports = class SelectionManager {
 
     subscribeToActiveTextEditor (){
 
-        if( this.selectionSubscription )
-           this.selectionSubscription.dispose();
+        this.selectionSubscription
+            ?.dispose();
 
         const editor = getActiveEditor();
 
@@ -133,7 +134,7 @@ module.exports = class SelectionManager {
             return
 
         this.selectionSubscription =
-            new CompositeDisposable();
+            new CompositeDisposable;
 
         this.selectionSubscription.add(
             editor.onDidAddSelection(
@@ -148,19 +149,20 @@ module.exports = class SelectionManager {
 
 
     removeAllMarkers (){
-        return Object
-            .keys(this.editorToMarkerLayerMap)
-            .forEach((editorId) => this.removeMarkers(editorId));
+
+        for ( const editorId in this.editorToMarkerLayerMap )
+            this.removeMarkers(editorId);
     }
 
 
     removeMarkers ( editorId ){
 
-        if( ! this.editorToMarkerLayerMap[ editorId ] )
+        const layerMap = this.editorToMarkerLayerMap[ editorId ];
+
+        if( ! layerMap )
             return;
 
-        const { visibleMarkerLayer , selectedMarkerLayer } =
-            this.editorToMarkerLayerMap[editorId];
+        const { visibleMarkerLayer , selectedMarkerLayer } = layerMap;
 
         selectedMarkerLayer.clear();
         visibleMarkerLayer.clear();
@@ -178,15 +180,11 @@ module.exports = class SelectionManager {
         if( ! markerLayers )
             return
 
-        const ranges = [];
-
-        [ markerLayers.visibleMarkerLayer , markerLayers.selectedMarkerLayer ]
-            .forEach(( markerLayer ) => {
-                markerLayer.getMarkers()
-                    .forEach((marker) => {
-                        ranges.push(marker.getBufferRange());
-                    });
-            });
+        const ranges = [ 'visibleMarkerLayer' , 'selectedMarkerLayer' ]
+            .map(( key ) => this.markerLayer[key])
+            .map(( layer ) => layer.getMarkers())
+            .flat()
+            .map(( marker ) => marker.getBufferRange());
 
         if( ranges.length > 0 )
             editor.setSelectedBufferRanges(ranges,{ flash : true });
@@ -195,24 +193,24 @@ module.exports = class SelectionManager {
 
     setupMarkerLayers ( editor ){
 
-        let markerLayer;
-        let markerLayerForHiddenMarkers;
+        const { id } = editor;
 
-        if( this.editorToMarkerLayerMap[editor.id] ){
+        // const layerMap = ( this.editorToMarkerLayerMap[ id ] ??= {} );
 
-            markerLayer = this.editorToMarkerLayerMap[editor.id]
-                .visibleMarkerLayer;
+        // layerMap.selectedMarkerLayer
+        //     ??= editor.addMarkerLayer();
 
-            markerLayerForHiddenMarkers = this.editorToMarkerLayerMap[editor.id]
-                .selectedMarkerLayer;
-        }
+        // layerMap.visibleMarkerLayer
+        //     ??= editor.addMarkerLayer();
 
-        markerLayer = editor.addMarkerLayer();
-        markerLayerForHiddenMarkers = editor.addMarkerLayer();
+        const layerMap = this.editorToMarkerLayerMap[ id ] ?? {};
 
-        this.editorToMarkerLayerMap[ editor.id ] = {
-            visibleMarkerLayer: markerLayer,
-            selectedMarkerLayer: markerLayerForHiddenMarkers,
-        }
+        if( ! layerMap.selectedMarkerLayer )
+            layerMap.selectedMarkerLayer = editor.addMarkerLayer();
+
+        if( ! layerMap.visibleMarkerLayer )
+            layerMap.visibleMarkerLayer = editor.addMarkerLayer();
+
+        this.editorToMarkerLayerMap[ id ] = layerMap;
     }
 };

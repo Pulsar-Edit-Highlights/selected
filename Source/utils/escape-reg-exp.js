@@ -1,8 +1,13 @@
 
 
-function escapeRegExp ( string ){
+const unescaped = /[-/\\^$*+?.()|[\]{}]/g;
+
+const escaped = '\\$&';
+
+
+function escapeRegExp ( string = '' ){
     return string
-        ?.replace(/[-/\\^$*+?.()|[\]{}]/g,'\\$&') ?? ''
+        .replace(unescaped,escaped)
 }
 
 

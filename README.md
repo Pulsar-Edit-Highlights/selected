@@ -1,101 +1,68 @@
 
-***Currently being reworked! Thank you for your patience!***
+<br>
+
+<div align = center>
+
+[![Badge Version]][Releases]  
+[![Badge License]][License]
+
+<!-- [![Badge CI]][Actions]   -->
 
 <br>
 <br>
 
 # Highlight Selected
 
-[![Version](https://img.shields.io/apm/v/highlight-selected.svg?style=flat-square)](https://atom.io/packages/highlight-selected)
-[![Github Actions CI](https://img.shields.io/github/workflow/status/richrace/highlight-selected/CI.svg?style=flat-square)](https://github.com/richrace/highlight-selected/actions?query=workflow%3ACI)
-[![Gitter](https://img.shields.io/badge/chat-Gitter-ff69b4.svg?style=flat-square)](https://gitter.im/richrace/highlight-selected)
-[![Downloads](https://img.shields.io/apm/dm/highlight-selected.svg?style=flat-square)](https://atom.io/packages/highlight-selected)
-[![Licence](https://img.shields.io/apm/l/highlight-selected.svg?style=flat-square)](https://atom.io/packages/highlight-selected)
-[![David](https://img.shields.io/david/richrace/highlight-selected.svg?style=flat-square)](https://david-dm.org/richrace/highlight-selected)
+*Pulsar package that highlights other*  
+*occurrences of your current selection.*  
 
-Highlight occurrences of a selection within the open editor.
+<br>
+<br>
 
-Can be triggered by either double clicking a word, or selecting a word/text with your cursor.
+[![Button Customize]][Customize]  
+[![Button KeyBindings]][KeyBindings]  
+[![Button Settings]][Settings]
 
-![Gif in action](http://i.imgur.com/C5FnzzQ.gif)
+[![Button Contribute]][Contribute]  
+[![Button Changelog]][Changelog]
 
-## Commands
+<br>
+<br>
 
-| Command Name       | Command Code                    | Keymap                                      | Description                   |
-| ------------------ | ------------------------------- | ------------------------------------------- | ----------------------------- |
-| Toggle             | `highlight-selected:toggle`     | <kbd>ctrl</kbd>+<kbd>cmd</kbd>+<kbd>h</kbd> | Enables/Disabled this package |
-| Select all markers | `highlight-selected:select-all` |                                             | Select all markers            |
+<br>
 
-To set a Keymap for select all open your `Keymap` file and add:
+[![Preview]][#]
 
-```coffeescript
-'atom-text-editor:not([mini])':
-  'cmd-*': 'highlight-selected:select-all'
-```
+<br>
 
-## Settings
+<!----------------------------------------------------------------------------->
 
-| Setting                         | Default          | Description                                                                                                                                                                         |
-| ------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Only Highlight Whole Words      | true             | This uses the "Allowed Characters To Select" option with Atom's "Non-word characters" to find word boundaries.                                                                      |
-| Hide Highlight On Selected Word | false            | When enabled to will not add a box around the selected words.                                                                                                                       |
-| Ignore Case                     | false            | Case sensitivity                                                                                                                                                                    |
-| Light Theme                     | false            | Different CSS classes get applied (see [styling](#styling)). Should makes it easier to switch between Atom's themes                                                                 |
-| Highlight Background            | false            | Adds a background colours via CSS class (see [styling](#styling))                                                                                                                   |
-| Minimum Length                  | 2                | How many characters to select before searching for occurrences                                                                                                                      |
-| Timeout                         | 20               | Defers searching for matching strings for X ms                                                                                                                                      |
-| Highlight In Panes              | true             | Highlight selection in another panes                                                                                                                                                |
-| Show In Status Bar              | true             | Show how many matches there are                                                                                                                                                     |
-| Status Bar String               | 'Highlighted: %c | The text to show in the status bar. `%c` = number of occurrences                                                                                                                    |
-| Allowed Characters To Select    | '\$@%-'          | Non Word Characters that are allowed to be selected. This is useful for languages like PHP where variables like `$test` need to be highlighted                                      |
-| Show Results On Scroll Bar      | false            | Show highlight on the scroll bar. Requires [Scroll Marker](https://atom.io/packages/scroll-marker) Package (if you enable this setting you will be prompted to install the package) |
+[Releases]: https://github.com/Pulsar-Edit-Highlights/selected/releases
+[Package]: https://web.pulsar-edit.dev/packages/highlight-selected
+[Actions]: https://github.com/Pulsar-Edit-Highlights/selected/actions
 
-## Styling
+[Preview]: Resources/Screenshots/Preview.gif
+[KeyBindings]: Documentation/KeyBindings.md
+[Contribute]: Documentation/Contribute.md
+[Changelog]: Documentation/Changelog.md
+[Customize]: Documentation/Customize.md
+[Settings]: Documentation/Settings.md
+[License]: LICENSE
 
-If you want to change any of the styling of the region use the following as a guide:
+[#]: #
 
-```scss
-atom-text-editor .highlights {
-  // Box
-  .highlight-selected .region {
-    border-color: #ddd;
-    border-radius: 3px;
-    border-width: 1px;
-    border-style: solid;
-  }
-  // Background (set in settings)
-  .highlight-selected.background .region {
-    background-color: rgba(155, 149, 0, 0.6);
-  }
-  // Light theme box (set in settings)
-  .highlight-selected.light-theme .region {
-    border-color: rgba(255, 128, 64, 0.4);
-  }
-  // Light theme background (set in settings)
-  .highlight-selected.light-theme.background .region {
-    background-color: rgba(255, 128, 64, 0.2);
-  }
-}
 
-// If you have the Scroll Marker package installed https://atom.io/packages/scroll-marker
-// These are the colours that will be shown in the scroller
-.highlight-selected-marker-layer.scroll-marker-layer {
-  .scroll-marker {
-    background-color: #ffff00;
-  }
-}
+<!---------------------------------[ Badges ]---------------------------------->
 
-.highlight-selected-selected-marker-layer.scroll-marker-layer {
-  .scroll-marker {
-    background-color: #f71010;
-  }
-}
-```
+[Badge License]: https://img.shields.io/badge/License-MIT-ac8b11.svg?style=for-the-badge&labelColor=yellow&logo=GitBook&logoColor=white
+[Badge Version]: https://img.shields.io/github/package-json/v/Pulsar-Edit-Highlights/selected?style=for-the-badge&logo=BookStack&logoColor=white&labelColor=609926&color=4e7a1e
+[Badge CI]: https://img.shields.io/github/actions/workflow/status/Pulsar-Edit-Highlights/selected/ci.yml?style=for-the-badge&logo=GitHubActions&logoColor=white&color=582c6d&labelColor=73398D
 
-## Contributing
 
-Please look at the [Contributing Guide](https://github.com/richrace/highlight-selected/blob/master/CONTRIBUTING.md)
+<!---------------------------------[ Buttons ]--------------------------------->
 
-## Donate
-
-If you want to say thanks by buying me a coffee/beer, that would be awesome! You can do so via [Monzo](https://monzo.me/richrace/3.00?d=For%20a%20coffee,%20thanks%20for%20Highlight%20Selected!%20%F0%9F%8E%89%20%E2%98%95%EF%B8%8F)
+[Button KeyBindings]: https://img.shields.io/badge/KeyBindings-3499CD?style=for-the-badge&logoColor=white&logo=AppleArcade
+[Button Contribute]: https://img.shields.io/badge/Contribute-7952B3?style=for-the-badge&logoColor=white&logo=GitHub
+[Button Changelog]: https://img.shields.io/badge/Changelog-37814A?style=for-the-badge&logoColor=white&logo=GitLFS
+[Button Customize]: https://img.shields.io/badge/Customize-00979D?style=for-the-badge&logoColor=white&logo=Rainmeter
+[Button Settings]: https://img.shields.io/badge/Settings-yellow?style=for-the-badge&logoColor=white&logo=AzureArtifacts

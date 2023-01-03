@@ -1,18 +1,151 @@
 
+# Settings
 
-## Settings
+<br>
 
-| Setting                         | Default          | Description                                                                                                                                                                         |
-| ------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Only Highlight Whole Words      | true             | This uses the "Allowed Characters To Select" option with Atom's "Non-word characters" to find word boundaries.                                                                      |
-| Hide Highlight On Selected Word | false            | When enabled to will not add a box around the selected words.                                                                                                                       |
-| Ignore Case                     | false            | Case sensitivity                                                                                                                                                                    |
-| Light Theme                     | false            | Different CSS classes get applied (see [styling](#styling)). Should makes it easier to switch between Atom's themes                                                                 |
-| Highlight Background            | false            | Adds a background colours via CSS class (see [styling](#styling))                                                                                                                   |
-| Minimum Length                  | 2                | How many characters to select before searching for occurrences                                                                                                                      |
-| Timeout                         | 20               | Defers searching for matching strings for X ms                                                                                                                                      |
-| Highlight In Panes              | true             | Highlight selection in another panes                                                                                                                                                |
-| Show In Status Bar              | true             | Show how many matches there are                                                                                                                                                     |
-| Status Bar String               | 'Highlighted: %c | The text to show in the status bar. `%c` = number of occurrences                                                                                                                    |
-| Allowed Characters To Select    | '\$@%-'          | Non Word Characters that are allowed to be selected. This is useful for languages like PHP where variables like `$test` need to be highlighted                                      |
-| Show Results On Scroll Bar      | false            | Show highlight on the scroll bar. Requires [Scroll Marker](https://atom.io/packages/scroll-marker) Package (if you enable this setting you will be prompted to install the package) |
+### Only Highlight Whole Words
+
+Default : `true`
+
+<br>
+
+This uses the `Allowed Characters To Select` option  
+with Pulsar's `Non-word Characters` to find words.
+
+<br>
+<br>
+
+### Hide Highlight On Selected Word
+
+Default : `false`
+
+<br>
+
+Only highlights occurrences, not the selected word.
+
+<br>
+<br>
+
+### Ignore Case
+
+Default : `false`
+
+<br>
+
+Matches words even if the case isn't the same.
+
+<br>
+<br>
+
+### Light Theme
+
+Default : `false`
+
+<br>
+
+Uses the light theme styling described in [`Customize.md`].
+
+<br>
+<br>
+
+### Highlight Background
+
+Default : `false`
+
+<br>
+
+Highlights the background of the matched occurrences.
+
+<br>
+<br>
+
+### Minimum Length
+
+Default : `2`
+
+<br>
+
+Minimum length of chars you need to select  
+before other occurrences are highlighted.
+
+<br>
+<br>
+
+### Timeout
+
+Default : `20`
+
+<br>
+
+Stop searching after the given amount of milliseconds.
+
+<br>
+<br>
+
+### Highlight In Panes
+
+Default : `true`
+
+<br>
+
+Also highlight in other editor panes.
+
+<br>
+<br>
+
+### Show In Status Bar
+
+Default : `true`
+
+<br>
+
+Display the amount of matched  
+occurrences in the status bar.
+
+<br>
+<br>
+
+### Status Bar String
+
+Default : `Highlighted: %c`
+
+<br>
+
+The template for the text shown in the status bar,  
+at `%c` the number of occurrences is inserted.
+
+<br>
+<br>
+
+### Allowed Characters To Select
+
+Default : `\$@%-`
+
+<br>
+
+Non word characters that will be matched in your selection.
+
+This can be useful in languages like PHP  
+where variables names start with `$`.
+
+<br>
+<br>
+
+### Show Results On Scroll Bar
+
+Default : `false`
+
+<br>
+
+Displays highlighted sections on the scroll bar.
+
+This requires the **[Scroll Marker]** package.
+
+<br>
+
+
+<!----------------------------------------------------------------------------->
+
+[`Customize.md`]: Customize.md
+
+[Scroll Marker]: https://web.pulsar-edit.dev/packages/scroll-marker
